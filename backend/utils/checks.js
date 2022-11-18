@@ -84,11 +84,10 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
   if (parseInt(reviewToCheck.userId) === parseInt(currentUserId)) {
     next();
   } else {
-    const err = new Error("Authorization required");
-    err.title = "Authorization required";
-    err.errors = ["Authorization required"];
-    err.status = 401;
-    return next(err);
+    res.json({
+      "message": "Forbidden",
+      "statusCode": 403
+    })
   }
 };
 const isSpotOwnedByCurrentUser = async (req, res, next) => {
@@ -102,11 +101,8 @@ const isSpotOwnedByCurrentUser = async (req, res, next) => {
   if (parseInt(spotToCheck.ownerId) === parseInt(currentUserId)) {
     next();
   } else {
-    const err = new Error("Authorization required");
-    err.title = "Authorization required";
-    err.errors = ["Authorization required"];
-    err.status = 401;
-    return next(err);
+    res.json({"message": "Forbidden",
+    "statusCode": 403})
   }
 };
 const doesSpotExist=async(req,res,next)=>{

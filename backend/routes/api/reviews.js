@@ -50,4 +50,23 @@ router.put('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,nex
     res.json(reviewToEdit)
 
 })
+
+router.delete('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
+    const { reviewId } = req.params
+    const record = await Review.findByPk(reviewId)
+    if(!record){
+        res.json({
+            "message": "Review couldn't be found",
+            "statusCode": 404
+          })
+    
+        }
+       await Review.destroy({where:{id:record.id}})
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+
+})
+
 module.exports = router;
