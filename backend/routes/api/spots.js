@@ -95,8 +95,22 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
     res.json(verifySpot)
 
 })
-
-
+router.get('/:spotId',async (req,res,next)=>{
+    let spot = await Spot.findByPk(req.params.spotId)
+    let owner = await spot.getOwner()
+    let spotImages = await spot.getSpotImages()
+    let reviews = await spot.getReviews()
+    let avgRating = await spot.getReviews({
+        attributes: [
+          [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+        ]});
+        
+    spot.dataValues.numReviews = reviews.length
+    spot.dataValues.avgRating = avgRating[0].dataValues.avgRating
+    spot.save()      
+    let payload = {spot,spotImages,owner}
+    res.json(payload)
+})
 
 
 router.delete('/:spotId',requireAuth,isSpotOwnedByCurrentUser, async (req, res, next) => {
