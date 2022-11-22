@@ -1,4 +1,8 @@
 "use strict";
+let options = {}
+if(process.env.NODE_ENV === 'production'){
+  options.schema = process.env.SCHEMA
+}
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("Users", {
@@ -37,9 +41,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    });
+    },options);
   },
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("Users");
+    options.tableName = 'Users'
+    await queryInterface.dropTable(options,options);
   }
 };

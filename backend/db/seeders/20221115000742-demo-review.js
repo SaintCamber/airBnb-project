@@ -65,6 +65,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     let options = {}
+     options.tableName = "Reviews"
     await queryInterface.bulkDelete('Reviews',{id:[1,2,3,4,5]})
   }
 };
