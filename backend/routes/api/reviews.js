@@ -9,37 +9,35 @@ const router = express.Router();
 
 
 router.get('/current',requireAuth,async(req,res)=>{
-    const reviews = await Review.findAll({where:{userId:req.user.id}})
-    for (let i = 0 ; i <reviews.length;i++){
-        let review = reviews[i]
-        let spot = await review.getSpot()
-        let user = req.user.dataValues
-        let ReviewImages = review.getreviewImages()
-        console.log(spot)
-        console.log(user)
-    }
-    res.json()
+    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt"]}},{model:Spot},{model:reviewImage,as:"ReviewImages"}]})
+    
+    // const payload = []
+    // for (let i = 0 ; i <allReviews.length;i++){
+    //     let review = allReviews[i]
+    //     let spot = await review.getSpot()
+    //     let user = req.user.dataValues
+    //     let reviewImages = review.getImages()
+    //     let package = {review,spot,user,reviewImages}
+    //     payload.push(package)
+    // 
+    res.json({Reviews})
 })
 
 router.post('/:reviewId/images',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
+   
     let review = await Review.findByPk(req.params.reviewId)
-    let {url}=req.body
-    if(!review){
-        res.json({"message": "Review couldn't be found",
-        "statusCode": 404})
-    }
-    let images = await review.getImages()
-    console.log(images)
+    let images = await review.getReviewImages()
     
+    const {url} = req.body
     if(images.length>=10){
         res.json( {
             "message": "Maximum number of images for this resource was reached",
             "statusCode": 403
           })
-          
+          return
         }
         const newImage = await reviewImage.create({url,reviewId:req.params.reviewId})
-        res.json({url:newImage.url})
+        res.json({id:newImage.id,url:newImage.url})
 })
 
 router.put('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{

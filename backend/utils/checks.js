@@ -80,6 +80,7 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
   let reviewToCheck = await Review.findByPk(reviewId);
   if (!reviewToCheck) {
     res.json({ message: "review couldn't be found", statusCode: 404 });
+    return
   }
   if (parseInt(reviewToCheck.userId) === parseInt(currentUserId)) {
     next();
@@ -88,6 +89,7 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
       "message": "Forbidden",
       "statusCode": 403
     })
+    return
   }
 };
 const isSpotOwnedByCurrentUser = async (req, res, next) => {
@@ -114,17 +116,27 @@ const doesSpotExist=async(req,res,next)=>{
   next()
 }
 const doesUserAlreadyHaveReview = async (req,res,next)=>{
-  userId = req.user.id
-  user = await User.findByPk(userId)
-  reviews = await user.getReviews()
+  let userId = req.user.id
+  let user = await User.findByPk(userId)
+  let reviews = await user.getReviews()
+  let UserHasReview = false
   for (let review of reviews){
-    if(review.spotId = req.params.spotId){
-      res.json({"message": "User already has a review for this spot",
-      "statusCode": 403})
+    if(parseInt(review.dataValues.spotId)===parseInt(req.params.spotId)){
+      
+      UserHasReview = true
+      
     }
+    
+  }
+  if(UserHasReview===true){
+    res.json({
+      "message": "User already has a review for this spot",
+      "statusCode": 403
+    })
   }
   next()
-}
+  }
+
 const validateReview = [
   check("review")
     .exists({ checkFalsy: true })
@@ -145,4 +157,5 @@ module.exports = {
   isSpotOwnedByCurrentUser,
   isReviewOwnedByCurrentUser,
   validateReview,
+  doesSpotExist
 };
