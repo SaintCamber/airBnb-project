@@ -3,6 +3,8 @@ let options = {}
 if(process.env.NODE_ENV === 'production'){
   options.schema = process.env.SCHEMA
 }
+options.tableName = 'Users'
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable("Users", {
@@ -44,7 +46,6 @@ module.exports = {
     },options);
   },
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'Users'
     await queryInterface.dropTable(options);
   }
 };
