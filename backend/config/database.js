@@ -7,7 +7,7 @@ module.exports = {
     dialect: "sqlite",
     seederStorage: "sequelize",
     logQueryParameters: true,
-    logging: true,
+    
     typeValidation: true
   },
   production: {
@@ -19,6 +19,9 @@ module.exports = {
         require: true,
         rejectUnauthorized: false
       }
+    },
+    define: {
+      schema: process.env.SCHEMA
     }
   }
 };

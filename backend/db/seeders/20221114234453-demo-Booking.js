@@ -1,8 +1,12 @@
-
+let options = {}
+if(process.env.NODE_ENV === 'production'){
+  options.schema = process.env.SCHEMA
+}
+options.tableName = "Bookings"
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Bookings', [{
+    return queryInterface.bulkInsert(options, [{
       spotId:1,
       userId:2,
       startDate:new Date(),
@@ -38,9 +42,8 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
-    let options = {}
-     options.tableName = "Bookings"
-    return queryInterface.bulkDelete('Bookings', {
+    
+    return queryInterface.bulkDelete(options, {
       userId: [1,2,3]
     }, {});
   }

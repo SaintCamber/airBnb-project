@@ -137,21 +137,26 @@ router.get('/:spotId',async (req,res,next)=>{
 router.delete('/:spotId',requireAuth,isSpotOwnedByCurrentUser, async (req, res, next) => {
     const { spotId } = req.params
     const record = await Spot.findByPk(spotId)
-    if(record){
-        Spot.destroy({where:{id:record.id}})
-        res.json({
-            "message": "Successfully deleted",
-            "statusCode": 200
-          })
-
-    }
-    else if(!record){
+    if(!record){
         res.json({
             "message": "Spot couldn't be found",
             "statusCode": 404
           })
+          return
     }
-})
+    if(record){
+        await Spot.destroy({where:{id:record.id}})
+       
+        
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+          return
+      }
+      
+    })
+
 
 
 router.post("/:spotId/reviews",requireAuth,validateReview,async (req,res,next)=>{
@@ -164,7 +169,7 @@ router.post("/:spotId/reviews",requireAuth,validateReview,async (req,res,next)=>
 })
 
 router.get('/:spotId/reviews',doesSpotExist,async(req,res,next)=>{
-  let reviews = await Review.findAll({where:{spotId:req.params.spotId},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt"]}},{model:reviewImage,as:"ReviewImages"}]})
+  let reviews = await Review.findAll({where:{spotId:req.params.spotId},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:reviewImage,as:"ReviewImages",attributes:{exclude:["createdAt","updatedAt","reviewId"]}}]})
   res.json(reviews)
 })
 module.exports = router;

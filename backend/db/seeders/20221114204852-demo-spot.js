@@ -1,4 +1,9 @@
 'use strict';
+let options = {}
+if(process.env.NODE_ENV === 'production'){
+  options.schema = process.env.SCHEMA
+}
+options.tableName = "Spots"
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -12,7 +17,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      * */
-    await queryInterface.bulkInsert('Spots',[{
+    await queryInterface.bulkInsert(options,[{
     id:1,
     ownerId:1,
     address:'2410 foxcroft circle',
@@ -58,9 +63,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     let options = {}
-     options.tableName = "Spots"
-     await queryInterface.bulkDelete('Spots', {id:[1,2,3]});
+     
+     await queryInterface.bulkDelete(options, {id:[1,2,3]});
   
   }
 };

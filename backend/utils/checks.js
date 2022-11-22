@@ -79,17 +79,19 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
 
   let reviewToCheck = await Review.findByPk(reviewId);
   if (!reviewToCheck) {
-    res.json({ message: "review couldn't be found", statusCode: 404 });
-    return
+    res.statusCode = 404
+   return res.json({ message: "review couldn't be found", statusCode: 404 });
+    
   }
   if (parseInt(reviewToCheck.userId) === parseInt(currentUserId)) {
     next();
   } else {
-    res.json({
+    res.statusCode = 403
+    return res.json({
       "message": "Forbidden",
       "statusCode": 403
     })
-    return
+    
   }
 };
 const isSpotOwnedByCurrentUser = async (req, res, next) => {
@@ -98,19 +100,25 @@ const isSpotOwnedByCurrentUser = async (req, res, next) => {
 
   let spotToCheck = await Spot.findByPk(spotId);
   if (!spotToCheck) {
-    res.json({ message: "Spot couldn't be found", statusCode: 404 });
+    res.statusCode = 404
+    return res.json({ message: "Spot couldn't be found", statusCode: 404 });
   }
-  if (parseInt(spotToCheck.ownerId) === parseInt(currentUserId)) {
-    next();
-  } else {
-    res.json({"message": "Forbidden",
+  
+  if (parseInt(spotToCheck.ownerId) !== parseInt(currentUserId)) {
+    res.statusCode = 403
+    return res.json({"message": "Forbidden",
     "statusCode": 403})
+    
+  } else {
+    next();
+    
   }
 };
 const doesSpotExist=async(req,res,next)=>{
   spot = await Spot.findByPk(req.params.spotId)
   if(!spot){
-    res.json({"message": "Spot couldn't be found",
+    res.statusCode = 404
+   return res.json({"message": "Spot couldn't be found",
     "statusCode": 404})
   }
   next()
@@ -129,7 +137,8 @@ const doesUserAlreadyHaveReview = async (req,res,next)=>{
     
   }
   if(UserHasReview===true){
-    res.json({
+    res.statusCode = 403
+    return res.json({
       "message": "User already has a review for this spot",
       "statusCode": 403
     })

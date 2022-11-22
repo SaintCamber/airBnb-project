@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.get('/current',requireAuth,async(req,res)=>{
-    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt"]}},{model:Spot},{model:reviewImage,as:"ReviewImages"}]})
+    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:Spot},{model:reviewImage,as:"ReviewImages"}]})
     
     // const payload = []
     // for (let i = 0 ; i <allReviews.length;i++){
