@@ -40,7 +40,7 @@ router.get("/", async (req, res, next) => {
         ],
       })
      
-        let spotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
+        let spotImage =await spot.getspotimages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         console.log()
         console.log()
         console.log()
