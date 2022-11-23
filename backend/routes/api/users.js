@@ -25,4 +25,21 @@ router.post(
     }
   );
 
+  router.delete('/:userId',requireAuth,async(req,res,next)=>{
+    const { userId } = req.params
+    const record = await User.findByPk(userId)
+    if(!record){
+        res.json({
+            "message": "User couldn't be found",
+            "statusCode": 404
+          })
+    
+        }
+       await User.destroy({where:{id:record.id}})
+        res.json({
+            "message": "Successfully deleted",
+            "statusCode": 200
+          })
+
+})
 module.exports = router;

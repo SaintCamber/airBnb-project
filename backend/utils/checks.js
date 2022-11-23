@@ -158,6 +158,17 @@ const validateReview = [
     doesUserAlreadyHaveReview,
     handleValidationErrors,
 ];
+const validateDates = (req,res,next)=>{
+  const{startDate,endDate} = req.body
+  let d1 = new Date(startDate)
+  let d2 = new Date(endDate)
+  if(d2<=d1){
+    res.statusCode = 400
+    return res.json({message:"Validation error",statusCode:400,errors:{"endDate":
+    {"endDate": "endDate cannot be on or before startDate"}}})
+  }
+  else{next()}
+}
 
 module.exports = {
   validateSignup,
@@ -166,5 +177,6 @@ module.exports = {
   isSpotOwnedByCurrentUser,
   isReviewOwnedByCurrentUser,
   validateReview,
-  doesSpotExist
+  doesSpotExist,
+  validateDates
 };
