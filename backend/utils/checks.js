@@ -1,6 +1,7 @@
 const { check, validationResult } = require("express-validator");
 const { handleValidationErrors } = require("./validation");
-const { Spot,User,Review } = require("../db/models");
+const { Spot, User, Review } = require("../db/models");
+const { Op } = require("sequelize");
 const validateSignup = [
   check("firstName")
     .exists({ checkFalsy: true })
@@ -79,19 +80,17 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
 
   let reviewToCheck = await Review.findByPk(reviewId);
   if (!reviewToCheck) {
-    res.statusCode = 404
-   return res.json({ message: "review couldn't be found", statusCode: 404 });
-    
+    res.statusCode = 404;
+    return res.json({ message: "review couldn't be found", statusCode: 404 });
   }
   if (parseInt(reviewToCheck.userId) === parseInt(currentUserId)) {
     next();
   } else {
-    res.statusCode = 403
+    res.statusCode = 403;
     return res.json({
-      "message": "Forbidden",
-      "statusCode": 403
-    })
-    
+      message: "Forbidden",
+      statusCode: 403,
+    });
   }
 };
 const isSpotOwnedByCurrentUser = async (req, res, next) => {
@@ -100,51 +99,44 @@ const isSpotOwnedByCurrentUser = async (req, res, next) => {
 
   let spotToCheck = await Spot.findByPk(spotId);
   if (!spotToCheck) {
-    res.statusCode = 404
+    res.statusCode = 404;
     return res.json({ message: "Spot couldn't be found", statusCode: 404 });
   }
-  
+
   if (parseInt(spotToCheck.ownerId) !== parseInt(currentUserId)) {
-    res.statusCode = 403
-    return res.json({"message": "Forbidden",
-    "statusCode": 403})
-    
+    res.statusCode = 403;
+    return res.json({ message: "Forbidden", statusCode: 403 });
   } else {
     return next();
-    
   }
 };
-const doesSpotExist=async(req,res,next)=>{
-  spot = await Spot.findByPk(req.params.spotId)
-  if(!spot){
-    res.statusCode = 404
-   return res.json({"message": "Spot couldn't be found",
-    "statusCode": 404})
+const doesSpotExist = async (req, res, next) => {
+  spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    res.statusCode = 404;
+    return res.json({ message: "Spot couldn't be found", statusCode: 404 });
   }
-  next()
-}
-const doesUserAlreadyHaveReview = async (req,res,next)=>{
-  let userId = req.user.id
-  let user = await User.findByPk(userId)
-  let reviews = await user.getReviews()
-  let UserHasReview = false
-  for (let review of reviews){
-    if(parseInt(review.dataValues.spotId)===parseInt(req.params.spotId)){
-      
-      UserHasReview = true
-      
+  next();
+};
+const doesUserAlreadyHaveReview = async (req, res, next) => {
+  let userId = req.user.id;
+  let user = await User.findByPk(userId);
+  let reviews = await user.getReviews();
+  let UserHasReview = false;
+  for (let review of reviews) {
+    if (parseInt(review.dataValues.spotId) === parseInt(req.params.spotId)) {
+      UserHasReview = true;
     }
-    
   }
-  if(UserHasReview===true){
-    res.statusCode = 403
+  if (UserHasReview === true) {
+    res.statusCode = 403;
     return res.json({
-      "message": "User already has a review for this spot",
-      "statusCode": 403
-    })
+      message: "User already has a review for this spot",
+      statusCode: 403,
+    });
   }
-  next()
-  }
+  next();
+};
 
 const validateReview = [
   check("review")
@@ -154,49 +146,114 @@ const validateReview = [
     .exists()
     .isNumeric({ min: 1, max: 5 })
     .withMessage("Stars must be an integer from 1 to 5"),
-    doesSpotExist,
-    doesUserAlreadyHaveReview,
-    handleValidationErrors,
+  doesSpotExist,
+  doesUserAlreadyHaveReview,
+  handleValidationErrors,
 ];
-const validateDates = (req,res,next)=>{
-  const{startDate,endDate} = req.body
-  let d1 = new Date(startDate)
-  let d2 = new Date(endDate)
-  if(d2<=d1){
-    res.statusCode = 400
-    return res.json({message:"Validation error",statusCode:400,errors:{"endDate":
-    {"endDate": "endDate cannot be on or before startDate"}}})
+const validateDates = (req, res, next) => {
+  const { startDate, endDate } = req.body;
+  let d1 = new Date(startDate);
+  let d2 = new Date(endDate);
+  if (d2 <= d1) {
+    res.statusCode = 400;
+    return res.json({
+      message: "Validation error",
+      statusCode: 400,
+      errors: {
+        endDate: { endDate: "endDate cannot be on or before startDate" },
+      },
+    });
+  } else {
+    next();
   }
-  else{next()}
-}
+};
 
-const validateQueryParameters =   (req,res,next)=>{
-  let errors = {}
-  let queryParamKeys = Object.keys(req.query)
-  validQueryParams = ["page",
-  "size",
-  "maxLat",
-  "minLat",
-  "minLng",
-  "maxLng",
-  "minPrice",
-  "maxPrice"]
-  for(key of queryParamKeys){
-    if(!validateQueryParameters.includes(key)){
-    delete req.query[key]
-  }
-  if(req.query.page){
-    if(page>10||page<1){
-      errors.page = "Page must be greater than or equal to 1"
-      
-    }
-    if(size>10||size<1){
-      errors.size = "Sizemust be greater than or equal to 1"
-      
+const validateQueryParameters = (req, res, next) => {
+  let errors = {};
+  let queryParamKeys = Object.keys(req.query);
+  let queryObj = { where: {}};
+  let validQueryParams = [
+    "page",
+    "size",
+    "maxLat",
+    "minLat",
+    "minLng",
+    "maxLng",
+    "minPrice",
+    "maxPrice",
+  ];
+  for (key of queryParamKeys) {
+    if (!validQueryParams.includes(key)) {
+      delete req.query[key];
     }
   }
-}
-}
+  if (req.query.page) {
+    if (req.query.page > 10 || req.query.page < 1) {
+      errors.page =
+        "Page must be greater than or equal to 1 and less than or equal to 10";
+    }
+    
+  }
+  if (req.query.size) {
+    if (req.query.size > 20 || req.query.size < 1) {
+      errors.size =
+        "Size must be greater than or equal to 1 and less than or equal to 20";
+    }
+  }
+  if (req.query.maxLat) {
+    if (req.query.maxLat > 180) {
+      errors.maxLat = "Maximum latitude is invalid";
+    }
+    req.query.maxLat ? queryObj.where.Lat = {[Op.lte]:req.query.maxLat} :undefined
+  }
+  if (req.query.minLat) {
+    if (req.query.minLat < 0) {
+      errors.minLat = "Minimum latitude is invalid";
+    }
+    req.query.minLat ? queryObj.where.Lat = {[Op.gte]:req.query.minLat}:undefined
+
+  }
+  if (req.query.maxLng) {
+    if (req.query.maxLng > 180) {
+      errors.maxLat = "Maximum longitude is invalid";
+    }
+    req.query.maxLang ? queryObj.where.Lng = {[Op.lte]:req.query.maxLng}:undefined
+
+  }
+  if (req.query.minLng) {
+    if (req.query.minLng < 0) {
+      errors.minLat = "Minimum longitude is invalid";
+    }
+    
+    req.query.minLng ? queryObj.where.Lng = {[Op.gte]:req.query.minLng} :undefined
+  }
+  if (req.query.maxPrice) {
+    if (req.query.maxPrice < 0) {
+      errors.maxPrice = "Maximum price must be greater than or equal to 0";
+    }
+    req.query.maxPrice ? queryObj.where.price = {[Op.lte]:req.query.maxPrice}:undefined
+
+  }
+  if (req.query.minPrice) {
+    if (req.query.minPrice < 0) {
+      errors.minPrice = "Minimum price must be greater than or equal to 0";
+    }
+    req.query.minPrice ? queryObj.where.price = {[Op.gte]:req.query.minPrice}:undefined
+
+  }
+  if (Object.keys(errors).length) {
+    res.statusCode = 400;
+    return res.json({
+      message: "validation error",
+      statusCode: 400,
+      errors,
+    });
+  } else {
+    req.queryObj = queryObj
+    console.log(queryObj)
+    next();
+  }
+};
 
 module.exports = {
   validateSignup,
@@ -206,5 +263,6 @@ module.exports = {
   isReviewOwnedByCurrentUser,
   validateReview,
   doesSpotExist,
-  validateDates
+  validateDates,
+  validateQueryParameters
 };

@@ -9,7 +9,8 @@ const {
   isSpotOwnedByCurrentUser,
   validateReview,
   doesSpotExist,
-  validateDates
+  validateDates,
+  validateQueryParameters
   
 } = require("../../utils/checks");
 const router = express.Router();
@@ -19,9 +20,8 @@ function isObject1(o) {
 
 //test route to get all spots
 
-router.get("/", async (req, res, next) => {
-  let queryParams = Object.entries(req.query)
-  console.log(queryParams)
+router.get("/", validateQueryParameters,async (req, res, next) => {
+ 
   
   const payLoad = [];
   let pagination = {};
@@ -37,7 +37,7 @@ router.get("/", async (req, res, next) => {
       pagination.offset = size * (page - 1);
     }
   
-  allSpots = await Spot.findAll({ ...pagination});
+  allSpots = await Spot.findAll({ ...pagination,...req.queryObj});
   if (allSpots) {
     for (let i = 0; i < allSpots.length; i++) {
       let spot = allSpots[i];
