@@ -27,6 +27,10 @@ router.post(
 
   router.delete('/:userId',requireAuth,async(req,res,next)=>{
     const { userId } = req.params
+    if(parseInt(req.user.id)!==parseInt(userId)){
+      res.statusCode = 403
+      return res.json({message:"forbidden",statusCode: 403})
+    }
     const record = await User.findByPk(userId)
     if(!record){
         res.json({
