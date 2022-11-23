@@ -170,6 +170,34 @@ const validateDates = (req,res,next)=>{
   else{next()}
 }
 
+const validateQueryParameters =   (req,res,next)=>{
+  let errors = {}
+  let queryParamKeys = Object.keys(req.query)
+  validQueryParams = ["page",
+  "size",
+  "maxLat",
+  "minLat",
+  "minLng",
+  "maxLng",
+  "minPrice",
+  "maxPrice"]
+  for(key of queryParamKeys){
+    if(!validateQueryParameters.includes(key)){
+    delete req.query[key]
+  }
+  if(req.query.page){
+    if(page>10||page<1){
+      errors.page = "Page must be greater than or equal to 1"
+      
+    }
+    if(size>10||size<1){
+      errors.size = "Sizemust be greater than or equal to 1"
+      
+    }
+  }
+}
+}
+
 module.exports = {
   validateSignup,
   validateLogin,

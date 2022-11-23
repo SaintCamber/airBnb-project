@@ -20,17 +20,23 @@ function isObject1(o) {
 //test route to get all spots
 
 router.get("/", async (req, res, next) => {
+  let queryParams = Object.entries(req.query)
+  console.log(queryParams)
+  
   const payLoad = [];
-  let allSpots;
-  let { page, size } = req.query;
-  if (!page) page = 0;
-  if (!size) size = 0;
-
   let pagination = {};
-  if (parseInt(page) >= 1 && parseInt(size) >= 1) {
-    pagination.limit = size;
-    pagination.offset = size * (page - 1);
-  }
+  let allSpots;
+  
+    let { page, size } = req.query;
+    page ? page = page:0
+    size ? size = size:0
+
+    
+    if (parseInt(page) >= 1 && parseInt(size) >= 1) {
+      pagination.limit = size;
+      pagination.offset = size * (page - 1);
+    }
+  
   allSpots = await Spot.findAll({ ...pagination});
   if (allSpots) {
     for (let i = 0; i < allSpots.length; i++) {
