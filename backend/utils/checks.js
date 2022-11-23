@@ -204,20 +204,20 @@ const validateQueryParameters = (req, res, next) => {
     if (req.query.maxLat > 180) {
       errors.maxLat = "Maximum latitude is invalid";
     }
-    req.query.maxLat ? queryObj.where.Lat = {[Op.lte]:req.query.maxLat} :undefined
+    req.query.maxLat ? queryObj.where.lat = {[Op.lte]:req.query.maxLat} :undefined
   }
   if (req.query.minLat) {
     if (req.query.minLat < 0) {
       errors.minLat = "Minimum latitude is invalid";
     }
-    req.query.minLat ? queryObj.where.Lat = {[Op.gte]:req.query.minLat}:undefined
+    req.query.minLat ? queryObj.where.lat = {[Op.gte]:req.query.minLat}:undefined
 
   }
   if (req.query.maxLng) {
     if (req.query.maxLng > 180) {
       errors.maxLat = "Maximum longitude is invalid";
     }
-    req.query.maxLang ? queryObj.where.Lng = {[Op.lte]:req.query.maxLng}:undefined
+    req.query.maxLang ? queryObj.where.lng = {[Op.lte]:req.query.maxLng}:undefined
 
   }
   if (req.query.minLng) {
@@ -225,7 +225,7 @@ const validateQueryParameters = (req, res, next) => {
       errors.minLat = "Minimum longitude is invalid";
     }
     
-    req.query.minLng ? queryObj.where.Lng = {[Op.gte]:req.query.minLng} :undefined
+    req.query.minLng ? queryObj.where.lng = {[Op.gte]:req.query.minLng} :undefined
   }
   if (req.query.maxPrice) {
     if (req.query.maxPrice < 0) {
