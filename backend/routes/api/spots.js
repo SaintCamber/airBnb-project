@@ -1,7 +1,7 @@
 const express = require("express");
 const sequelize = require("sequelize");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Spot, spotImage,Review,reviewImage } = require("../../db/models");
+const { User, Spot, SpotImage,Review,reviewImage } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const {
@@ -40,22 +40,12 @@ router.get("/", async (req, res, next) => {
         ],
       })
      
-        let spotImage =await spot.getspotimages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
-        console.log()
+        let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
         spot.avgRating = reviews[0].toJSON().avgRating;
-        if(spotImage[0]!==undefined){
-          spot.previewImage = spotImage[0].dataValues.url
+        if(SpotImage[0]!==undefined){
+          spot.previewImage = SpotImage[0].dataValues.url
 
           
         }
@@ -88,8 +78,8 @@ router.post(
   requireAuth,
   isSpotOwnedByCurrentUser,
   async (req, res, next) => {
-   newSpotImage = await spotImage.create({spotId:req.params.spotId,url:req.body.url,preview:req.body.preview})
-    verifyNewSpotImage = await spotImage.findByPk(newSpotImage.id)
+   newSpotImage = await SpotImage.create({spotId:req.params.spotId,url:req.body.url,preview:req.body.preview})
+    verifyNewSpotImage = await SpotImage.findByPk(newSpotImage.id)
     if(verifyNewSpotImage){
         res.json({id:verifyNewSpotImage.id,url:verifyNewSpotImage.url,preview:verifyNewSpotImage.preview})
     }
@@ -119,7 +109,7 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
 router.get('/:spotId',async (req,res,next)=>{
     let spot = await Spot.findByPk(req.params.spotId)
     let owner = await spot.getOwner({attributes:{exclude:['username']}})
-    let spotImages = await spot.getspotimages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
+    let SpotImages = await spot.getSpotImages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
     let reviews = await spot.getReviews()
     let avgRating = await spot.getReviews({
         attributes: [
@@ -129,7 +119,7 @@ router.get('/:spotId',async (req,res,next)=>{
     spot.dataValues.numReviews = reviews.length
     spot.dataValues.avgStarRating = avgRating[0].dataValues.avgRating
     spot.save()      
-    let payload = {spot,spotImages,owner}
+    let payload = {spot,SpotImages,owner}
     res.json(payload)
 })
 

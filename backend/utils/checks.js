@@ -110,7 +110,7 @@ const isSpotOwnedByCurrentUser = async (req, res, next) => {
     "statusCode": 403})
     
   } else {
-    next();
+    return next();
     
   }
 };
