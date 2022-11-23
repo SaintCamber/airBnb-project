@@ -119,7 +119,7 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
 router.get('/:spotId',async (req,res,next)=>{
     let spot = await Spot.findByPk(req.params.spotId)
     let owner = await spot.getOwner({attributes:{exclude:['username']}})
-    let spotImages = await spot.getSpotImages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
+    let spotImages = await spot.getspotimages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
     let reviews = await spot.getReviews()
     let avgRating = await spot.getReviews({
         attributes: [
