@@ -47,7 +47,7 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
         ],
       })
      
-        let spotimage =await spot.getspotimages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
+        let spotimage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
         spot.avgRating = reviews[0].toJSON().avgRating;
@@ -116,7 +116,7 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
 router.get('/:spotId',async (req,res,next)=>{
     let spot = await Spot.findByPk(req.params.spotId)
     let owner = await spot.getOwner({attributes:{exclude:['username']}})
-    let spotimages = await spot.getspotimages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
+    let spotimages = await spot.getSpotImages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
     let reviews = await spot.getReviews()
     let avgRating = await spot.getReviews({
         attributes: [
