@@ -18,7 +18,6 @@ module.exports = {
      * }], {});
      * */
     await queryInterface.bulkInsert(options,[{
-    id:1,
     ownerId:1,
     address:'2410 foxcroft circle',
     city: 'denton',
@@ -30,7 +29,6 @@ module.exports = {
     description: "run down and full of nightmares",
     price: 1000
   },{
-    id:2,
     ownerId:1,
     address:'2440 foxcroft circle',
     city: 'denton',
@@ -42,7 +40,6 @@ module.exports = {
     description: "run down and full of nightmares",
     price: 1000
   },{
-    id:3,
     ownerId:1,
     address:'2480 foxcroft circle',
     city: 'denton',

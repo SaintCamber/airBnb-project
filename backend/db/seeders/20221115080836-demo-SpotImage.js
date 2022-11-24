@@ -18,31 +18,26 @@ module.exports = {
      * }], {});
     */
      await queryInterface.bulkInsert(options, [{
-      id:1,
       spotId:1,
       url:'www.hergoesanimage1 .com',
       preview: false
     },
     {
-      id:2,
       spotId:1,
       url:'www.hergoesanimage2 .com',
       preview: true
     },
     {
-      id:3,
       spotId:1,
       url:'www.hergoesanimage3 .com',
       preview: false
     },
     {
-      id:4,
       spotId:1,
       url:'www.hergoesanimage4 .com',
       preview: false
     },
     {
-      id:5,
       spotId:1,
       url:'www.hergoesanimage5 .com',
       preview: false

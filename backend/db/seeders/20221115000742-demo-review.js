@@ -21,7 +21,6 @@ module.exports = {
       options,
       [
         {
-          id:1,
           spotId: 1,
           userId: 1,
           review:
@@ -29,7 +28,6 @@ module.exports = {
           stars: 3,
         },
         {
-          id:2,
           spotId: 2,
           userId: 2,
           review:
@@ -37,7 +35,6 @@ module.exports = {
           stars: 5,
         },
         {
-          id:3,
           spotId: 3,
           userId: 3,
           review:
@@ -45,7 +42,6 @@ module.exports = {
           stars: 2,
         },
         {
-          id:4,
           spotId: 2,
           userId: 3,
           review:
@@ -53,7 +49,6 @@ module.exports = {
           stars: 2,
         },
         {
-          id:5,
           spotId: 3,
           userId: 3,
           review:
