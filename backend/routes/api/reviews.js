@@ -42,6 +42,8 @@ router.post('/:reviewId/images',requireAuth,isReviewOwnedByCurrentUser,async(req
 
 router.put('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
     let reviewToEdit = Review.findByPk(req.params.reviewId)
+    if(!reviewToEdit){res.statusCode = 404
+    return res.json({message:"Spot couldn't be found",statusCode:404})}
     let {review,stars} = req.body
     reviewToEdit.update({review,stars})
     reviewToEdit.save()

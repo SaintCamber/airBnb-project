@@ -29,7 +29,7 @@ router.post(
       payload = user.toSafeObject()
       payload.token = req.cookies['token']
       return res.json(payload);
-    }
+    },handleValidationErrors
   );
 
   // Log out

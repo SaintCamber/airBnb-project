@@ -70,7 +70,8 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
 
 router.get("/current", requireAuth, async (req, res, next) => {
   let spots = await req.user.getSpots();
-  res.json(spots);
+
+  res.json({spots});
 });
 
 router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
