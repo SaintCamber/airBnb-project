@@ -115,6 +115,10 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
 })
 router.get('/:spotId',async (req,res,next)=>{
     let spot = await Spot.findByPk(req.params.spotId)
+    if(!spot){
+      res.statusCode = 404
+      return res.json({message:"Spot couldn't be found",statusCode:404})
+    }
     let owner = await spot.getOwner({attributes:{exclude:['username']}})
     let SpotImages = await spot.getSpotImages({attributes:{exclude:["createdAt","updatedAt","spotId"]}})
     let reviews = await spot.getReviews()

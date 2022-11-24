@@ -16,7 +16,7 @@ module.exports = {
       },
       reviewId: {
         type: Sequelize.INTEGER,
-        foreignKey:{allowNull:false},
+        foreignKey:{allowNull:false,as:'reviewImages'},
         onDelete:"CASCADE",
         references:{model:'Reviews',key:"id",}
       },
@@ -36,7 +36,7 @@ module.exports = {
     },options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "ReviewImages"
+    options.tableName = "reviewImages"
     await queryInterface.dropTable(options)
   }
 };
