@@ -111,8 +111,8 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
         spotToUpdate[key]=value
     }
     spotToUpdate.save()
-    verifySpot = await Spot.findByPk(spotToUpdate.id)
-    res.json(verifySpot)
+    
+    res.json(spotToUpdate)
 })
 router.get('/:spotId',async (req,res,next)=>{
     let spot = await Spot.findByPk(req.params.spotId)
@@ -236,6 +236,8 @@ if(available===true){
 router.get('/:spotId/bookings',requireAuth,async(req,res,next)=>{
   
   let spot = await Spot.findByPk(req.params.spotId)
+  if(!spot){res.statusCode = 404
+     return res.json({"message":"spot not found",statusCode:404})}
   let owner = await spot.getOwner()
   let check = owner.id === req.user.id
   if(!check){

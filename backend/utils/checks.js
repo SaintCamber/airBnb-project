@@ -83,14 +83,13 @@ const isReviewOwnedByCurrentUser = async (req, res, next) => {
     res.statusCode = 404;
     return res.json({ message: "review couldn't be found", statusCode: 404 });
   }
-  if (parseInt(reviewToCheck.userId) === parseInt(currentUserId)) {
-    next();
-  } else {
+  if (parseInt(reviewToCheck.userId) !== parseInt(currentUserId)) {
     res.statusCode = 403;
     return res.json({
       message: "Forbidden",
       statusCode: 403,
     });
+  } else {next()
   }
 };
 const isSpotOwnedByCurrentUser = async (req, res, next) => {

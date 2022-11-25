@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.get('/current',requireAuth,async(req,res)=>{
-    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:Spot},{model:reviewImage}]})
+    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:Spot},{model:reviewImage,as:"ReviewImages",attributes:{exclude:["createdAt","updatedAt","reviewId"]}}]})
     
     // const payload = []
     // for (let i = 0 ; i <allReviews.length;i++){
@@ -41,7 +41,7 @@ router.post('/:reviewId/images',requireAuth,isReviewOwnedByCurrentUser,async(req
 })
 
 router.put('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
-    let reviewToEdit = Review.findByPk(req.params.reviewId)
+    let reviewToEdit = await Review.findByPk(req.params.reviewId)
     if(!reviewToEdit){res.statusCode = 404
     return res.json({message:"Spot couldn't be found",statusCode:404})}
     let {review,stars} = req.body
@@ -61,7 +61,7 @@ router.delete('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,
           })
     
         }
-       await Review.destroy({where:{id:record.id}})
+       Review.destroy({where:{id:record.id}})
         res.json({
             "message": "Successfully deleted",
             "statusCode": 200
