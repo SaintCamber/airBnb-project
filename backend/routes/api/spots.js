@@ -76,7 +76,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
       let spot = allSpots[i];
       let reviews = await spot.getReviews({
         attributes: [
-          [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+          [sequelize("ROUND",2,sequelize.fn("AVG", sequelize.col("stars")), "avgRating")],
         ],
       })
      
