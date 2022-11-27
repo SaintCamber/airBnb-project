@@ -76,15 +76,15 @@ router.get("/current", requireAuth, async (req, res, next) => {
       let spot = allSpots[i];
       let reviews = await spot.getReviews({
         attributes: [
-          [sequelize.fn("ROUND",2,sequelize.fn("AVG", sequelize.col("stars"), "avgRating"))],
+          [sequelize.fn("ROUND",sequelize.fn("AVG", sequelize.col("stars"))), "avgRating"],
         ],
       })
      
         let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
-        spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
         if(SpotImage.length){
+          spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
             spot.previewImage = SpotImage[0].dataValues.url||"No Preview Image"
 
         }
