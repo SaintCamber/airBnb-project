@@ -99,7 +99,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     }
   }
 
-  res.json({spots:payload});
+  res.json({Spots:payload});
 });
 
 router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
