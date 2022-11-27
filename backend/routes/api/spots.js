@@ -50,9 +50,9 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
         let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
-        spot.avgRating = reviews[0].toJSON().avgRating;
+        spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
         if(SpotImage[0]!==undefined){
-          spot.previewImage = SpotImage[0].dataValues.url
+          spot.previewImage = SpotImage[0].dataValues.url||"No Preview Image"
 
           
         }
@@ -69,9 +69,37 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
 //get current user's spots
 
 router.get("/current", requireAuth, async (req, res, next) => {
-  let spots = await req.user.getSpots();
+  allSpots = await Spot.findAll({where:{ownerId:req.user.id}});
+  let payload = []
+  if (allSpots) {
+    for (let i = 0; i < allSpots.length; i++) {
+      let spot = allSpots[i];
+      let reviews = await spot.getReviews({
+        attributes: [
+          [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+        ],
+      })
+     
+        let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
+        //   console.log(reviews[0].toJSON().avgRating)
+        spot = spot.toJSON();
+        spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
+        if(SpotImage.length){
+            spot.previewImage = SpotImage[0].dataValues.url||"No Preview Image"
 
-  res.json({spots});
+        }
+        if(!SpotImage.length){
+          spot.previewImage = "no preview image"
+        }
+
+          
+        
+      
+      payload.push(spot);
+    }
+  }
+
+  res.json({spots:payload});
 });
 
 router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {

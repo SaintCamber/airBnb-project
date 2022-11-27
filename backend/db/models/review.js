@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     spotId: {type : DataTypes.INTEGER,references:{model:"Spots",key:"id"}},
     userId:  {type : DataTypes.INTEGER,references:{model:"Users",key:"id"}},
     review: DataTypes.STRING,
-    stars: DataTypes.INTEGER
+    stars: DataTypes.INTEGER()
   }, {
     sequelize,
     modelName: 'Review',
