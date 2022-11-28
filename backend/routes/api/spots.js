@@ -139,6 +139,14 @@ router.put("/:spotId",requireAuth,isSpotOwnedByCurrentUser,validateNewSpot,async
         spotToUpdate[key]=value
     }
     spotToUpdate.save()
+    spotToUpdate = spotToUpdate.toJSON()
+    delete spotToUpdate["createdAt"]
+    delete spotToUpdate["updatedAt"]
+    delete spotToUpdate["ownerId"]
+    delete spotToUpdate["id"]
+
+
+
     
     res.json(spotToUpdate)
 })
