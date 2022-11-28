@@ -4,7 +4,8 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Spot, spotImage,Review,reviewImage,Booking ,SpotImage} = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const {isReviewOwnedByCurrentUser} = require('../../utils/checks.js')
+const {isReviewOwnedByCurrentUser} = require('../../utils/checks.js');
+const { parse } = require("path");
 const router = express.Router();
 
 
@@ -15,13 +16,17 @@ router.get('/current',requireAuth,async(req,res)=>{
     for (let i = 0 ;i<Reviews.length;i++){
         let review = Reviews[i]
         let spot = await review.getSpot()
-        preview = await spot.getSpotImages({where:{preview:true}})
+        // console.log(spot)
+        let SpotImages =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         spot = spot.toJSON()
-        spot.previewImage = preview[0].url
-        let user = await review.getUser()
+        let user = await review.getUser({attributes:{exclude:["username"]}})
         let ReviewImages =await review.getReviewImages()
+        if(SpotImages.length){
+            spot.previewImage = SpotImages[0].dataValues.url||"No Preview Image"
+
+        }
         review = review.toJSON()
-        review.user = user
+        review.User = user
         review.Spot = spot
         review.ReviewImages = ReviewImages
         let  payloadOBJ = {...review}
@@ -35,6 +40,8 @@ router.get('/current',requireAuth,async(req,res)=>{
 router.post('/:reviewId/images',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
    
     let review = await Review.findByPk(req.params.reviewId)
+    if(!review){res.statusCode = 404
+        return res.json({"message":"Review not found",statusCode:404})}
     let images = await review.getReviewImages()
     
     const {url} = req.body

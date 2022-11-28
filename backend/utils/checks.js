@@ -77,6 +77,9 @@ const validateLogin = [
 const isReviewOwnedByCurrentUser = async (req, res, next) => {
   currentUserId = req.user.id;
   reviewId = req.params.reviewId;
+  if(!reviewId){
+    return res.json("please enter a valid review id")
+  }
 
   let reviewToCheck = await Review.findByPk(reviewId);
   if (!reviewToCheck) {
