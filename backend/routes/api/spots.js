@@ -155,11 +155,10 @@ router.get('/:spotId',async (req,res,next)=>{
         attributes: [
           [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
         ]});
-        
-    spot.dataValues.numReviews = reviews.length
-    spot.dataValues.avgStarRating = avgRating[0].dataValues.avgRating||0
-    spot.save()      
-    let payload = {Spot:spot,SpotImages,owner}
+        spot=spot.toJSON()
+    spot.numReviews = reviews.length
+    spot.avgStarRating = avgRating[0].dataValues.avgRating||0     
+    let payload = {...spot,SpotImages,owner}
     res.json(payload)
 })
 
