@@ -159,7 +159,7 @@ router.get('/:spotId',async (req,res,next)=>{
     spot.dataValues.numReviews = reviews.length
     spot.dataValues.avgStarRating = avgRating[0].dataValues.avgRating||0
     spot.save()      
-    let payload = {spot,SpotImages,owner}
+    let payload = {Spot:spot,SpotImages,owner}
     res.json(payload)
 })
 
