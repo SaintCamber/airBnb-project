@@ -1,7 +1,7 @@
 const express = require("express");
 const sequelize = require("sequelize");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User, Spot, spotImage,Review,reviewImage,Booking } = require("../../db/models");
+const { User, Spot, spotImage,Review,reviewImage,Booking ,SpotImage} = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const {isReviewOwnedByCurrentUser} = require('../../utils/checks.js')
@@ -9,18 +9,27 @@ const router = express.Router();
 
 
 router.get('/current',requireAuth,async(req,res)=>{
-    const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:Spot},{model:reviewImage,as:"ReviewImages",attributes:{exclude:["createdAt","updatedAt","reviewId"]}}]})
-    
-    // const payload = []
-    // for (let i = 0 ; i <allReviews.length;i++){
-    //     let review = allReviews[i]
-    //     let spot = await review.getSpot()
-    //     let user = req.user.dataValues
-    //     let reviewImages = review.getImages()
-    //     let package = {review,spot,user,reviewImages}
-    //     payload.push(package)
-    // 
-    res.json({Reviews})
+    // const Reviews = await Review.findAll({where:{userId:req.user.id},include:[{model:User,attributes:{exclude:["username","hashedPassword","createdAt","updatedAt","email"]}},{model:Spot,attributes:[sequelize.col("SpotImage.url"),"PreviewImage"],include:{model :SpotImage,as:"PreviewImage"}},{model:reviewImage,as:"ReviewImages",attributes:{exclude:["createdAt","updatedAt","reviewId"]}}]})
+    const payload = []
+    const Reviews = await Review.findAll({where:{userId:req.user.id}})
+    for (let i = 0 ;i<Reviews.length;i++){
+        let review = Reviews[i]
+        let spot = await review.getSpot()
+        preview = await spot.getSpotImages({where:{preview:true}})
+        spot = spot.toJSON()
+        spot.previewImage = preview[0].url
+        let user = await review.getUser()
+        let ReviewImages =await review.getReviewImages()
+        review = review.toJSON()
+        review.user = user
+        review.Spot = spot
+        review.ReviewImages = ReviewImages
+        let  payloadOBJ = {...review}
+        payload.push(payloadOBJ)
+
+    }
+   
+    res.json({Reviews:payload})
 })
 
 router.post('/:reviewId/images',requireAuth,isReviewOwnedByCurrentUser,async(req,res,next)=>{
