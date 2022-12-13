@@ -31,7 +31,7 @@ function LoginFormPage() {
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-      });
+      }).then(<Redirect to='/' />);
   }
 //here lies the actual jsx being returned by LoginFormPage
   return (

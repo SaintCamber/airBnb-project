@@ -63,6 +63,14 @@ export const signup = (user) => async (dispatch) => {
     return response;
   };
   // ...
+
+  export const logout = () => async (dispatch) => {
+    const response = await csrfFetch('/api/session', {
+      method: 'DELETE',
+    });
+    dispatch(removeUser());
+    return response;
+  };
 //this takes the initial state and an action supplied by the end user, if that action equates to SET_USER then this will copy state mutate the copy to reflect 
 //a new user being logged in and then return the newState to the store the same though i guess the opposite for REMOVE_USER
 const sessionReducer = (state = initialState, action) => {
