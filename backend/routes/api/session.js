@@ -26,7 +26,7 @@ router.post(
       }
       
       await setTokenCookie(res, user);
-      payload = user.toSafeObject()
+      payload = {user:user.toSafeObject()}
       payload.token = req.cookies['token']
       return res.json(payload);
     },handleValidationErrors
@@ -40,6 +40,7 @@ router.delete(
       return res.json({ message: 'success' });
     }
   );
+  // get current user 
   router.get(
     '/',
     restoreUser,
@@ -47,7 +48,7 @@ router.delete(
       const { user } = req;
       if (user) {
         return res.json(
-          user.toSafeObject()
+         {user: user.toSafeObject()}
         );
       } else return res.json({ user: null });
     }
