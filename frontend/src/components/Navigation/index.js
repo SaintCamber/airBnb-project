@@ -19,6 +19,9 @@ function Navigation({ isLoaded }){
           <ProfileButton user={sessionUser} />
         </li>
       )}
+      <li>
+        <NavLink to='/Spots'>Spots</NavLink>
+      </li>
     </ul>
   );
 }

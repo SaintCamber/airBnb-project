@@ -63,7 +63,7 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
   if (Object.entries(pagination).length) {
     res.json({ Spots: payLoad, page, size });
   } else {
-    res.json({ Spots: payLoad });
+    res.json( payLoad );
   }
 });
 //get current user's spots
