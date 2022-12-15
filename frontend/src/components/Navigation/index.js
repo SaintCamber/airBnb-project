@@ -1,14 +1,16 @@
 // frontend/src/components/Navigation/index.js
-import React from 'react';
+import React ,{useState}from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
+import OpenModalMenuItem from './OpenModalMenuItem';
+import CreateSpotModal from '../CreateSpotModal';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
+  const {showMenu,setShowMenu} = useState(false)
   const sessionUser = useSelector(state => state.session.user);
-
+  const closeMenu = () => setShowMenu(false);
   return (
     <ul>
       <li>
@@ -22,6 +24,7 @@ function Navigation({ isLoaded }){
       <li>
         <NavLink to='/Spots'>Spots</NavLink>
       </li>
+      
     </ul>
   );
 }

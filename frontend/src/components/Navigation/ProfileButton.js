@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import CreateSpotModal from "../CreateSpotModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -50,6 +51,11 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+            <OpenModalMenuItem
+              itemText="Create Spot"
+              onItemClick={closeMenu}
+              modalComponent={<CreateSpotModal />}
+            />
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
@@ -66,6 +72,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            
           </>
         )}
       </ul>

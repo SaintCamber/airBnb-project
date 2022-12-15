@@ -6,8 +6,9 @@ const UPDATE_SPOT = 'update-spot'
 const READ_SPOT = 'read-spot'
 const DELETE_SPOT = 'remove-spot'
 const READ_All_SPOTS ='read-all-spots'
+const SINGLE = 'single-spot'
 
-const initialState = { "Spots":{"AllSpots":{}} };
+const initialState = { "Spots":{"AllSpots":{},"SingleSpot":{}} };
 export function addSpot(spot){
     return {
         type:CREATE_SPOT,
@@ -21,7 +22,9 @@ export function AllSpots(Spots){
 
     }
 }
-
+export function getOneSpot(spot){
+    return {type:SINGLE,
+        spot}}
 //to add a spot i have to hit the /api/spots end point with a post request the body of which needs to be a pojo containing a valid spot
 export const populateAllSpots=()=>async (dispatch)=>{
     console.log('inside popallspots')
@@ -37,6 +40,16 @@ export const populateAllSpots=()=>async (dispatch)=>{
 
 
 }
+
+export const fetchOneSpot=(spotId)=>async(dispatch)=>{
+    let response = await csrfFetch(`/api/spots/${spotId}`)
+    if (response.ok){
+    let data = await response.json()
+    console.log('the data of single',data)
+        dispatch(getOneSpot(data))
+        return data
+    }
+}
 export const createSpot= (Spot)=>async (dispatch)=>{
   let  {
         address,
@@ -46,12 +59,14 @@ export const createSpot= (Spot)=>async (dispatch)=>{
         lat,
         lng,
         name,
-        price
+        price,
+        description
+
       } = Spot
 
-      const response = await csrfFetch('/api/spots', {
+      let  response = await csrfFetch('/api/spots', {
         method: 'POST',
-        body: JSON.stringify({
+        body:JSON.stringify( {
             address,
             city,
             state,
@@ -59,17 +74,20 @@ export const createSpot= (Spot)=>async (dispatch)=>{
             lat,
             lng,
             name,
-            price
-        }),
-      });
-
-      const Data = await response.json()
-
-
-
-
-    return dispatch(addSpot(Data))
-}
+            price,
+            description
+        })})
+        if(response.ok){
+            const Data = await response.json()
+            dispatch(addSpot(Data))
+            return Data
+        }
+        
+        
+        
+        
+    };
+    
 
 
 export default function SpotsReducer(state=initialState,action){
@@ -79,6 +97,12 @@ export default function SpotsReducer(state=initialState,action){
          
 
         case 'create-spot':
+            newState = {...state}
+            let Spot = action.spot
+            let Spots = {...state.spots.AllSpots,Spot}
+            newState.Spots.AllSpots = Spots
+            return newState
+
         case 'update-spot':
         case 'read-all-spots':
             let allSpots = {}
@@ -89,6 +113,13 @@ export default function SpotsReducer(state=initialState,action){
             newState.Spots.AllSpots = allSpots
         return newState
         case 'remove-spot':
+
+        case 'single-spot':
+            newState = {...state}
+            let spot = action.spots.SingleSpot
+            newState.Spots.SingleSpot = spot
+            return newState
+
         default:
             return state
     }

@@ -8,13 +8,13 @@ export default function SpotsList(){
     const spotsList = useSelector((state)=>Object.values(state.spots.Spots.AllSpots))
     console.log('spotsList',spotsList)
     useEffect(()=>{
-        console.log('useEffect lies here')
         dispatch(populateAllSpots())
-    },[dispatch])
+    },[])
     return (
-        <div>
+        <div style={{border:"5px black solid",backgroundColor:"red",
+        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"center"}}>
                 {spotsList.map((spot)=>
-                <SpotListItem spot={spot}/>
+                <SpotListItem key={spot.id} spot={spot}/>
                 )}
         </div>
     )
