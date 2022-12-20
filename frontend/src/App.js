@@ -7,30 +7,33 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsList from "./components/SpotsList";
 import SingleSpot from "./components/SingleSpot";
-
-
+import {useSelector} from 'react-redux'
+import { useLocation } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
+    
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
-  
   return (
-    <>
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:'90%'}}>
+
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path = "/Spots">
+          <Route exact path = {"/spots"|'/'}>
             <SpotsList />
           </Route>
-          <Route path="Spots/:spotId">
+          <Route path="/spots/:spotId">
             <SingleSpot />
           </Route>
         </Switch>
-      )}
-    </>
+          )}
+    </div>
+    
   );
 }
 
 export default App;
+

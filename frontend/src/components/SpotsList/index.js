@@ -5,11 +5,11 @@ import SpotListItem from '../SpotsListItem'
 export default function SpotsList(){
    let dispatch=useDispatch()
 
-    const spotsList = useSelector((state)=>Object.values(state.spots.Spots.AllSpots))
+   useEffect( ()=>{
+       dispatch(populateAllSpots())
+    },[dispatch])
+    const spotsList = useSelector((state)=>Object.values(state.spots.AllSpots))
     console.log('spotsList',spotsList)
-    useEffect(()=>{
-        dispatch(populateAllSpots())
-    },[])
     return (
         <div style={{border:"5px black solid",backgroundColor:"red",
         display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"center"}}>

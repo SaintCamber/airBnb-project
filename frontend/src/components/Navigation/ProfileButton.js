@@ -5,6 +5,8 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import CreateSpotModal from "../CreateSpotModal";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faBars,faUserCircle} from '@fortawesome/free-solid-svg-icons'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -41,13 +43,14 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+    <div>
+      <button onClick={openMenu} className='barsUsersButton'>
+      <FontAwesomeIcon icon={faBars}/>
+      <FontAwesomeIcon icon={faUserCircle}/>
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
+          <menu>
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
@@ -59,9 +62,9 @@ function ProfileButton({ user }) {
             <li>
               <button onClick={logout}>Log Out</button>
             </li>
-          </>
+          </menu>
         ) : (
-          <>
+          <menu>
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
@@ -73,10 +76,10 @@ function ProfileButton({ user }) {
               modalComponent={<SignupFormModal />}
             />
             
-          </>
+          </menu>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

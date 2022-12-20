@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import CreateSpotModal from '../CreateSpotModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import{faBars,faUserCircle,faGlobe,} from '@fortawesome/free-solid-svg-icons'
+import{faAirbnb} from '@fortawesome/free-brands-svg-icons'
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
@@ -12,20 +15,18 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const closeMenu = () => setShowMenu(false);
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-      </li>
-      {isLoaded && (
-        <li>
-          <ProfileButton user={sessionUser} />
-        </li>
-      )}
-      <li>
-        <NavLink to='/Spots'>Spots</NavLink>
-      </li>
-      
-    </ul>
+    <div className='navbar'>
+    <div>
+     <ProfileButton ><FontAwesomeIcon icon={faBars}/>
+     <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
+
+    </div>
+
+     <NavLink to="/locations" id='globe'><FontAwesomeIcon icon={faGlobe}/></NavLink>
+     <NavLink to='/rentals' id='rentHome'>Airbnb your home</NavLink>
+    <div className='bookingDatePickerDiv'>selector</div>
+    <NavLink to='/home' id='homeLogo'><FontAwesomeIcon icon={faAirbnb} /> Airbnb</NavLink>
+    </div>
   );
 }
 

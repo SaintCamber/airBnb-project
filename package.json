@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/SaintCamber/airBnb-project/issues"
   },
-  "homepage": "https://github.com/SaintCamber/airBnb-project#readme"
+  "homepage": "https://github.com/SaintCamber/airBnb-project#readme",
+  "devDependencies": {
+    "reactcci": "^1.11.1"
+  }
 }

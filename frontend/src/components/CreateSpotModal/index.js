@@ -22,12 +22,12 @@ const history = useHistory()
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
       setErrors([]);
       let spot = {name,address,city,state,country,price,description,lat,lng}
-      return dispatch(createSpot(spot))
-      .then(history.push('/Spots'),closeModal()  )
+       dispatch(createSpot(spot))
+      .then(async res=>await res.json()).then(data=>history.push(`/spots/${data.id}`))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
@@ -61,7 +61,7 @@ const history = useHistory()
           />
         </label>
         <label>
-          Country
+          State
           <input
             type="text"
             value={state}

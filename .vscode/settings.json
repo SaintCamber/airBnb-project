@@ -24,5 +24,6 @@
         "titleBar.inactiveBackground": "#b307ed99",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.remoteColor": "#b307ed"
+    "peacock.remoteColor": "#b307ed",
+    "AllAutocomplete.showCurrentDocument": false
 }
