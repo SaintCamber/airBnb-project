@@ -11,7 +11,7 @@ import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
-    
+  
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -22,11 +22,11 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path = {"/spots"|'/'}>
+          <Route exact path = {'/'}>
             <SpotsList />
           </Route>
           <Route path="/spots/:spotId">
-            <SingleSpot />
+            <SingleSpot  />
           </Route>
         </Switch>
           )}

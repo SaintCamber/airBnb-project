@@ -8,6 +8,7 @@ import CreateSpotModal from '../CreateSpotModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import{faBars,faUserCircle,faGlobe,} from '@fortawesome/free-solid-svg-icons'
 import{faAirbnb} from '@fortawesome/free-brands-svg-icons'
+import DateSelector from '../dateSelector';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
@@ -21,11 +22,13 @@ function Navigation({ isLoaded }){
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
 
     </div>
-
+    <div>
      <NavLink to="/locations" id='globe'><FontAwesomeIcon icon={faGlobe}/></NavLink>
      <NavLink to='/rentals' id='rentHome'>Airbnb your home</NavLink>
-    <div className='bookingDatePickerDiv'>selector</div>
-    <NavLink to='/home' id='homeLogo'><FontAwesomeIcon icon={faAirbnb} /> Airbnb</NavLink>
+
+    </div>
+     <DateSelector></DateSelector>
+    <NavLink to='/' id='homeLogo'><FontAwesomeIcon icon={faAirbnb} /> Airbnb</NavLink>
     </div>
   );
 }

@@ -56,12 +56,13 @@
   #rentHome {
     text-decoration: none;
     color:black;
-    color:black;
     white-space: nowrap;
     position: relative;
   }
 
   #globe{
+    color:black;
+    margin-left: 30px;
   }
 
   .bookingDatePickerDiv {
@@ -82,4 +83,9 @@
   width: 100%;
   z-index: 1;
   flex-direction: row-reverse;
-  height: 100px;}
+  }
+
+
+
+
+  

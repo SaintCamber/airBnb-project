@@ -1,0 +1,18 @@
+.dateButton{
+    background-color:white;
+    border :2px solid darkgray
+}
+
+.dateButton:first-of-type{
+    border-top-left-radius:30px ;
+    border-bottom-left-radius:30px ;
+}
+
+.dateButton:last-of-type{
+    border-top-right-radius:30px ;
+    border-bottom-right-radius:30px ;
+}
+
+.hidden{
+    display: none;
+  }

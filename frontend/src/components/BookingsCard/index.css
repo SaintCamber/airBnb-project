@@ -1,0 +1,13 @@
+.hidden{display:none}
+
+.bookingButton {
+   border-bottom-left-radius:15px;
+   border-bottom-right-radius:15px;
+   border-top-left-radius:15px;
+   border-top-right-radius:15px;
+   border:none;
+}
+
+.bookingButton:focus{
+    border: 1px solid darkgray 0.5;
+}
