@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import { createBookingThunk } from "../../store/bookings";
 import "./index.css"
 import Calendar from "react-calendar";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {faStar} from "@fortawesome/free-regular-svg-icons"
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
@@ -77,21 +79,27 @@ const checkAvailability = (e)=>{
         }
         
         return (
+         
             <>
-      <div>
+      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column"}}>
+      <div style={{width:250}}>
+        {spot.price}$ per night     <FontAwesomeIcon icon={faStar}/> {spot.avgStarRating} {spot.numReviews} Reviews
+      </div>
       <div>
       <div style={{borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>
-     <div>
+     <div style={{display:'flex',justifyContent:"flex-end",width:250}}>
 
-      <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}}>
-            Check-in {startDate === new Date() ? <p>Pick a start date</p> : <p>{startDate.toDateString()}</p>}</button>
+      <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}} style={{width:125,height:50}}>
+            Check-in {startDate === new Date() ? <p>Pick a start date</p> : <p style={{marginTop:1}}>{startDate.toDateString()}</p>}</button>
             
             
-            <button className='bookingButton' ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}}>
-            Checkout {endDate === new Date() ? <p>Pick a end date</p> : <p>{endDate.toDateString()}</p>}</button>
+            <button className='bookingButton' ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}} style={{width:125,height:50}} >
+            Checkout {endDate === new Date() ? <p>Pick a end date</p> : <p style={{marginTop:1}}>{endDate.toDateString()}</p>}</button>
+            
      </div>
-            
-            <select  style={{display:'block',width:"100%",height:'50%',borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}}></select>
+     <div>
+            <select  style={{display:'block',width:250,height:50,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}}></select>
+     </div>
       </div>
       <form onSubmit={(e)=>checkAvailability(e)}>
       <div className={divClass1} ref={calendarRef}>
@@ -104,10 +112,12 @@ const checkAvailability = (e)=>{
             value={selectDate === 'start' ? startDate : endDate}>
             </Calendar>
       </div>
-            <input style={{width:"100%",}} type="submit" value={'Reserve'}/>
+            <input style={{width:"100%", marginTop:20}} type="submit" value={'Reserve'}/>
 
       </form>
-     
+     <div>
+            {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} Nights = {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}$
+     </div>
       </div>
       </div>
     </>
