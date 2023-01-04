@@ -22,7 +22,7 @@ const BookingsCard = ({ spot }) => {
   let dispatch = useDispatch();
 
   const bookings = useSelector((state) => state.bookings.CurBookings.Bookings);
-  console.log("bookings", bookings);
+  console.log("bookings currently set to ", bookings);
 
   useEffect(() => {
     dispatch(CheckBookingsThunk(spot.id));
@@ -32,8 +32,8 @@ const BookingsCard = ({ spot }) => {
   useEffect(() => {
     const handleWindowClick = (event) => {
         
-        console.log(event.target)
-        console.log('matches?: ',event.target.matches('react-calendar'))
+        // console.log(event.target)
+        // console.log('matches?: ',event.target.matches('react-calendar'))
       // Check if the clicked element is not the calendar or either of the button elements
       if (!calendarRef.current.contains(event.target) && !startButtonRef.current.contains(event.target) && !endButtonRef.current.contains(event.target)) {
         setShowCalendar(false);
@@ -50,8 +50,9 @@ let divClass1 = showCalendar ? 'show':'hidden'
 
 const checkAvailability = (e)=>{
 
-    
     e.preventDefault()
+    console.log("checking availability")
+    console.log('bookings bookings bookings ',bookings)
     let unavailable = []
     bookings.forEach(booking=>{
         let start = new Date(booking.startDate)
@@ -83,7 +84,7 @@ const checkAvailability = (e)=>{
             <>
       <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column"}}>
       <div style={{width:250}}>
-        {spot.price}$ per night     <FontAwesomeIcon icon={faStar}/> {spot.avgStarRating} {spot.numReviews} Reviews
+        {spot.price}$ per night     {spot.avgStarRating}<FontAwesomeIcon icon={faStar}/>  . {spot.numReviews} Reviews
       </div>
       <div>
       <div style={{borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>

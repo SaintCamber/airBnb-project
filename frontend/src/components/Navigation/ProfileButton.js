@@ -7,7 +7,7 @@ import SignupFormModal from '../SignupFormModal';
 import CreateSpotModal from "../CreateSpotModal";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBars,faUserCircle} from '@fortawesome/free-solid-svg-icons'
-
+import DeleteSpotModal from "../DeleteSpotModal";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -59,8 +59,15 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<CreateSpotModal />}
             />
+            <OpenModalMenuItem
+              itemText="Delete"
+              onItemClick={closeMenu}
+              modalComponent={<DeleteSpotModal />}
+            />
+
+            
             <li>
-              <button onClick={logout}>Log Out</button>
+              <button onClick={logout} style={{backgroundColor:"white"}}>Log Out</button>
             </li>
           </menu>
         ) : (
@@ -75,6 +82,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
+            
             
           </menu>
         )}

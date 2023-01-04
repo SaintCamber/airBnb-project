@@ -18,7 +18,7 @@ function Navigation({ isLoaded }){
   return (
     <div className='navbar'>
     <div>
-     <ProfileButton ><FontAwesomeIcon icon={faBars}/>
+     <ProfileButton user={sessionUser} ><FontAwesomeIcon icon={faBars}/>
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
 
     </div>

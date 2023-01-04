@@ -17,7 +17,7 @@ function OpenModalMenuItem({
   };
 
   return (
-    <li onClick={onClick}>{itemText}</li>
+    <li onClick={onClick} onMouseEnter={(e)=>[e.target.style.cursor="pointer",e.target.style.color='blue']} onMouseLeave={(e)=>{e.target.style.color="black"}}>{itemText}</li>
   );
 }
 

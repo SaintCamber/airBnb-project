@@ -7,6 +7,7 @@ const DELETE_SPOT = "remove-spot";
 const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
 
+
 const initialState = { AllSpots: {}, SingleSpot: {} };
 export function addSpot(spot) {
   return {
@@ -23,9 +24,12 @@ export function AllSpots(Spots) {
 //getOneSpot action creator
 //
 export function getOneSpot(spot) {
-    console.log("inside getOneSpot action creator")
-    console.log("spot",spot)
+  console.log("inside getOneSpot action creator")
+  console.log("spot",spot)
   return { type: SINGLE, payload: spot };
+}
+const deleteSpot =()=>{
+  return {type: DELETE_SPOT}
 }
 //the getOneSpot action creator is called in the thunkOneSpot thunk action creator
 //the thunkOneSpot thunk action creator is called in the SingleSpot component
@@ -96,6 +100,15 @@ export const createSpot = (Spot) => async (dispatch) => {
     return Data;
   }
 };
+export const deleteSpotThunk=(spotId)=>async(dispatch)=>{
+  let response = await csrfFetch(`/api/spots/${spotId}`,{
+    method:"DELETE"
+  })
+  if(response.ok){
+    dispatch(deleteSpot)
+    return null
+  }
+}
 
 export default function  SpotsReducer(state = initialState, action) {
   let newState;
@@ -124,6 +137,10 @@ export default function  SpotsReducer(state = initialState, action) {
       newState = { ...state };
       newState["SingleSpot"] = { ...singleSpot };
       return newState;
+    
+    case "remove-spot":
+      newState = {...state}
+      return newState
     default:
       return state;
   }

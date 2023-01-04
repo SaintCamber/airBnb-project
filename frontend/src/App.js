@@ -9,6 +9,8 @@ import SpotsList from "./components/SpotsList";
 import SingleSpot from "./components/SingleSpot";
 import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
+import BookingsList from "./components/BookingsList";
+
 function App() {
   const dispatch = useDispatch();
   
@@ -27,6 +29,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId">
             <SingleSpot  />
+          </Route>
+          <Route path={'/currentBookings'}>
+            <BookingsList />
           </Route>
         </Switch>
           )}
