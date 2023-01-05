@@ -21,7 +21,7 @@ const BookingsCard = ({ spot }) => {
   const calendarRef = useRef(null)
   let dispatch = useDispatch();
 
-  const bookings = useSelector((state) => state.bookings.CurBookings.Bookings);
+  const bookings = useSelector((state) => Object.values(state.bookings.CurBookings));
   console.log("bookings currently set to ", bookings);
 
   useEffect(() => {

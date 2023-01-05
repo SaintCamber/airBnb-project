@@ -276,7 +276,7 @@ router.get('/:spotId/bookings',requireAuth,async(req,res,next)=>{
   let owner = await spot.getOwner()
   let check = owner.id === req.user.id
   if(!check){
-    let bookings = await Booking.findAll({where:{spotId:req.params.spotId},attributes:{exclude:['id',"userId","createdAt","updatedAt"]}})
+    let bookings = await Booking.findAll({where:{spotId:req.params.spotId},attributes:{exclude:["userId","createdAt","updatedAt"]}})
     return res.json({Bookings:bookings})
 
   } 

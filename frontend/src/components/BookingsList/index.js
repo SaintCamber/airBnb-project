@@ -12,11 +12,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const BookingsList = (userId) => {
   let dispatch = useDispatch();
   let [bookings, setBookings] = useState({});
+  let history = useHistory()
   console.log("inside current bookings");
   const deleteBooking = async (e) => {
     e.preventDefault();
 
-    await dispatch(deleteBookingThunk(e.target.id));
+    await dispatch(deleteBookingThunk(e.target.id))
+        
+    
   };
   let things = useSelector((state) =>
     Object.values(state.bookings.userBookings)
@@ -81,17 +84,18 @@ const BookingsList = (userId) => {
       </div>
       <ul>
         {things.map((booking) =>
-          new Date(booking.endDate) > new Date()? (
+         
             <li key={`booking#${booking.id}`}>
               {booking.spot.address}
               {booking.startDate.split("T")[0]}:{booking.endDate.split("T")[0]}{" "}
-              <button id={`${booking.id}`} onClick={deleteBooking}>
+              {
+                new Date(booking.startDate)>new Date() ? <button id={`${booking.id}`} onClick={deleteBooking}>
+              
                 delete
-              </button>
+              </button>:""
+              }
             </li>
-          ) : (
-            ""
-          )
+         
         )}
       </ul>
     </div>

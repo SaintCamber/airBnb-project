@@ -39,7 +39,8 @@ export const createBookingThunk = (Book) => async (dispatch) => {
   });
   if (response.ok) {
     let data = await response.json();
-    await dispatch(createBooking(data));
+    console.log("the data inside create booking",data)
+    dispatch(createBooking(data));
     return data;
   }
   console.log("response booking thunk not ok");
@@ -68,10 +69,17 @@ export const currentUserBookings = () => async (dispatch) => {
 const bookingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case check:
-        console.log('check the action inside getting current bookings',action)
-        let CurBookings = {...action.curBookings.Bookings}
-        console.log("CurBookings is currently",CurBookings)
-      return { ...state,"CurBookings":CurBookings};
+      console.log('inside case check')
+      let currentBookings = {}
+      console.log("the check action is ",action)
+      console.log("thefirst booking is:",action.curBookings.Bookings[0])
+      action.curBookings.Bookings.forEach(booking=>currentBookings[booking.id]={...booking})
+      let UpdateState = {...state}
+      delete UpdateState.CurBookings
+      console.log("the current bookings should be ",currentBookings)
+      UpdateState.CurBookings={...currentBookings}
+      console.log("the updated state is ",UpdateState)
+      return UpdateState
     case create:
       let newState = { ...state };
       let current = { ...state.CurBookings };
@@ -84,17 +92,17 @@ const bookingsReducer = (state = initialState, action) => {
     case deleteBooking:
       let bookingState = { ...state };
       console.log("testing testing testing", bookingState.userBookings);
-      let removeBooking = bookingState.userBookings.find(booking=>booking.id===action.bookingId)
-      console.log('remove',removeBooking)
-     delete bookingState.userBookings[removeBooking.id]
+      console.log(action)
+      delete bookingState.userBookings[action.bookingId]
       return bookingState;
     case currentBookingsList:
       console.log("inside bookings reducer");
-      let bookings = { ...action.data.Bookings };
+      let bookings = Object.values(action.data.Bookings)
       console.log("bookings action", action);
       console.log("bookings", bookings);
-
-      return { ...state, userBookings: { ...bookings } };
+      let newBookingState={}
+        bookings.forEach(booking=>newBookingState[booking.id]=booking)
+      return { ...state,userBookings:{...newBookingState} };
     default:
       return state;
   }
