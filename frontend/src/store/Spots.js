@@ -8,11 +8,11 @@ const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
 
 
-const initialState = { AllSpots: {}, SingleSpot: {} };
 export function Update(spot){
   return {type:UPDATE_SPOT,spot}
 }
-export function addSpot(spot) {
+export function addSpot(spot, images) {
+  spot.SpotImages = images;
   return {
     type: CREATE_SPOT,
     spot,
@@ -79,10 +79,9 @@ export const thunkOneSpot = (spotId) => async (dispatch) => {
   }
 };
 
-export const createSpot = (Spot) => async (dispatch) => {
-  let { address, city, state, country, lat, lng, name, price, description } =
-    Spot;
 
+export const createSpot = (Spot, images) => async (dispatch) => {
+  let { address, city, state, country, lat, lng, name, price, description } = Spot;
   let response = await csrfFetch("/api/spots", {
     method: "POST",
     body: JSON.stringify({
@@ -97,12 +96,35 @@ export const createSpot = (Spot) => async (dispatch) => {
       description,
     }),
   });
+
   if (response.ok) {
-    const Data = await response.json();
-    dispatch(addSpot(Data));
-    return Data;
+    let Data = await response.json();
+
+    // Add images to spot
+    const promises = [];
+    for (let i = 0; i < images.length; i++) {
+      const url = images[i];
+      const preview = i === 0;  // set the first image as the preview
+      const body = JSON.stringify({url, preview});
+      console.log("promise body ", body)
+      const promise = csrfFetch(`/api/spots/${Data.id}/images`, {method: "POST", body});
+      promises.push(promise);
+    }
+    // Wait for all image post requests to complete
+    const responses = await Promise.all(promises);
+    // Check the status of each response
+    const successResponses = responses.filter((response) => response.ok);
+    // If all responses are successful, dispatch the addSpot action
+    if (successResponses.length === images.length) {
+     let List = await Promise.all(successResponses.map((response) => response.json()));
+      dispatch(addSpot(Data,List));
+    }
   }
 };
+
+
+
+
 export const deleteSpotThunk=(spotId)=>async(dispatch)=>{
   let response = await csrfFetch(`/api/spots/${spotId}`,{
     method:"DELETE"
@@ -132,19 +154,17 @@ export const UpdateSpot=(spot)=>async(dispatch)=>{
 
 }
 
+  const initialState = { AllSpots: {}, SingleSpot: {} };
 
 export default function  SpotsReducer(state = initialState, action) {
   let newState;
   console.log("inside reducer");
   console.log("action", action);
   switch (action.type) {
-    case "create-spot":
+    case CREATE_SPOT:
       newState = { ...state };
       let Spot =  action.spot;
-      let Spots = { ...state.spots.AllSpots, Spot };
-      delete newState.AllSpots
-      newState.AllSpots = {};
-      newState["AllSpots"] = { ...Spots };
+      newState["AllSpots"] = { ...state.AllSpots,[Spot.id]: Spot }
 
       return newState;
     case UPDATE_SPOT:
@@ -156,7 +176,7 @@ export default function  SpotsReducer(state = initialState, action) {
       newStateOfAllSpots.AllSpots = {...SpotsList}
       newStateOfAllSpots.SingleSpot = action.spot
       return newStateOfAllSpots
-    case "read-all-spots":
+    case READ_All_SPOTS :
       let allSpots = {};
       console.log("action.spots", action.Spots);
       action.Spots.forEach((spot) => (allSpots[spot.id] = { ...spot }));
@@ -164,17 +184,15 @@ export default function  SpotsReducer(state = initialState, action) {
       newState.AllSpots = { ...allSpots };
       return newState;
 
-    case "single-spot":
-      let singleSpot = {};
-      singleSpot = { ...action.payload };
+    case SINGLE:
       newState = { ...state };
-      delete newState.SingleSpot
-      newState["SingleSpot"] = {...singleSpot} ;
+      newState["SingleSpot"] = { ...action.payload } ;
       return newState;
     
-    case "remove-spot":
+    case DELETE_SPOT:
       newState = {...state}
      delete newState.AllSpots[action.spotId]
+     newState.SingleSpot = {}
       return newState
       
     default:

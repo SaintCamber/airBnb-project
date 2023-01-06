@@ -17,24 +17,35 @@ function CreateSpotModal() {
   const [price,setPrice]= useState('')
   const [lat,setLat] = useState('')
   const [lng,setLng] = useState('')
+  const [imageList,setImageList] = useState(['','','','',''])
 const history = useHistory()
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
  
   const handleSubmit = async (e) => {
+    console.log('IMAGES IMAGES IMAGES IMAGES',imageList)
     e.preventDefault();
       setErrors([]);
       let spot = {name,address,city,state,country,price,description,lat,lng}
-       dispatch(createSpot(spot))
+      
+       dispatch(createSpot(spot,imageList))
       .then(async res=>await res.json())
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
+      if(!errors.length){
+        closeModal()
+
+      }
 
   }
-  
+  const handleImageUrlChange = (event, index) => {
+    const imageUrls = [...imageList];
+    imageUrls[index] = event.target.value;
+    setImageList(imageUrls);
+  };
 
   return (
     <>
@@ -124,6 +135,12 @@ const history = useHistory()
             required
           />
         </label>
+        {imageList.map((imageUrl, index) => (
+  <label key={index}>
+    Image URL {index + 1}
+    <input type="text" value={imageUrl} onChange={(event) => handleImageUrlChange(event, index)} required />
+  </label>
+))}
         <button type="submit">Create Spot</button>
       </form>
     </>

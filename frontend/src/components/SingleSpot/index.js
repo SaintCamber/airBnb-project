@@ -28,6 +28,10 @@ export default function SingleSpot() {
   }, [dispatch, spotId]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
+  const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
+    url: "https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg",
+  };
+  console.log(allImages)
   const images = Spot?.SpotImages?.length
     ? Spot.SpotImages.find((img) => img.preview)
     : {
@@ -171,7 +175,11 @@ export default function SingleSpot() {
                     marginBottom: 5,
                     marginRight: 5,
                   }}>
-                  pic1
+
+                  {allImages[1]? <img src={allImages[1].url} style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
                 </div>
                 <div
                   style={{
@@ -180,7 +188,11 @@ export default function SingleSpot() {
                     marginBottom: 5,
                     marginLeft: 5,
                   }}>
-                  pic2
+                  
+                  {allImages[2]? <img src={allImages[2].url} style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
                 </div>
               </div>
               <div
@@ -197,7 +209,11 @@ export default function SingleSpot() {
                     marginTop: 5,
                     marginRight: 5,
                   }}>
-                  pic3
+                  
+                  {allImages[3]? <img src={allImages[3].url} style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
                 </div>
                 <div
                   style={{
@@ -206,7 +222,11 @@ export default function SingleSpot() {
                     marginTop: 5,
                     marginLeft: 5,
                   }}>
-                  pic4
+                  
+                  {allImages[4]? <img src={allImages[4].url} style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
                 </div>
               </div>
             </div>
