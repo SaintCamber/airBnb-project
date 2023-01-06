@@ -36,7 +36,7 @@ export default function SpotsList(){
 </div>
         </div>
         <div style={{border:"none",backgroundColor:"white",
-        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"center",width:'90%'}}>
+        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%'}}>
                 {spotsList.map((spot)=>
                 <SpotListItem key={spot.id} spot={spot}/>
                 )}

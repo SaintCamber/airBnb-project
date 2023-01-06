@@ -21,7 +21,7 @@ function App() {
   }, [dispatch]);
   return (
     
-    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",maxWidth:1024}}>
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",maxWidth:1024,justifyContent:'space-around'}}>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
