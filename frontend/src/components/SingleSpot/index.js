@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
+import "./SingleSpot.css";
 export default function SingleSpot() {
   console.log("inside single spot");
   let params = useParams();
@@ -236,14 +237,25 @@ export default function SingleSpot() {
                   {((Number(Spot.id) * 5) % 6) + 1} bath
                 </li>
                 <li style={{ marginLeft: 25 }}>
-                  {((Number(Spot.id) * 3) % 6) + 1} beds
+                  {((Number(Spot.id) * 7) % 6) + 1} beds
                 </li>
               </ul>
             </div>
           </div>
         </div>
-
-        <BookingsCard spot={Spot}></BookingsCard>
+        <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+          <div className="scrollables">
+            <div>content for scrolling</div>
+            <div>more content goes here</div>
+            <div>even more content</div>
+            <div>some more content</div>
+            <div>content baby</div>
+          </div>
+          <div style={{ width: "50%" }}>
+            <BookingsCard spot={Spot}></BookingsCard>
+          </div>
+        </div>
+          <div className="subScroll">under scrollables</div>
       </>
     )
   );

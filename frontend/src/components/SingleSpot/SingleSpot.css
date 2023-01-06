@@ -1,0 +1,23 @@
+.scrollables{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+}
+
+.scrollables div{
+    border-bottom:1px solid lightgrey;
+    border-top:1px solid light lightgrey;
+    height:250px;
+    width:100%;
+}
+
+.subScroll{
+    display:block;
+    height:500px;
+    border-top:1px solid lightgray;
+    border-bottom:1px solid lightgray;
+    width:100%;
+    
+}

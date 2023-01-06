@@ -20,8 +20,8 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
   return (
-    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"90%",maxWidth:1024}}>
-
+    
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",maxWidth:1024}}>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>

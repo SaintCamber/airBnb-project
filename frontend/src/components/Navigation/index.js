@@ -30,6 +30,7 @@ function Navigation({ isLoaded }){
      <DateSelector></DateSelector>
     <NavLink to='/' id='homeLogo'><FontAwesomeIcon icon={faAirbnb} /> Airbnb</NavLink>
     </div>
+
   );
 }
 
