@@ -26,6 +26,7 @@
   
   .profile-dropdown {
     color: black;
+    z-index: 99999;
   }
 
   .profile-dropdown menu {
@@ -98,6 +99,7 @@
   border-top: 1px solid lightgray;
   background-color:white;
   border: bottom length 100px;;
+  z-index:99999;
   }
 
 

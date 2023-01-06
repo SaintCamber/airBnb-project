@@ -35,8 +35,13 @@ const BookingsList = (userId) => {
         {things.map((booking) =>
          
             <li key={`booking#${booking.id}`}>
+              <span style={{marignRight:"20px"}}>
               {booking.spot.address}
-              {booking.startDate.split("T")[0]}:{booking.endDate.split("T")[0]}{" "}
+              </span>
+              <span>
+              {booking.startDate.split("T")[0]}:{booking.endDate.split("T")[0]}
+
+              </span>
               {
                 new Date(booking.startDate)>new Date() ? <button id={`${booking.id}`} onClick={deleteBooking}>
               
