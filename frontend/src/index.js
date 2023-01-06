@@ -22,8 +22,8 @@ function Root() {
     <ModalProvider>
     <ReduxProvider store={store}>
       <BrowserRouter>
-        <App />
         <Modal />
+        <App />
       </BrowserRouter>
     </ReduxProvider>
     </ModalProvider>

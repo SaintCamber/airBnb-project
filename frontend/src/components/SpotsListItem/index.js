@@ -10,7 +10,7 @@ export default function SpotListItem({spot}){
     
     return(
            
-        <div style={{display:"flex",flexDirection:"column",backgroundColor:"white",margin:"5px",boxSizing:"borderBox",width:200,height:270,border: 'none',borderRadius:20,alignItems:"flex-start"}}>
+        <div style={{display:"flex",flexDirection:"column",backgroundColor:"white",margin:"15px",boxSizing:"borderBox",width:200,height:270,border: 'none',borderRadius:20,alignItems:"flex-start"}}>
             {spot.previewImage? <img src={spot.previewImage} alt="spot preview" style={{maxBlockSize:'60%',borderRadius:30,maxWidth:"100%",height:"100%"}}></img>:<img src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' style={{maxBlockSize:'65%',borderRadius:30,maxWidth:"100%",height:"100%"}} ></img>}
             <div>
                 <NavLink to={`/Spots/${spot.id}`}><h5>{spot.name}</h5></NavLink>

@@ -125,7 +125,6 @@ export default function SingleSpot() {
                   width: "50%",
                   height: 240,
                   margin: 6,
-                  border: "2px solid black",
                 }}>
                 <img
                   src={images?.url}
@@ -142,7 +141,6 @@ export default function SingleSpot() {
                   width: "50%",
                   height: "100",
                   margin: 5,
-                  border: "2px solid black",
                 }}>
                 <img
                   src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg"
@@ -171,7 +169,6 @@ export default function SingleSpot() {
                 <div
                   style={{
                     width: "50%",
-                    border: "2px solid black",
                     marginBottom: 5,
                     marginRight: 5,
                   }}>
@@ -179,12 +176,14 @@ export default function SingleSpot() {
                   {allImages[1]? <img src={allImages[1].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} ></img>}
                 </div>
                 <div
                   style={{
                     width: "50%",
-                    border: "2px solid black",
                     marginBottom: 5,
                     marginLeft: 5,
                   }}>
@@ -192,7 +191,10 @@ export default function SingleSpot() {
                   {allImages[2]? <img src={allImages[2].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} ></img>}
                 </div>
               </div>
               <div
@@ -205,7 +207,6 @@ export default function SingleSpot() {
                 <div
                   style={{
                     width: "50%",
-                    border: "2px solid black",
                     marginTop: 5,
                     marginRight: 5,
                   }}>
@@ -213,12 +214,14 @@ export default function SingleSpot() {
                   {allImages[3]? <img src={allImages[3].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} ></img>}
                 </div>
                 <div
                   style={{
                     width: "50%",
-                    border: "2px solid black",
                     marginTop: 5,
                     marginLeft: 5,
                   }}>
@@ -226,7 +229,10 @@ export default function SingleSpot() {
                   {allImages[4]? <img src={allImages[4].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1"></img>}
+                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    objectFit: "cover",
+                    height: "100%",
+                    width: "100%"}} ></img>}
                 </div>
               </div>
             </div>

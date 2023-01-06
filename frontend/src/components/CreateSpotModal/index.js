@@ -48,9 +48,9 @@ const history = useHistory()
   };
 
   return (
-    <>
+    <div className='container' style={{width:400,height:700,overflowY:'scroll',display:"flex",flexDirection:'column',justifyContent:"center"}}>
       <h1>Create New Spot</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="modal-form">
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -70,6 +70,7 @@ const history = useHistory()
             value={city}
             onChange={(e) => setCity(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -79,6 +80,7 @@ const history = useHistory()
             value={state}
             onChange={(e) => setState(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -88,6 +90,7 @@ const history = useHistory()
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -97,6 +100,7 @@ const history = useHistory()
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -106,6 +110,7 @@ const history = useHistory()
             value={lat}
             onChange={(e) => setLat(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -115,6 +120,7 @@ const history = useHistory()
             value={lng}
             onChange={(e) => setLng(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -124,6 +130,7 @@ const history = useHistory()
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -133,6 +140,7 @@ const history = useHistory()
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+
           />
         </label>
         {imageList.map((imageUrl, index) => (
@@ -143,7 +151,7 @@ const history = useHistory()
 ))}
         <button type="submit">Create Spot</button>
       </form>
-    </>
+    </div>
   );
 }
 
