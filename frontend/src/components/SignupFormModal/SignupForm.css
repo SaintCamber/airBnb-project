@@ -1,31 +1,26 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  text-align: center;
+}
+
 .signUpForm {
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #222;
-    box-sizing: border-box;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .signUpForm input {
-    width: 100%;
-    margin-bottom: 12px;
-    padding: 12px;
-    border: 1px solid #ccc;
-  }
-  
-  .signUpForm button {
-    width: 100%;
-    padding: 12px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .signUpForm .required {
-    color: red;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width:90%;
+
+}
+
+.signUpForm input{
+  width: 80%;
+  line-height: 1.5em;
+  align-self: center;
+}
+
+.signUpForm button{
+  width:80%;
+  margin-top: 10px;
+}

@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import { createSpot } from "../../store/Spots";
 import { useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import {UpdateSpot} from "../../store/Spots"
+import './index.css'
 
-
-function CreateSpotModal() {
+function UpdateSpotModal() {
   const dispatch = useDispatch();
   const [name,setName]= useState('')
   const [address,setAddress]= useState('')
   const [city,setCity]= useState('')
   const [country,setCountry]= useState('')
   const [state,setState]= useState('')
-
+  const Spot = useSelector(state=>state.spots.SingleSpot)
+  const SpotList = useSelector(state=>state.spots.AllSpots)
   const [price,setPrice]= useState('')
   const [lat,setLat] = useState('')
   const [lng,setLng] = useState('')
@@ -21,26 +24,34 @@ const history = useHistory()
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
       setErrors([]);
-      let spot = {name,address,city,state,country,price,description,lat,lng}
-       dispatch(createSpot(spot))
+        let newSpot = {...Spot}
+        newSpot["name"]=name
+        newSpot["address"]=address
+        newSpot["city"]=city
+        newSpot["state"]=state
+        newSpot["country"]=country
+        newSpot['lat']=lat
+        newSpot['lng']=lng
+        newSpot['description']=description
+        newSpot['price']=price
+        console.log('the updated spot is now ',newSpot)
+      dispatch(UpdateSpot(newSpot))
       .then(async res=>await res.json())
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
       closeModal()
-
+      
   }
-  
 
   return (
-    <>
-      <h1>Create New Spot</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <h1>Update Spot</h1>
+      <form className="modal-form" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
@@ -125,10 +136,10 @@ const history = useHistory()
             required
           />
         </label>
-        <button type="submit">Create Spot</button>
+        <button type="submit">Update Spot</button>
       </form>
-    </>
+    </div>
   );
 }
 
-export default CreateSpotModal;
+export default UpdateSpotModal;

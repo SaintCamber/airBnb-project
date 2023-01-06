@@ -10,6 +10,7 @@ import SingleSpot from "./components/SingleSpot";
 import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,9 @@ function App() {
           </Route>
           <Route path={'/currentBookings'}>
             <BookingsList />
+          </Route>
+          <Route path='*'>
+            <PageNotFound />
           </Route>
         </Switch>
           )}

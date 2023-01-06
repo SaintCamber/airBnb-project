@@ -8,10 +8,13 @@ import CreateSpotModal from "../CreateSpotModal";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBars,faUserCircle} from '@fortawesome/free-solid-svg-icons'
 import DeleteSpotModal from "../DeleteSpotModal";
+import { useSelector } from "react-redux";
+import UpdateSpotModal from "../UpdateSpotModal";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const spot = useSelector(state=>state.spots.SingleSpot)
 
   const openMenu = () => {
     if (showMenu) return;
@@ -59,11 +62,16 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<CreateSpotModal />}
             />
-            <OpenModalMenuItem
+            {spot!==undefined&&spot.ownerId===user.id?<OpenModalMenuItem
               itemText="Delete"
               onItemClick={closeMenu}
               modalComponent={<DeleteSpotModal />}
-            />
+            />:''}
+           {spot!==undefined&&spot.ownerId===user.id ?( <OpenModalMenuItem
+              itemText="Update"
+              onItemClick={closeMenu}
+              modalComponent={<UpdateSpotModal />}
+            />):('')}
 
             
             <li>

@@ -29,7 +29,6 @@ export const CheckBookingsThunk = (spotId) => async (dispatch) => {
     await dispatch(checkBooking(bookings));
     return bookings;
   }
-  return 1;
 };
 export const createBookingThunk = (Book) => async (dispatch) => {
   console.log("creating booking");

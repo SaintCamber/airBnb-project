@@ -82,9 +82,9 @@ const checkAvailability = (e)=>{
         return (
          
             <>
-      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column"}}>
-      <div style={{width:250}}>
-        {spot.price}$ per night     {spot.avgStarRating}<FontAwesomeIcon icon={faStar}/>  . {spot.numReviews} Reviews
+      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"2px solid black",height:"250px",padding:10}}>
+      <div style={{width:250,display:'flex',flexDirection:"row"}}>
+        <span style={{marginRight:15}}>{spot.price}$ per night</span>    <span>{spot.avgStarRating}<FontAwesomeIcon icon={faStar}/></span> <span>. {spot.numReviews} Reviews</span> 
       </div>
       <div>
       <div style={{borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>

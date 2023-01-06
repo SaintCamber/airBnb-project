@@ -30,58 +30,7 @@ const BookingsList = (userId) => {
   }, [dispatch]);
   return (
     <div>
-      <div style={{ width: "100%", height: 50 }}>
-        <div class="icon-bar">
-          <a class="active" href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-          <a href="#">
-            <FontAwesomeIcon icon={faBus} />
-          </a>
-        </div>
-      </div>
+       
       <ul>
         {things.map((booking) =>
          

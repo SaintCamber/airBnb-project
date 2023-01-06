@@ -9,6 +9,9 @@ const SINGLE = "single-spot";
 
 
 const initialState = { AllSpots: {}, SingleSpot: {} };
+export function Update(spot){
+  return {type:UPDATE_SPOT,spot}
+}
 export function addSpot(spot) {
   return {
     type: CREATE_SPOT,
@@ -28,8 +31,8 @@ export function getOneSpot(spot) {
   console.log("spot",spot)
   return { type: SINGLE, payload: spot };
 }
-const deleteSpot =()=>{
-  return {type: DELETE_SPOT}
+const deleteSpot =(spotId)=>{
+  return {type: DELETE_SPOT,spotId}
 }
 //the getOneSpot action creator is called in the thunkOneSpot thunk action creator
 //the thunkOneSpot thunk action creator is called in the SingleSpot component
@@ -105,10 +108,30 @@ export const deleteSpotThunk=(spotId)=>async(dispatch)=>{
     method:"DELETE"
   })
   if(response.ok){
-    dispatch(deleteSpot)
-    return null
+    dispatch(deleteSpot())
+    
   }
 }
+export const UpdateSpot=(spot)=>async(dispatch)=>{
+  let { address, city, state, country, lat, lng, name, price, description } =
+    spot;
+    let oldSpotData={...spot}
+    console.log("SPSOT ID",spot.id)
+  let response = await csrfFetch(`/api/spots/${spot.id}`,{method:"PUT",body:JSON.stringify({ address, city, state, country, lat, lng, name, price, description})})
+  if (response.ok){
+    console.log('UPDATE RESPONSE OK')
+    let data = await response.json()
+    let keys = Object.keys(data)
+    let vals = Object.values(data)
+    for(let i = 0;i<keys.length;i++){
+      oldSpotData[keys[i]]=vals[i]
+    }
+    console.log(oldSpotData)
+    dispatch(Update(oldSpotData))
+  }
+
+}
+
 
 export default function  SpotsReducer(state = initialState, action) {
   let newState;
@@ -119,28 +142,41 @@ export default function  SpotsReducer(state = initialState, action) {
       newState = { ...state };
       let Spot =  action.spot;
       let Spots = { ...state.spots.AllSpots, Spot };
+      delete newState.AllSpots
       newState.AllSpots = {};
       newState["AllSpots"] = { ...Spots };
+
       return newState;
-    case "update-spot":
+    case UPDATE_SPOT:
+      console.log("update action",action)
+      let SpotsList = {...state.AllSpots}
+      delete SpotsList[action.spot.id]
+      SpotsList[action.spot.id]=action.spot
+      let newStateOfAllSpots = {...state}
+      newStateOfAllSpots.AllSpots = {...SpotsList}
+      newStateOfAllSpots.SingleSpot = action.spot
+      return newStateOfAllSpots
     case "read-all-spots":
       let allSpots = {};
       console.log("action.spots", action.Spots);
       action.Spots.forEach((spot) => (allSpots[spot.id] = { ...spot }));
       newState = { ...state };
-      newState.AllSpots = newState.AllSpots = { ...allSpots };
+      newState.AllSpots = { ...allSpots };
       return newState;
 
     case "single-spot":
       let singleSpot = {};
       singleSpot = { ...action.payload };
       newState = { ...state };
-      newState["SingleSpot"] = { ...singleSpot };
+      delete newState.SingleSpot
+      newState["SingleSpot"] = {...singleSpot} ;
       return newState;
     
     case "remove-spot":
       newState = {...state}
+     delete newState.AllSpots[action.spotId]
       return newState
+      
     default:
       return state;
   }
