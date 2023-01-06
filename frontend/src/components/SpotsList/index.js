@@ -15,7 +15,7 @@ export default function SpotsList(){
     console.log('spotsList',spotsList)
     return (
         <>
-        <div style={{width:'100%',height:50}}>
+        <div style={{width:'100%',height:50,position:'sticky',top:60}}>
         <div class="icon-bar">
   <a class="active" href="#"><FontAwesomeIcon icon={faBus}/></a>
   <a href="#"><FontAwesomeIcon icon={faBus}/></a>
@@ -36,7 +36,7 @@ export default function SpotsList(){
 </div>
         </div>
         <div style={{border:"none",backgroundColor:"white",
-        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"center",width:'100%'}}>
+        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"center",width:'90%'}}>
                 {spotsList.map((spot)=>
                 <SpotListItem key={spot.id} spot={spot}/>
                 )}

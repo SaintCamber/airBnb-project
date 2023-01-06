@@ -28,6 +28,18 @@
     color: black;
   }
 
+  .profile-dropdown menu {
+    position :absolute;
+    background-color:white;
+    border-radius:4px;
+    right:50px;
+    top:20px;
+    box-shadow: 10px 5px 5px grey;
+
+
+    
+  }
+
   .barsUsersButton{
     width: 75px;
     height: 30px;
@@ -73,7 +85,6 @@
 
   
   .navbar{
-    background-color: azure;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;
@@ -81,8 +92,11 @@
   position:sticky;
   top: 0;
   width: 100%;
-  z-index: 1;
+  height:60px;
   flex-direction: row-reverse;
+  border-bottom: 1px solid lightgray;
+  border-top: 1px solid lightgray;
+  background-color:white;
   }
 
 

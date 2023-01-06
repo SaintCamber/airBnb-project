@@ -32,7 +32,6 @@ const history = useHistory()
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
-      closeModal()
 
   }
   
