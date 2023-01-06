@@ -10,12 +10,13 @@ import {faBars,faUserCircle} from '@fortawesome/free-solid-svg-icons'
 import DeleteSpotModal from "../DeleteSpotModal";
 import { useSelector } from "react-redux";
 import UpdateSpotModal from "../UpdateSpotModal";
+import { useHistory } from "react-router-dom";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const spot = useSelector(state=>state.spots.SingleSpot)
-
+  const history = useHistory()
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -57,6 +58,7 @@ function ProfileButton({ user }) {
             <li>{user.username}</li>
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
+            <li className="bookingsList" onClick={()=>{history.push('/currentBookings')}}>bookings</li>
             <OpenModalMenuItem
               itemText="Create Spot"
               onItemClick={closeMenu}

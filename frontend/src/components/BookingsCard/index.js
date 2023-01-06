@@ -83,11 +83,11 @@ const checkAvailability = (e)=>{
          
             <>
       <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"2px solid black",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow:"-5px 10px 10px lightgrey",borderRadius:"30px"}}>
-      <div style={{width:250,display:'flex',flexDirection:"row"}}>
+      <div style={{width:250,display:'flex',flexDirection:"row",height:'30px'}}>
         <span style={{marginRight:15}}>{spot.price}$ per night</span>    <span style={{marginLeft:"10px"}}>{spot.avgStarRating}<FontAwesomeIcon icon={faStar}/></span> <span style={{marginLeft:"10px"}}>. {spot.numReviews} Reviews</span> 
       </div>
       <div>
-      <div style={{borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>
+      <div style={{marginTop:15,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>
      <div style={{display:'flex',justifyContent:"flex-end",width:250}}>
 
       <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}} style={{width:125,height:50}}>
@@ -99,7 +99,12 @@ const checkAvailability = (e)=>{
             
      </div>
      <div>
-            <select  style={{display:'block',width:250,height:50,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}}></select>
+            <select style={{display:'block',width:250,height:50,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}} name='guests'>
+              <option value={1}>1 guest</option>
+              <option value={2}>2 guests</option>
+              <option value={3}>3 guests</option>
+              <option value={4}>4 guests</option>
+            </select>
      </div>
       </div>
       <form onSubmit={(e)=>checkAvailability(e)}>
