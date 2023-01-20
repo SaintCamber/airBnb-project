@@ -48,7 +48,7 @@ const history = useHistory()
   };
 
   return (
-    <div className='container' style={{width:400,height:700,overflowY:'scroll',display:"flex",flexDirection:'column',justifyContent:"center"}}>
+    <div className='container'>
       <h1>Create New Spot</h1>
       <form onSubmit={handleSubmit} className="modal-form">
         <ul>

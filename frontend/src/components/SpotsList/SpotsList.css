@@ -11,6 +11,7 @@
   border-bottom: 1px solid lightgray;
   border-top: 1px solid lightgray;
   background-color:white;
+  z-index:1;
   }
   
   
@@ -19,14 +20,14 @@
     width: 10%; /* Equal width (5 icons with 20% width each = 100%) */
     padding: 12px 0px; /* Some top and bottom padding */
     transition: all 0.3s ease; /* Add transition for hover effects */
-    color: rgb(3, 2, 2); /* White text color */
+    color:grey;
     font-size: 26px; /* Increased font size */
     white-space: nowrap;
     margin:0px;
   }
   
   .icon-bar a:hover {
-    background-color: red; /* Add a hover color */
+    color:black
   }
   
   

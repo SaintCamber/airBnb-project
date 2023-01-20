@@ -1,14 +1,10 @@
-import React from "react";
-import { useState, useEffect ,useRef} from "react";
-import { CheckBookingsThunk } from "../../store/bookings";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { createBookingThunk } from "../../store/bookings";
-import "./index.css"
+import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faStar} from "@fortawesome/free-regular-svg-icons"
+import { useDispatch, useSelector } from "react-redux";
+import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
+import "./index.css";
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
@@ -82,7 +78,7 @@ const checkAvailability = (e)=>{
         return (
          
             <>
-      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"2px solid black",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow:"-5px 10px 10px lightgrey",borderRadius:"30px"}}>
+      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px"}}>
       <div style={{width:250,display:'flex',flexDirection:"row",height:'30px'}}>
         <span style={{marginRight:15}}>{spot.price}$ per night</span>    <span style={{marginLeft:"10px"}}>{spot.avgStarRating}<FontAwesomeIcon icon={faStar}/></span> <span style={{marginLeft:"10px"}}>. {spot.numReviews} Reviews</span> 
       </div>

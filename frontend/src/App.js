@@ -11,7 +11,7 @@ import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
-
+import { Link } from "react-router-dom";
 function App() {
   const dispatch = useDispatch();
   
@@ -21,7 +21,8 @@ function App() {
   }, [dispatch]);
   return (
     
-    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",maxWidth:1024,justifyContent:'space-around'}}>
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",justifyContent:'space-evenly',padding:"25px"}}>
+      <div style={{display:'flex',height:"50px",width:"100%",alignContent:"center",alignItems:'center',justifyContent:'center'}}>show total prices up front  <Link style={{marginLeft:15}}>Learn More</Link></div>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>

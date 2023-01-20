@@ -17,16 +17,16 @@ function Navigation({ isLoaded }){
   const closeMenu = () => setShowMenu(false);
   return (
     <div className='navbar'>
-    <div>
+    <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center'}}>
+    <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
+     <NavLink to='/rentals' id='rentHome'  style={{marginRight:25}}>Airbnb your home</NavLink>
+     <NavLink to="/locations" id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></NavLink>
+    </div>
      <ProfileButton user={sessionUser} ><FontAwesomeIcon icon={faBars}/>
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
 
     </div>
-    <div>
-     <NavLink to="/locations" id='globe'><FontAwesomeIcon icon={faGlobe}/></NavLink>
-     <NavLink to='/rentals' id='rentHome'>Airbnb your home</NavLink>
 
-    </div>
      <DateSelector></DateSelector>
     <NavLink to='/' id='homeLogo'><FontAwesomeIcon icon={faAirbnb} /> Airbnb</NavLink>
     </div>

@@ -15,7 +15,7 @@ export default function SpotsList(){
     console.log('spotsList',spotsList)
     return (
         <>
-        <div style={{width:'100%',height:50,position:'sticky',top:60}}>
+        <div style={{width:'100%',height:50,position:'sticky',top:60,marginBottom:"15px"}}>
         <div class="icon-bar">
   <a class="active" href="#"><FontAwesomeIcon icon={faBus}/></a>
   <a href="#"><FontAwesomeIcon icon={faBus}/></a>

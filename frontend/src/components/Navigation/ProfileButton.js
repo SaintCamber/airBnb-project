@@ -43,7 +43,11 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
     closeMenu();
   };
-
+  function handleDemo(e){
+   let demoCreds = {'credential':"Demo-lition","password":"password"}
+    e.preventDefault()
+    dispatch(sessionActions.login(demoCreds))
+  }
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
@@ -92,7 +96,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-            
+           <li className="bookingsList" onClick={handleDemo}>Demo User</li>
             
           </menu>
         )}

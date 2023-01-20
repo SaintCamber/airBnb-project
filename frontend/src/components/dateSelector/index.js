@@ -1,10 +1,7 @@
 import React from 'react'
-import { useState } from 'react';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './dateSelector.css'
-import Calendar from 'react-calendar'
-import { useRef } from 'react';
-import { useEffect } from 'react';
-import OpenModalButton from '../OpenModalButton'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export default function DateSelector() {
@@ -12,13 +9,17 @@ export default function DateSelector() {
 
     return (
 
-    <div>
-        <button className='dateButton' onClick={()=>alert('not implemented yet please try again later')}>anywhere</button>
-        <button className='dateButton' onClick={()=>alert('not implemented yet')}>Start Date</button>        
-        <button className='dateButton' onClick={()=>alert('not implemented yet')}>End Date</button>
-    </div>
+    <div className="bar">
+       <span className="dateButton">anywhere</span>
+       <div className="wrapper">
+       <span className="dateButton">any week</span>
 
-    
+       </div>
+       <span className="dateButton">add Guests<div style={{borderRadius:"100%",backgroundColor:"#FF385C",width:"30px",height:"30px",justifyContent:"center",display:"flex",alignContent:"center",alignItems:'center',    marginLeft: "15px"}}>
+       <FontAwesomeIcon style={{color:"white"}}icon={faMagnifyingGlass}/> 
+
+       </div></span>
+    </div>
           
     
     );
