@@ -5,6 +5,7 @@ import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
 import "./index.css";
+import "../calendar.css"
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
