@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
 import "./index.css";
 import "../calendar.css"
+
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
@@ -17,6 +18,9 @@ const BookingsCard = ({ spot }) => {
   const endButtonRef = useRef(null);
   const calendarRef = useRef(null)
   let dispatch = useDispatch();
+  const tileDisabled = ({ activeStartDate, date, view }) => {
+    return date < new Date()
+ }
 
   const bookings = useSelector((state) => Object.values(state.bookings.CurBookings));
   console.log("bookings currently set to ", bookings);
@@ -79,14 +83,25 @@ const checkAvailability = (e)=>{
         return (
          
             <>
-      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px"}}>
+      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px",overflow:"show"}}>
       <div style={{width:250,display:'flex',flexDirection:"row",height:'30px'}}>
         <span style={{marginRight:15}}>{spot.price}$ per night</span>    <span style={{marginLeft:"10px"}}>{spot.avgStarRating}<FontAwesomeIcon icon={faStar}/></span> <span style={{marginLeft:"10px"}}>. {spot.numReviews} Reviews</span> 
       </div>
       <div>
       <div style={{marginTop:15,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>
      <div style={{display:'flex',justifyContent:"flex-end",width:250}}>
-
+<div className={divClass1} ref={calendarRef}>
+      <Calendar
+      tileDisabled={tileDisabled}
+            // selectRange={true}
+            showDoubleView={true}
+            onChange={(e) => {
+                calendarRef.contains = e.target
+              selectDate==='start' ? setStartDate(e):setEndDate(e);
+            }}
+            value={[startDate,endDate]}>
+            </Calendar>
+      </div>
       <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}} style={{width:125,height:50}}>
             Check-in {startDate === new Date() ? <p>Pick a start date</p> : <p style={{marginTop:1}}>{startDate.toDateString()}</p>}</button>
             
@@ -102,25 +117,16 @@ const checkAvailability = (e)=>{
               <option value={3}>3 guests</option>
               <option value={4}>4 guests</option>
             </select>
-     </div>
-      </div>
       <form onSubmit={(e)=>checkAvailability(e)}>
-      <div className={divClass1} ref={calendarRef}>
-      <Calendar
-            
-            onChange={(e) => {
-                calendarRef.contains = e.target
-              selectDate==='start' ? setStartDate(e):setEndDate(e);
-            }}
-            value={selectDate === 'start' ? startDate : endDate}>
-            </Calendar>
-      </div>
+      
             <input style={{width:"100%", marginTop:20}} type="submit" value={'Reserve'}/>
 
       </form>
      <div>
             {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} Nights = {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}$
      </div>
+     </div>
+      </div>
       </div>
       </div>
     </>
