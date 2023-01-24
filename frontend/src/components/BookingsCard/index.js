@@ -69,14 +69,13 @@ const checkAvailability = (e)=>{
     alert('unavailable')
     return 
   }
-            dispatch( createBookingThunk({startDate : startDate.toDateString(),endDate:endDate.toDateString(),spotId:spot.id}))
+            dispatch( createBookingThunk({startDate : startDate.toDateString(),endDate:endDate.toDateString(),spotId:spot.id})).catch(e=>e)
             
             
             
             setStartDate(new Date())
             setEndDate(new Date())
-            console.log('fired create booking think')
-            alert("reservation successful")
+            
             
         }
         
@@ -102,11 +101,11 @@ const checkAvailability = (e)=>{
             value={[startDate,endDate]}>
             </Calendar>
       </div>
-      <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}} style={{width:125,height:50}}>
+      <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}}  >
             Check-in {startDate === new Date() ? <p>Pick a start date</p> : <p style={{marginTop:1}}>{startDate.toDateString()}</p>}</button>
             
             
-            <button className='bookingButton' ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}} style={{width:125,height:50}} >
+            <button className='bookingButton' ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}}   >
             Checkout {endDate === new Date() ? <p>Pick a end date</p> : <p style={{marginTop:1}}>{endDate.toDateString()}</p>}</button>
             
      </div>

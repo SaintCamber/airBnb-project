@@ -35,14 +35,14 @@ export const createBookingThunk = (Book) => async (dispatch) => {
   let response = await csrfFetch(`/api/spots/${Book.spotId}/bookings`, {
     method: "post",
     body: JSON.stringify({ startDate: Book.startDate, endDate: Book.endDate }),
-  });
+  }).catch(e=>e);
   if (response.ok) {
     let data = await response.json();
     console.log("the data inside create booking",data)
     dispatch(createBooking(data));
     return data;
   }
-  console.log("response booking thunk not ok");
+  
 };
 
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {

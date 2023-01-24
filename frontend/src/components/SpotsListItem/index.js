@@ -15,7 +15,7 @@ export default function SpotListItem({spot}){
    }
    return (
     
-    <div onClick={handleTileClick} style={{display: "flex", flexDirection: "column", backgroundColor: "white", boxSizing: "borderBox", width: "24%", height: "auto",minHeight:"380px",alignItems: "center", margin: "0 2px",cursor:"pointer"}}>
+    <div onClick={handleTileClick} style={{ display: "flex", flexDirection: "column", backgroundColor: "white", boxSizing: "borderBox", width: "24%", height: "auto",minHeight:"380px",alignItems: "center", margin: "0 2px",cursor:"pointer"}}>
       {spot.previewImage ? <div style={{width:"100%",height:"60%",minHeight:"50%"}}><img src={spot.previewImage} alt="spot preview" style={{width: "100%", borderRadius: 10, objectFit: "cover", height:"100%",}}></img></div> :  <div style={{width:"100%",height:"60%"}}><img src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' style={{width: "100%",height:"100%", borderRadius: 10, objectFit: "cover"}} ></img></div>}
       <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "left"}}>
         <div style={{display: "flex", flexDirection: "row",justifyContent:"space-evenly"}}>
