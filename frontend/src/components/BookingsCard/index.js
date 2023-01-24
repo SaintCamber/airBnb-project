@@ -83,13 +83,13 @@ const checkAvailability = (e)=>{
         return (
          
             <>
-      <div style={{display:"flex", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"250px",padding:10,width:"250px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px",overflow:"show"}}>
-      <div style={{width:250,display:'flex',flexDirection:"row",height:'30px'}}>
-        <span style={{marginRight:15}}>{spot.price}$ per night</span>    <span style={{marginLeft:"10px"}}>{spot.avgStarRating}<FontAwesomeIcon icon={faStar}/></span> <span style={{marginLeft:"10px"}}>. {spot.numReviews} Reviews</span> 
+      <div style={{display:"flex",alignItems:"center", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"500px",padding:10,width:"370px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px",overflow:"show"}}>
+      <div style={{width:"100%",display:'flex',flexDirection:"row",height:'30px'}}>
+        <span style={{width:"50%"}}>{spot.price}$ per night</span>    <span style={{width:"50%",display:"flex",justifyContent:"flex-end"}}> {spot.numReviews} Reviews</span> 
       </div>
       <div>
-      <div style={{marginTop:15,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110}}>
-     <div style={{display:'flex',justifyContent:"flex-end",width:250}}>
+      <div style={{marginTop:15,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110,width:"100%"}}>
+     <div style={{display:'flex',justifyContent:"flex-end",width:"100%"}}>
 <div className={divClass1} ref={calendarRef}>
       <Calendar
       tileDisabled={tileDisabled}

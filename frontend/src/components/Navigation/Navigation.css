@@ -56,7 +56,7 @@
     align-items: center;
     border-radius: 30px;
     background-color: white;
-    border: 2px solid darkgray;
+    border: 0.5px solid darkgray;
   }
 
   .barsUsersButton:hover{
