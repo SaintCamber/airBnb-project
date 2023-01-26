@@ -306,8 +306,14 @@ export default function SingleSpot() {
             
         </div>
             </div>
-            <div className="ScrollDiv">more content goes here</div>
-            <div className="ScrollDiv">even more content</div>
+            <div className="ScrollDiv"><div className='coverContainer'>
+            <span className='cover'><span className="placeHolderRed">placeholder</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
+                <span className="learn">learn more</span>
+            </div>
+            </div>
+            <div className="ScrollDiv"><p>
+              {Spot.description}
+            </p></div>
             <div className="ScrollDiv">some more content</div>
             <div className="ScrollDiv">content baby</div>
           </div>

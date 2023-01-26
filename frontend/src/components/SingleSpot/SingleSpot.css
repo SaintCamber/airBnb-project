@@ -21,3 +21,23 @@
     width:100%;
     
 }
+
+.cover {
+    font-size: 36px;
+}
+
+.placeHolderRed {
+    color:red;
+}
+.coverContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height:100%;
+}
+
+.learn{
+    cursor:pointer;
+    text-decoration: underline;
+    
+}
