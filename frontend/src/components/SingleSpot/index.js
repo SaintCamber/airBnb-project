@@ -11,6 +11,7 @@ import {
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
 import "./SingleSpot.css";
+import amenitiesTile from "../amenitiesTile";
 export default function SingleSpot() {
   console.log("inside single spot");
   let params = useParams();
@@ -271,11 +272,44 @@ export default function SingleSpot() {
         </div>
         <div style={{ display: "flex", flexDirection: "row", width: "100%" }}>
           <div className="scrollables">
-            <div>content for scrolling</div>
-            <div>more content goes here</div>
-            <div>even more content</div>
-            <div>some more content</div>
-            <div>content baby</div>
+            <div className="ScrollDiv" style={{marginTop:"20px"}}>
+            <div className={'containerDiv'}>
+        <div className={'IconDiv'}>
+           <FontAwesomeIcon icon={'fa-moon'} className="iconic"/>
+        </div>
+        <div className={'TextDiv'}>
+            <h4>{`Moonlight`}</h4>
+            <p>{`shocking as it may be the moon works on this planet`}</p>
+            </div>
+            
+        </div>
+
+        <div className={'containerDiv'}>
+        <div className={'IconDiv'}>
+           <FontAwesomeIcon icon={'fa-sun'} className="iconic"/>
+        </div>
+        <div className={'TextDiv'}>
+            <h4>{`Sunlight`}</h4>
+            <p>{`this planet is orbiting a yellow star-the inhabitants call it sol`}</p>
+            </div>
+            
+        </div>
+
+        <div className={'containerDiv'}>
+        <div className={'IconDiv'}>
+           <FontAwesomeIcon icon={'fa-water'} className="iconic"/>
+        </div>
+        <div className={'TextDiv'}>
+            <h4>{`Water`}</h4>
+            <p>{`a liquid ocean supports the life found on this planet`}</p>
+            </div>
+            
+        </div>
+            </div>
+            <div className="ScrollDiv">more content goes here</div>
+            <div className="ScrollDiv">even more content</div>
+            <div className="ScrollDiv">some more content</div>
+            <div className="ScrollDiv">content baby</div>
           </div>
           <div style={{ width: "50%" }}>
             <BookingsCard spot={Spot}></BookingsCard>

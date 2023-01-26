@@ -12,6 +12,12 @@ import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
 import { Link } from "react-router-dom";
+// in App.js
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+library.add(fas)
+
+
 function App() {
   const dispatch = useDispatch();
   
