@@ -80,7 +80,7 @@ const BookingsCard = ({ spot }) => {
       let end = new Date(booking.endDate);
       while (start <= end) {
         unavailable.push(start.toDateString());
-        start.setDate(start.getDate() + 1);
+        start.setDate(start.getDate()+1);
       }
     });
     const startDateMatch = unavailable.find(
@@ -114,11 +114,12 @@ const BookingsCard = ({ spot }) => {
     <div className="containerBookingCard">
       <div className="Card">
         <div className="topBit">
-          <div className="TopFirst"><p>
-          {`${spot.price} per Night`}
-          </p></div>
+          <div className="TopFirst">
+            <span className="pricing">{spot.price}</span>
+            <span>night</span>
+          </div>
           <div className="TopSecond"><p>{`${spot.numReviews} Reviews`}</p></div>
-        </div>
+        </div> 
         <div className="middleBit">
           <div >
             <div className='Dates'>
@@ -137,13 +138,13 @@ const BookingsCard = ({ spot }) => {
         <div className="bottomBit">
           <span className='charge'><p>you won't be charged yet</p></span>
           <div className='chargeTop'>
-          <span><p>
-          {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} Nights = {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}$
-          </p></span>
+          <span className='fees'><p>
+          {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} 
+          </p> <p>${spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}</p></span>
           <span className='fees'><p>cleaning fee</p> <p>$ {`${Math.floor(spot.price/35)}`}</p></span>
           <span className='fees'><p>service fee</p>  <p>$ {`${Math.floor(spot.price/60)}`}</p></span>
           </div>
-          <span className='Total'>{spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))+Math.floor(spot.price/35)+Math.floor(spot.price/60)}</span>
+          <span className='fees'><p>Total</p><p>$ {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))+Math.floor(spot.price/35)+Math.floor(spot.price/60)}</p></span>
         </div>
       <div className={ `calendarContainer ${divClass1}`} ref={calendarRef}>
 
