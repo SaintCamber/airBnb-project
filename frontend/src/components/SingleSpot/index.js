@@ -318,7 +318,7 @@ export default function SingleSpot() {
             <div className="ScrollDiv">some more content</div>
             <div className="ScrollDiv">content baby</div>
           </div>
-          <div style={{ width: "50%" }}>
+          <div style={{ width: "40%" }}>
             <BookingsCard spot={Spot}></BookingsCard>
           </div>
         </div>

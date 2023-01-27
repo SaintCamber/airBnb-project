@@ -1,5 +1,5 @@
 .scrollables{
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     margin-top: 30px;
@@ -39,5 +39,5 @@
 .learn{
     cursor:pointer;
     text-decoration: underline;
-    
+
 }
