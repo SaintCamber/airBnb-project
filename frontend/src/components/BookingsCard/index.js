@@ -1,6 +1,6 @@
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
@@ -93,6 +93,10 @@ const BookingsCard = ({ spot }) => {
       alert("unavailable");
       return;
     }
+    if(endDate<startDate){
+      alert("invalid Date range")
+      return
+    }
     alert("creating reservation")
     dispatch(
       createBookingThunk({
@@ -141,21 +145,22 @@ const BookingsCard = ({ spot }) => {
           </div>
           <span className='Total'>{spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))+Math.floor(spot.price/35)+Math.floor(spot.price/60)}</span>
         </div>
-      <div className={divClass1} ref={calendarRef}>
+      <div className={ `calendarContainer ${divClass1}`} ref={calendarRef}>
 
       <Calendar
-      
+      activeStartDate={new Date()}
       inputRef={calendarRef}
       tileDisabled={tileDisabled}
             // selectRange={true}
             showDoubleView={true}
             onChange={(e) => {
-              console.log("calendar Changing","e is currently",e)
+              
+              // console.log("calendar Changing","e is currently",e)
               selectDate==='start' ? setStartDate(new Date(e)):setEndDate(new Date(e));
-              setValue([startDate,endDate])
             }}
-            value={value}>
+            value={[startDate,endDate]}>
             </Calendar>
+        
       </div>
       </div>
     </div>

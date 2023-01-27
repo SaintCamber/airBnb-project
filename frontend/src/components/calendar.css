@@ -5,12 +5,11 @@
     border: 1px solid #a0a096;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
-    position:absolute;
-    right:1px;
+    /* width:50vw; */
     
   }
   .react-calendar--doubleView {
-    width: 50vw;
+    /* width: 50vw; */
   }
   .react-calendar--doubleView .react-calendar__viewContainer {
     display: flex;
@@ -19,6 +18,7 @@
   .react-calendar--doubleView .react-calendar__viewContainer > * {
     width: 30vw;
     margin: 0.5em;
+    height:30vw
     
   }
   .react-calendar,
@@ -39,7 +39,7 @@
   }
   .react-calendar__navigation {
     height: 44px;
-    margin-bottom: 1em;
+    margin-bottom: 3em;
   }
   .react-calendar__navigation button {
     min-width: 44px;
