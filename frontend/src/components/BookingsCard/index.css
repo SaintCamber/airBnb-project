@@ -1,22 +1,135 @@
-.hidden{display:none;
-}
-
-.bookingButton {
-   border-bottom-left-radius:15px;
-   border-bottom-right-radius:15px;
-   border-top-left-radius:15px;
-   border-top-right-radius:15px;
-   border:none;
-   z-index: 10;
-}
-
-.bookingButton:focus{
-    border: 1px solid black;
-}
 
 .show {
     display:flex;
-    position: absolute;
+    position: relative;
     right:6px;
     top:45px;
+}
+.containerBookingCard {
+   position:relative;
+    display:flex;
+    justify-content: center;
+    height:100%;
+}
+.Card{
+    position:sticky;
+    top:150px;
+    bottom:250px;
+    width:23vw; 
+    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px;
+    border:1px solid rgb(221,221,221);
+    border-radius:10%;
+    display:flex;
+    justify-content: flex-start;
+    padding:25px;
+    height:80vh;
+    align-content: center;
+flex-direction: column;}
+.topBit{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    
+}
+
+.TopFirst{
+    display:flex;
+    justify-content: flex-start;
+    width:50%;
+}
+.TopSecond{
+        display:flex;
+    width:50%;
+    justify-content:flex-end;}
+
+.Dates{
+
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    border:0.5px solid rgb(221,221,221);
+    border-radius:15px
+}
+.bookingButton{
+    width:50%;
+    border:0.5px solid rgb(221,221,221);
+    padding-left: 10px;
+    height: 50px;
+    background-color:white;
+
+}
+.buttonActive{
+    border:2px solid black;
+    border-radius:15px;
+}
+.bookingButton:first-child{
+    border-top-left-radius:15px;
+
+}
+.bookingButton:last-child{ 
+    border-top-right-radius:15px;
+
+}
+.bookingButton span {
+    font-size:12px;
+}
+.bookingButton p{
+    display:flex;
+    flex-direction:column;
+}
+
+.middleBit select {
+    width:100%;
+    min-height: 50px;
+    padding:5px;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+    
+}
+
+.ReserveButton{
+   
+    background-color:#FF385C;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+    margin-top: 15px;
+    height:50px;
+    display:flex;
+    justify-content: center;
+    cursor:pointer;
+}
+.ReserveButton p {
+    color:white;
+    font-size: 20px;
+    margin:0;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    font-family:helvetica;
+}
+
+
+.bottomBit {
+    margin-top:20px;
+    
+}
+
+.charge{
+    text-align: center;
+    font-size: 12px;
+    font-family: helvetica;
+    margin: 0;
+    
+}
+
+.fees {
+    display:flex;
+    flex-direction: row;
+
+}
+
+.chargeTop {
+    border-bottom:0.5px solid rgb(221,221,221)
 }

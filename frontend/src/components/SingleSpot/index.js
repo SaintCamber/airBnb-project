@@ -245,6 +245,7 @@ export default function SingleSpot() {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
+              marginTop:"30px"
             }}>
             <div style={{ width: "100%", alignItems: "flex-start" }}>
               <h1 style={{ padding: 0, margin: 0, flexWrap: "nowrap" }}>

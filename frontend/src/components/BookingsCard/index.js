@@ -5,132 +5,161 @@ import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
 import "./index.css";
-import "../calendar.css"
+import "../calendar.css";
 
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
   let [endDate, setEndDate] = useState(new Date());
   let [currentBookings, setCurrentBookings] = useState({});
-    let [selectDate,setSelectDate] =useState("Start")
-    let [showCalendar,setShowCalendar]=useState(false)
-    const startButtonRef = useRef(null);
+  let [selectDate, setSelectDate] = useState("Start");
+  let [showCalendar, setShowCalendar] = useState(false);
+  let [buttonClass, setButtonClass] = useState('')
+  let [buttonClassTwo, setButtonClassTwo] = useState('')
+  const [value, setValue] = useState([startDate,endDate]);
+  const startButtonRef = useRef(null);
   const endButtonRef = useRef(null);
-  const calendarRef = useRef(null)
+  const calendarRef = useRef(null);
   let dispatch = useDispatch();
   const tileDisabled = ({ activeStartDate, date, view }) => {
-    return date < new Date()
- }
+    return date < new Date();
+  };
 
-  const bookings = useSelector((state) => Object.values(state.bookings.CurBookings));
+  const bookings = useSelector((state) =>
+    Object.values(state.bookings.CurBookings)
+  );
   console.log("bookings currently set to ", bookings);
 
   useEffect(() => {
-    dispatch(CheckBookingsThunk(spot.id));
+    dispatch(CheckBookingsThunk(spot.id)).catch((e)=>null);
     console.log("checkBookings fired");
-  }, [dispatch,spot.id]);
+  }, [dispatch, spot.id]);
 
   useEffect(() => {
     const handleWindowClick = (event) => {
-        
-        // console.log(event.target)
-        // console.log('matches?: ',event.target.matches('react-calendar'))
+      // console.log(event.target)
+      // console.log('matches?: ',event.target.matches('react-calendar'))
       // Check if the clicked element is not the calendar or either of the button elements
-      if (!calendarRef.current.contains(event.target) && !startButtonRef.current.contains(event.target) && !endButtonRef.current.contains(event.target)) {
+      if (
+        !calendarRef.current.contains(event.target) &&
+        !startButtonRef.current.contains(event.target) &&
+        !endButtonRef.current.contains(event.target)
+      ) {
         setShowCalendar(false);
       }
+      if(startButtonRef.current.contains(event.target)){
+        setButtonClass("buttonActive")
+       }
+       if(!startButtonRef.current.contains(event.target)&&!calendarRef.current.contains(event.target)){
+        setButtonClass("")
+       }
+       if(endButtonRef.current.contains(event.target)){
+        setButtonClassTwo("buttonActive")
+       }
+       if(!endButtonRef.current.contains(event.target)&&!calendarRef.current.contains(event.target)){
+        setButtonClassTwo("")
+       }
+
     };
 
-    window.addEventListener('click', handleWindowClick);
+    window.addEventListener("click", handleWindowClick);
 
     return () => {
-      window.removeEventListener('click', handleWindowClick);
+      window.removeEventListener("click", handleWindowClick);
     };
-  }, [showCalendar]);
-let divClass1 = showCalendar ? 'show':'hidden'
+  }, [showCalendar,buttonClass,buttonClassTwo]);
+  let divClass1 = showCalendar ? "show" : "hidden";
 
-const checkAvailability = (e)=>{
+  const checkAvailability = (e) => {
+    e.preventDefault();
+    console.log("checking availability");
+    console.log("bookings bookings bookings ", bookings);
+    let unavailable = [];
+    bookings.forEach((booking) => {
+      let start = new Date(booking.startDate);
+      let end = new Date(booking.endDate);
+      while (start <= end) {
+        unavailable.push(start.toDateString());
+        start.setDate(start.getDate() + 1);
+      }
+    });
+    const startDateMatch = unavailable.find(
+      (date) => date === startDate.toDateString()
+    );
+    const endDateMatch = unavailable.find(
+      (date) => date === endDate.toDateString()
+    );
+    if (startDateMatch || endDateMatch) {
+      alert("unavailable");
+      return;
+    }
+    alert("creating reservation")
+    dispatch(
+      createBookingThunk({
+        startDate: startDate.toDateString(),
+        endDate: endDate.toDateString(),
+        spotId: spot.id,
+      })
+    ).catch((e) => e);
 
-    e.preventDefault()
-    console.log("checking availability")
-    console.log('bookings bookings bookings ',bookings)
-    let unavailable = []
-    bookings.forEach(booking=>{
-        let start = new Date(booking.startDate)
-        let end = new Date(booking.endDate)
-        while(start<=end){
-            unavailable.push(start.toDateString())
-            start.setDate(start.getDate()+1)
+    setStartDate(new Date());
+    setEndDate(new Date());
+  };
 
-        }})
-        const startDateMatch = unavailable.find((date) => date === startDate.toDateString());
-  const endDateMatch = unavailable.find((date) => date === endDate.toDateString());
-  if(startDateMatch||endDateMatch){
-    alert('unavailable')
-    return 
-  }
-            dispatch( createBookingThunk({startDate : startDate.toDateString(),endDate:endDate.toDateString(),spotId:spot.id})).catch(e=>e)
-            
-            
-            
-            setStartDate(new Date())
-            setEndDate(new Date())
-            
-            
-        }
-        
-        return (
-         
-            <>
-      <div style={{display:"flex",alignItems:"center", alignContent:"center",justifyItems:'center',flexDirection:"column",border:"1px solid rgb(221,221,221)",height:"500px",padding:10,width:"370px",float:"right",position:'sticky',top:100,bottom:250,boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",borderRadius:"12px",overflow:"show"}}>
-      <div style={{width:"100%",display:'flex',flexDirection:"row",height:'30px'}}>
-        <span style={{width:"50%"}}>{spot.price}$ per night</span>    <span style={{width:"50%",display:"flex",justifyContent:"flex-end"}}> {spot.numReviews} Reviews</span> 
-      </div>
-      <div>
-      <div style={{marginTop:15,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15,height:110,width:"100%"}}>
-     <div style={{display:'flex',justifyContent:"flex-end",width:"100%"}}>
-<div className={divClass1} ref={calendarRef}>
+  return (
+    <div className="containerBookingCard">
+      <div className="Card">
+        <div className="topBit">
+          <div className="TopFirst"><p>
+          {`${spot.price} per Night`}
+          </p></div>
+          <div className="TopSecond"><p>{`${spot.numReviews} Reviews`}</p></div>
+        </div>
+        <div className="middleBit">
+          <div >
+            <div className='Dates'>
+              <div className={`bookingButton ${buttonClass}`} ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}} >{startDate === new Date() ? <p>Pick a start date</p> : <p><span>check-in</span><span>{startDate.toDateString()}</span></p>}</div>
+              <div className={`bookingButton ${buttonClassTwo}`} ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}} >{endDate === new Date() ? <p>Pick an end date</p> : <p><span>check-out</span><span>{endDate.toDateString()}</span></p>}</div>
+            </div>
+            <div><select>
+              <option>1 guests</option>
+              <option>2 guests</option>
+              <option>3 guests</option>
+              <option>4 guests</option>
+            </select></div>
+            <div className='ReserveButton' onClick={(e)=>checkAvailability(e)}><p>Reserve</p></div>
+          </div>
+        </div>
+        <div className="bottomBit">
+          <span className='charge'><p>you won't be charged yet</p></span>
+          <div className='chargeTop'>
+          <span><p>
+          {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} Nights = {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}$
+          </p></span>
+          <span className='fees'><p>cleaning fee</p> <p>$ {`${Math.floor(spot.price/35)}`}</p></span>
+          <span className='fees'><p>service fee</p>  <p>$ {`${Math.floor(spot.price/60)}`}</p></span>
+          </div>
+          <span className='Total'>{spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))+Math.floor(spot.price/35)+Math.floor(spot.price/60)}</span>
+        </div>
+      <div className={divClass1} ref={calendarRef}>
+
       <Calendar
+      
+      inputRef={calendarRef}
       tileDisabled={tileDisabled}
             // selectRange={true}
             showDoubleView={true}
             onChange={(e) => {
-                calendarRef.contains = e.target
-              selectDate==='start' ? setStartDate(e):setEndDate(e);
+              console.log("calendar Changing","e is currently",e)
+              selectDate==='start' ? setStartDate(new Date(e)):setEndDate(new Date(e));
+              setValue([startDate,endDate])
             }}
-            value={[startDate,endDate]}>
+            value={value}>
             </Calendar>
       </div>
-      <button className='bookingButton' ref={startButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('start')}}  >
-            Check-in {startDate === new Date() ? <p>Pick a start date</p> : <p style={{marginTop:1}}>{startDate.toDateString()}</p>}</button>
-            
-            
-            <button className='bookingButton' ref={endButtonRef} onClick={() => {setShowCalendar(true); setSelectDate('end')}}   >
-            Checkout {endDate === new Date() ? <p>Pick a end date</p> : <p style={{marginTop:1}}>{endDate.toDateString()}</p>}</button>
-            
-     </div>
-     <div>
-            <select style={{display:'block',width:250,height:50,borderTopLeftRadius:15,borderBottomLeftRadius:15,borderTopRightRadius:15,borderBottomRightRadius:15}} name='guests'>
-              <option value={1}>1 guest</option>
-              <option value={2}>2 guests</option>
-              <option value={3}>3 guests</option>
-              <option value={4}>4 guests</option>
-            </select>
-      <form onSubmit={(e)=>checkAvailability(e)}>
-      
-            <input style={{width:"100%", marginTop:20}} type="submit" value={'Reserve'}/>
-
-      </form>
-     <div>
-            {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} Nights = {spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}$
-     </div>
-     </div>
       </div>
-      </div>
-      </div>
-    </>
+    </div>
   );
 };
-
 
 export default BookingsCard;
