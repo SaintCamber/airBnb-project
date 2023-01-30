@@ -55,7 +55,7 @@ export default function SingleSpot() {
             <div style={{ display: "inline-block", width: "50%" }}>
               <h1>{Spot?.name}</h1>
               <FontAwesomeIcon icon={faStar} />
-              {` ${Spot?.avgStarRating}  `}
+              {` ${Math.floor(Spot?.avgStarRating)}  `}
               <>
                 <NavLink
                   to="/reviews/spotId"
@@ -308,7 +308,7 @@ export default function SingleSpot() {
         </div>
             </div>
             <div className="ScrollDiv"><div className='coverContainer'>
-            <span className='cover'><span className="placeHolderRed">placeholder</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
+            <span className='cover'><span className="placeHolderRed">Infini</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
                 <span className="learn">learn more</span>
             </div>
             </div>
