@@ -63,6 +63,7 @@ function ProfileButton({ user }) {
             {user.firstName} {user.lastName}
             {user.email}
             <div className="bookingsList" onClick={()=>{history.push('/currentBookings')}}>bookings</div>
+            <div className="ownedSpots" onClick={()=>{history.push('/user/spots')}}>Your Spots</div>
             <OpenModalMenuItem
               itemText="Create Spot"
               onItemClick={closeMenu}
@@ -72,7 +73,7 @@ function ProfileButton({ user }) {
 
             
             
-              <button onClick={logout} style={{backgroundColor:"white"}}>Log Out</button>
+              <div className="logoutButton" onClick={logout}>logout</div>
             
           </menu>
         ) : (

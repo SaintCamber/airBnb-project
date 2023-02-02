@@ -28,7 +28,7 @@ const history = useHistory()
     console.log('IMAGES IMAGES IMAGES IMAGES',imageList)
     e.preventDefault();
       setErrors([]);
-      let spot = {name,address,city,state,country,price,description,lat:Math.random()*180,lng:Math.random()*180}
+      let spot = {name,address,city,state,country,price,description,lat:Math.floor(Math.random()*180),lng:Math.floor(Math.random()*180)}
       
        dispatch(createSpot(spot,imageList))
       .then(async res=>await res.json())

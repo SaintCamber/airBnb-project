@@ -109,8 +109,8 @@ export const createSpot = (Spot, images) => async (dispatch) => {
     }),
   });
 
+  let Data = await response.json();
   if (response.ok) {
-    let Data = await response.json();
 
     // Add images to spot
     const promises = [];
@@ -132,6 +132,7 @@ export const createSpot = (Spot, images) => async (dispatch) => {
       dispatch(addSpot(Data,List));
     }
   }
+  return Data
 };
 
 

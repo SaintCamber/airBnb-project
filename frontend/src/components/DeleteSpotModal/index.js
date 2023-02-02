@@ -6,11 +6,11 @@ import { deleteSpotThunk } from "../../store/Spots";
 import { useHistory } from "react-router-dom";
 
 
-const DeleteSpotModal=()=>{
+const DeleteSpotModal=({spot,oldState,setter})=>{
     let user = useSelector(state=>state.session.user)
-    let Spot = useSelector(state=>state.spots.SingleSpot)
+    
     let id = user.id
-    let owner = Spot.ownerId
+    let owner = spot.ownerId
     const history = useHistory();
   const dispatch = useDispatch();
   let [state,setState] = useState()
@@ -18,8 +18,13 @@ const DeleteSpotModal=()=>{
 
     const handleClick = (e)=>{
         e.preventDefault()
-        return dispatch(deleteSpotThunk(Spot.id)).then(closeModal).then(history.push('/'))
-    }
+         dispatch(deleteSpotThunk(spot.id))
+         closeModal()
+            let newState = {...oldState}
+            delete newState[spot.id]
+            setter(newState)
+        }
+     
 
     
 
@@ -27,6 +32,7 @@ const DeleteSpotModal=()=>{
         <>
         <div>
             <h2>Are you certain you'd like to delete this spot?</h2>
+            <h5>{spot.name}: {spot.address}</h5>
             <button onClick={handleClick}>yes</button>
             <button onClick={closeModal}>cancel</button>
         </div>

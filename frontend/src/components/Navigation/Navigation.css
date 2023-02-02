@@ -4,27 +4,10 @@
 
   .navbar menu {
     z-index:99999;
+    width:5vw;
   }
- .navbar menu button {
-  width: 75px;
-  height: 30px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 30px;
-  background-color: white;
- }
-  
-  .navbar menu li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 12px;
-    display: block;
-  }
-  
-  .navbar menu li a:hover {
-    background-color: #444;
-  }
+
+
   
   .profile-dropdown {
     color: black;
@@ -41,11 +24,11 @@
     box-shadow: 10px 5px 5px grey;
     z-index:99999;
     width:10vw;
-    height: 15vw;
+    width:15vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items:flex-start;
+    align-items:space-between;
   }
 
   .barsUsersButton{
@@ -115,4 +98,20 @@
     color:blue;
     cursor:pointer;
 
+  }
+
+
+  .logoutButton {
+    cursor:pointer;
+
+  }
+  .logoutButton:hover{
+    color:blue
+  }
+
+  .ownedSpots{
+    cursor:pointer;
+  }
+  .ownedSpots:hover{
+    color:blue
   }
