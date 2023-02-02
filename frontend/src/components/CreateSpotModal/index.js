@@ -4,6 +4,7 @@ import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import { createSpot } from "../../store/Spots";
 import { useHistory } from 'react-router-dom';
+import './index.css'
 
 
 function CreateSpotModal() {
@@ -15,8 +16,8 @@ function CreateSpotModal() {
   const [state,setState]= useState('')
 
   const [price,setPrice]= useState('')
-  const [lat,setLat] = useState('')
-  const [lng,setLng] = useState('')
+  // const [lat,setLat] = useState('')
+  // const [lng,setLng] = useState('')
   const [imageList,setImageList] = useState(['','','','',''])
 const history = useHistory()
   const [description, setDescription] = useState('')
@@ -27,7 +28,7 @@ const history = useHistory()
     console.log('IMAGES IMAGES IMAGES IMAGES',imageList)
     e.preventDefault();
       setErrors([]);
-      let spot = {name,address,city,state,country,price,description,lat,lng}
+      let spot = {name,address,city,state,country,price,description,lat:Math.random()*180,lng:Math.random()*180}
       
        dispatch(createSpot(spot,imageList))
       .then(async res=>await res.json())
@@ -103,7 +104,7 @@ const history = useHistory()
 
           />
         </label>
-        <label>
+        {/* <label>
           Latitude
           <input
             type="integer"
@@ -120,9 +121,9 @@ const history = useHistory()
             value={lng}
             onChange={(e) => setLng(e.target.value)}
             required
-
-          />
+/>
         </label>
+           */}
         <label>
           Price
           <input

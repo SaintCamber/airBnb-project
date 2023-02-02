@@ -6,6 +6,7 @@ const READ_SPOT = "read-spot";
 const DELETE_SPOT = "remove-spot";
 const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
+const OWNED = "owned-spots"
 
 
 export function Update(spot){
@@ -33,6 +34,15 @@ export function getOneSpot(spot) {
 }
 const deleteSpot =(spotId)=>{
   return {type: DELETE_SPOT,spotId}
+
+}
+
+const ownedSpots = (spots)=>{
+  return {
+    type:OWNED,
+    spots
+
+  }
 }
 //the getOneSpot action creator is called in the thunkOneSpot thunk action creator
 //the thunkOneSpot thunk action creator is called in the SingleSpot component
@@ -59,6 +69,8 @@ export const populateAllSpots = () => async (dispatch) => {
     return data;
   }
 };
+
+
 // get the spot id of a single spot from the url params
 // dispatch the getOneSpot action creator
 // hit the /api/spots/:spotId with a get request
@@ -135,11 +147,11 @@ export const deleteSpotThunk=(spotId)=>async(dispatch)=>{
   }
 }
 export const UpdateSpot=(spot)=>async(dispatch)=>{
-  let { address, city, state, country, lat, lng, name, price, description } =
+  let { address, city, state, country, lat, lng, name, price, description,id } =
     spot;
     let oldSpotData={...spot}
-    console.log("SPSOT ID",spot.id)
-  let response = await csrfFetch(`/api/spots/${spot.id}`,{method:"PUT",body:JSON.stringify({ address, city, state, country, lat, lng, name, price, description})})
+    console.log("SPSOT ID",id)
+  let response = await csrfFetch(`/api/spots/${id}`,{method:"PUT",body:JSON.stringify({ address, city, state, country, lat, lng, name, price, description})})
   if (response.ok){
     console.log('UPDATE RESPONSE OK')
     let data = await response.json()
@@ -150,11 +162,12 @@ export const UpdateSpot=(spot)=>async(dispatch)=>{
     }
     console.log(oldSpotData)
     dispatch(Update(oldSpotData))
+    return oldSpotData
   }
 
 }
 
-  const initialState = { AllSpots: {}, SingleSpot: {} };
+  const initialState = { AllSpots: {}, SingleSpot: {} ,currentUsersSpots:{}};
 
 export default function  SpotsReducer(state = initialState, action) {
   let newState;
@@ -174,7 +187,8 @@ export default function  SpotsReducer(state = initialState, action) {
       SpotsList[action.spot.id]=action.spot
       let newStateOfAllSpots = {...state}
       newStateOfAllSpots.AllSpots = {...SpotsList}
-      newStateOfAllSpots.SingleSpot = action.spot
+      newStateOfAllSpots.SingleSpot = {...action.spot}
+     
       return newStateOfAllSpots
     case READ_All_SPOTS :
       let allSpots = {};
@@ -194,7 +208,9 @@ export default function  SpotsReducer(state = initialState, action) {
      delete newState.AllSpots[action.spotId]
      newState.SingleSpot = {}
       return newState
-      
+
+    
+
     default:
       return state;
   }

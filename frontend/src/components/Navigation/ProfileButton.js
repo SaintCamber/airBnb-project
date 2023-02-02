@@ -59,30 +59,21 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <menu>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li className="bookingsList" onClick={()=>{history.push('/currentBookings')}}>bookings</li>
+            {user.username}
+            {user.firstName} {user.lastName}
+            {user.email}
+            <div className="bookingsList" onClick={()=>{history.push('/currentBookings')}}>bookings</div>
             <OpenModalMenuItem
               itemText="Create Spot"
               onItemClick={closeMenu}
               modalComponent={<CreateSpotModal />}
             />
-            {spot!==undefined&&spot.ownerId===user.id?<OpenModalMenuItem
-              itemText="Delete"
-              onItemClick={closeMenu}
-              modalComponent={<DeleteSpotModal />}
-            />:''}
-           {spot!==undefined&&spot.ownerId===user.id ?( <OpenModalMenuItem
-              itemText="Update"
-              onItemClick={closeMenu}
-              modalComponent={<UpdateSpotModal />}
-            />):('')}
+         
 
             
-            <li>
+            
               <button onClick={logout} style={{backgroundColor:"white"}}>Log Out</button>
-            </li>
+            
           </menu>
         ) : (
           <menu>

@@ -115,6 +115,7 @@ const BookingsCard = ({ spot }) => {
       <div className="Card">
         <div className="topBit">
           <div className="TopFirst">
+
             <span className="pricing">{spot.price}</span>
             <span>night</span>
           </div>

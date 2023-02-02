@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { thunkOneSpot } from "../../store/Spots";
-import { useEffect } from "react";
+import { useEffect ,useState} from "react";
 import { useParams } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +12,19 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
 import "./SingleSpot.css";
 import amenitiesTile from "../amenitiesTile";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteSpotModal from "../DeleteSpotModal";
+import UpdateSpotModal from "../UpdateSpotModal";
 export default function SingleSpot() {
   console.log("inside single spot");
   let params = useParams();
   let spotId = Number(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
+  
   let SpotList = useSelector((state) => state.spots.AllSpots);
+  let currentUser = useSelector((state)=>state.session.user)
+  const [showMenu, setShowMenu] = useState(false);
+
   console.log("spotId", spotId);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -39,6 +46,7 @@ export default function SingleSpot() {
         url: "https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg",
       };
   console.log("image", images);
+  const closeMenu = () => setShowMenu(false);
 
   return (
     Spot && (
@@ -104,6 +112,8 @@ export default function SingleSpot() {
                 alignItems: "flex-end",
                 flexDirection: "row-reverse",
               }}>
+
+             
               <NavLink to="/save">
                 <FontAwesomeIcon icon={faHeart} /> Save
               </NavLink>
@@ -111,6 +121,7 @@ export default function SingleSpot() {
                 <FontAwesomeIcon icon={faArrowUpFromBracket} />
                 Share
               </NavLink>
+              
             </div>
           </div>
           <div

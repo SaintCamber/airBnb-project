@@ -41,3 +41,8 @@
     text-decoration: underline;
 
 }
+
+.deleteSpot{
+    cursor:pointer;
+
+}

@@ -25,7 +25,11 @@ const DeleteSpotModal=()=>{
 
     return (
         <>
-            {id===owner?<button onClick={handleClick}>Delete</button>:<h1>only the spot owner may remove spot</h1>}
+        <div>
+            <h2>Are you certain you'd like to delete this spot?</h2>
+            <button onClick={handleClick}>yes</button>
+            <button onClick={closeModal}>cancel</button>
+        </div>
         </>
     )
 }

@@ -1,42 +1,38 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import * as sessionActions from "../../store/session";
 import { useHistory } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 import {UpdateSpot} from "../../store/Spots"
 import './index.css'
-
-function UpdateSpotModal() {
+import { populateOwnedSpots } from "../../store/session";
+function UpdateSpotModal({spot,oldState,setter}) {
   const dispatch = useDispatch();
-  const [name,setName]= useState('')
-  const [address,setAddress]= useState('')
-  const [city,setCity]= useState('')
-  const [country,setCountry]= useState('')
-  const [state,setState]= useState('')
-  const Spot = useSelector(state=>state.spots.SingleSpot)
-  const SpotList = useSelector(state=>state.spots.AllSpots)
-  const [price,setPrice]= useState('')
-  const [lat,setLat] = useState('')
-  const [lng,setLng] = useState('')
-const history = useHistory()
-  const [description, setDescription] = useState('')
+  const [name,setName]= useState(spot.name)
+  const [address,setAddress]= useState(spot.address)
+  const [city,setCity]= useState(spot.city)
+  const [country,setCountry]= useState(spot.country)
+  const [state,setState]= useState(spot.state)
+  const [price,setPrice]= useState(spot.price)
+  // const [lat,setLat] = useState('')
+  // const [lng,setLng] = useState('')
+  const [description, setDescription] = useState(spot.description)
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const handleSubmit = async (e) => {
     e.preventDefault();
       setErrors([]);
-        let newSpot = {...Spot}
+        let newSpot = {...spot}
         newSpot["name"]=name
         newSpot["address"]=address
         newSpot["city"]=city
         newSpot["state"]=state
         newSpot["country"]=country
-        newSpot['lat']=lat
-        newSpot['lng']=lng
+        newSpot['lat']=Math.floor(Math.random()*180)
+        newSpot['lng']=Math.floor(Math.random()*180)
         newSpot['description']=description
         newSpot['price']=price
+        newSpot['id']=spot.id
         console.log('the updated spot is now ',newSpot)
       dispatch(UpdateSpot(newSpot))
       .then(async res=>await res.json())
@@ -44,8 +40,11 @@ const history = useHistory()
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       });
+      // dispatch(populateOwnedSpots())
       closeModal()
-      
+     let newState= {...oldState}
+     newState[spot.id]={...spot,...newSpot}
+     setter(newState)
   }
 
   return (
@@ -100,7 +99,7 @@ const history = useHistory()
             required
           />
         </label>
-        <label>
+        {/* <label>
           Latitude
           <input
             type="integer"
@@ -117,7 +116,7 @@ const history = useHistory()
             onChange={(e) => setLng(e.target.value)}
             required
           />
-        </label>
+        </label> */}
         <label>
           Price
           <input

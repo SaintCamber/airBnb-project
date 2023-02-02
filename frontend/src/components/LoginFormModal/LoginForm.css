@@ -8,10 +8,16 @@
     padding: 24px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    overflow:hidden;
+  }
+  .loginForm div{
+    align-items:center;
   }
   
   .loginForm input {
-    width: 100%;
+    width:80%;
     margin-bottom: 12px;
     padding: 12px;
     border: 1px solid #ccc;
@@ -26,3 +32,6 @@
     cursor: pointer;
   }
   
+  .loginForm label {
+    width:80%
+  }

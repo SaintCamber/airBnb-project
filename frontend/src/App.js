@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsList from "./components/SpotsList";
 import SingleSpot from "./components/SingleSpot";
+import UpdatePage from "./components/UpdatePage"
 import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
@@ -23,7 +24,7 @@ function App() {
   
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser(),dispatch(sessionActions.populateOwnedSpots())).then(() => setIsLoaded(true));
   }, [dispatch]);
   return (
     
@@ -34,6 +35,9 @@ function App() {
         <Switch>
           <Route exact path = {'/'}>
             <SpotsList />
+          </Route>
+          <Route path="/user/spots">
+            <UpdatePage />
           </Route>
           <Route path="/spots/:spotId">
             <SingleSpot  />

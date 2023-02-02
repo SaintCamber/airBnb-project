@@ -19,8 +19,8 @@ function Navigation({ isLoaded }){
     <div className='navbar'>
     <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center'}}>
     <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
-     <NavLink to='/rentals' id='rentHome'  style={{marginRight:25}}>Airbnb your home</NavLink>
-     <NavLink to="/locations" id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></NavLink>
+     <NavLink to="/" id='rentHome'  style={{marginRight:25}}>Infinibnb your home</NavLink>
+     <NavLink to="/" id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></NavLink>
     </div>
      <ProfileButton user={sessionUser} ><FontAwesomeIcon icon={faBars}/>
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
