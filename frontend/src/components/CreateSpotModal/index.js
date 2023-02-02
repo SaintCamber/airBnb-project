@@ -40,6 +40,7 @@ const history = useHistory()
         closeModal()
 
       }
+      history.push("/")
 
   }
   const handleImageUrlChange = (event, index) => {

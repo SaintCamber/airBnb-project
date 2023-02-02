@@ -15,7 +15,7 @@
     }
     
     
-    .icon-bar a {
+    .IconBarIcon{
       text-align: center; /* Center-align text */
       width: 10%; /* Equal width (5 icons with 20% width each = 100%) */
       padding: 12px 0px; /* Some top and bottom padding */
@@ -26,7 +26,7 @@
       margin:0px;
     }
     
-    .icon-bar a:hover {
+    .IconBarIcon:hover {
       color:black
     }
     

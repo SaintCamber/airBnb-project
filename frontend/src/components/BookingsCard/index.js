@@ -4,6 +4,7 @@ import React, { useEffect,useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
+import { useHistory } from "react-router-dom";
 import "./index.css";
 import "../calendar.css";
 
@@ -16,6 +17,7 @@ const BookingsCard = ({ spot }) => {
   let [showCalendar, setShowCalendar] = useState(false);
   let [buttonClass, setButtonClass] = useState('')
   let [buttonClassTwo, setButtonClassTwo] = useState('')
+  let history = useHistory()
   const [value, setValue] = useState([startDate,endDate]);
   const startButtonRef = useRef(null);
   const endButtonRef = useRef(null);
@@ -108,6 +110,7 @@ const BookingsCard = ({ spot }) => {
 
     setStartDate(new Date());
     setEndDate(new Date());
+    history.push("/currentBookings")
   };
 
   return (

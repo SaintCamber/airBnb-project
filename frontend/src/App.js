@@ -21,7 +21,6 @@ library.add(fas)
 
 function App() {
   const dispatch = useDispatch();
-  
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser(),dispatch(sessionActions.populateOwnedSpots())).then(() => setIsLoaded(true));

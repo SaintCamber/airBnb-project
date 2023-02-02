@@ -9,7 +9,7 @@ export default function DateSelector() {
 
     return (
 
-    <div className="bar">
+    <div className="bar" onClick={()=>{alert("feature coming soon!")}}>
        <span className="dateButton">anywhere</span>
        <div className="wrapper">
        <span className="dateButton">any week</span>
