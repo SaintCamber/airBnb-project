@@ -71,9 +71,15 @@ const BookingsCard = ({ spot }) => {
     };
   }, [showCalendar,buttonClass,buttonClassTwo]);
   let divClass1 = showCalendar ? "show" : "hidden";
-
+  let SpotOwner =  useSelector(state=>state.session.user)
+  
+    console.log("+++++++++",+SpotOwner.id=== +spot.owner.id)
   const checkAvailability = (e) => {
     e.preventDefault();
+    if (+SpotOwner.id=== +spot.owner.id){
+      alert('you own this spot unable to create a reservation')
+      return
+    }
     console.log("checking availability");
     console.log("bookings bookings bookings ", bookings);
     let unavailable = [];

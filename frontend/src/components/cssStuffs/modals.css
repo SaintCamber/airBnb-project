@@ -1,10 +1,17 @@
 .modal{display: flex;
 flex-direction:column;
 overflow-y: scroll;
+overflow-x:hidden;
 max-height:80vh;
 width:30vw;
 align-items: center;
-padding:10px;}
+padding:25px;
+border-radius: 15px;
+}
+.modal::-webkit-scrollbar {
+    background-color:none;
+    border-radius:15px;
+  }
 .Form {
     display:flex;
     justify-content: center;
@@ -18,23 +25,26 @@ padding:10px;}
     position:relative;
     height:3em;
     width:100%;
-    border:1px solid rgb(221,221,221)
+    border:2px solid rgb(221,221,221);
+    border-radius:15px;
 
 }
 .InputTitle{
     position:absolute;
     background-color:white;
     height:100%;
-    width:100%;
-    font-size:16px;
+    width:95%;
+    font-size:20px;
     z-index:2;
+    border-radius:15px;
 }
 .formInput{
     position:absolute;
-    width:100%;
+    width:90%;
     height:3em;
     border:none;
     outline: none;
+    border-radius:15px
     
 }
 .FormButton{
@@ -44,7 +54,7 @@ padding:10px;}
 .active {
 height:50%;
 width:100%;
-font-size:8px;
+font-size:14px;
 background-color:transparent;
 border:none;
 
