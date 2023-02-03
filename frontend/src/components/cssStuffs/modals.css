@@ -9,28 +9,29 @@ padding:10px;}
     display:flex;
     justify-content: center;
     flex-direction: column;
-    max-width:20vw;
+    width:100%
+    
 
 }
-.Form > label{
+ label{
     display:flex;
     position:relative;
     height:3em;
-    border:none;
-    width:100%
+    width:100%;
+    border:1px solid rgb(221,221,221)
 
 }
 .InputTitle{
     position:absolute;
     background-color:white;
     height:100%;
-    width:120%;
+    width:100%;
     font-size:16px;
     z-index:2;
 }
-.FormInput{
+.formInput{
     position:absolute;
-    width:80%;
+    width:100%;
     height:3em;
     border:none;
     outline: none;
