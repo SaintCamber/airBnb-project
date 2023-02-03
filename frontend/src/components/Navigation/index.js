@@ -18,13 +18,13 @@ function Navigation({ isLoaded }){
   return (
     <div className='navbar'>
     <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center'}}>
-    <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
-     <NavLink to="/" id='rentHome'  style={{marginRight:25}}>Infinibnb your home</NavLink>
-     <NavLink to="/" id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></NavLink>
+    <div  onClick={()=>{alert("feature coming soon!")}} style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
+     <div id='rentHome'  style={{marginRight:25}}>Infinibnb your home</div>
+     <div id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></div>
     </div>
+
      <ProfileButton user={sessionUser} ><FontAwesomeIcon icon={faBars}/>
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
-
     </div>
 
      <DateSelector></DateSelector>

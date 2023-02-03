@@ -61,10 +61,18 @@
     color:black;
     white-space: nowrap;
     position: relative;
+    cursor:pointer;
   }
 
   #globe{
     color:black;
+    cursor:pointer
+  }
+  #globe:hover{
+    color:blue
+  }
+  #rentHome:hover{
+    color:blue
   }
 
   .bookingDatePickerDiv {
