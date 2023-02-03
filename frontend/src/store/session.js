@@ -38,6 +38,7 @@ export const login = (user) => async (dispatch) => {
   });
   const data = await response.json();
   dispatch(setUser(data.user));
+  dispatch(populateOwnedSpots())
   return response;
 };
 //the state of the session in the event no one is logged in is just an object with user set to null.
@@ -99,6 +100,7 @@ const sessionReducer = (state = initialState, action) => {
     case REMOVE_USER:
       newState = Object.assign({}, state);
       newState.user = null;
+      newState.userOwnedSpots = {}
       return newState;
       case OWNED:
         newState = Object.assign({},state)

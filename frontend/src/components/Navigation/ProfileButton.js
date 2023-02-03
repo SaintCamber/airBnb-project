@@ -88,7 +88,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-           <li className="bookingsList" onClick={handleDemo}>Demo User</li>
+           <div className="bookingsList" onClick={handleDemo}>Demo User</div>
             
           </menu>
         )}

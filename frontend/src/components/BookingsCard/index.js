@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CheckBookingsThunk, createBookingThunk } from "../../store/bookings";
 import { useHistory } from "react-router-dom";
 import "./index.css";
-import "../calendar.css";
+import "../cssStuffs/calendar.css";
 
 const BookingsCard = ({ spot }) => {
   console.log("inBookingsCard");

@@ -165,7 +165,9 @@ export const UpdateSpot=(spot)=>async(dispatch)=>{
     dispatch(Update(oldSpotData))
     return oldSpotData
   }
-
+if (response.errors){
+  return response
+}
 }
 
   const initialState = { AllSpots: {}, SingleSpot: {} ,currentUsersSpots:{}};
