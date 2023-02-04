@@ -20,8 +20,8 @@ function LoginFormModal() {
         }
         console.log(labelId,e.target.id)
       }
-  let classOne=labelId===1 ? "InputTitle active":"InputTitle"
-  let classTwo=labelId===2 ? "InputTitle active":"InputTitle"
+  let classOne=labelId===1 ? "InputTitle -active":"InputTitle"
+  let classTwo=labelId===2 ? "InputTitle -active":"InputTitle"
 
   const handleSubmit = (e) => {
     e.preventDefault();

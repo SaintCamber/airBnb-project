@@ -13,7 +13,7 @@ function CreateSpotModal() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
-  const [labelId,setLabelId]=useState(0)
+  const [labelId, setLabelId] = useState(0);
 
   const [price, setPrice] = useState("");
   // const [lat,setLat] = useState('')
@@ -24,33 +24,29 @@ function CreateSpotModal() {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
-  function handleLabelOnclick(e){
-    if(e.target.id!==labelId){
-        setLabelId(parseInt(e.target.id))
-        
-      }
-      console.log(labelId,e.target.id)
+  function handleLabelOnclick(e) {
+    if (e.target.id !== labelId) {
+      setLabelId(parseInt(e.target.id));
     }
-    let classOne=labelId===1 ? "InputTitle active":"InputTitle"
+    console.log(labelId, e.target.id);
+  }
+  let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
 
+  let classTwo = labelId === 2 ? "InputTitle -active" : "InputTitle";
+  let classThree = labelId === 3 ? "InputTitle -active" : "InputTitle";
 
-    let classTwo=labelId===2 ? "InputTitle active":"InputTitle"
-    let classThree=labelId===3 ? "InputTitle active":"InputTitle"
-    
-    let classFour=labelId===4 ? "InputTitle active":"InputTitle"
-    let classFive=labelId===5 ? "InputTitle active":"InputTitle"
-    let classSix=labelId===6 ? "InputTitle active":"InputTitle"
-    let classSeven=labelId===7 ? "InputTitle active":"InputTitle"
-    let classEight,classNine,classTen,classEleven,classTwelve
-let imgClasses = {
-  0:classEight=labelId===8 ? "InputTitle active":"InputTitle",
-  1:classNine=labelId===9 ? "InputTitle active":"InputTitle",
-  2:classTen=labelId===10 ? "InputTitle active":"InputTitle",
-  3:classEleven=labelId===11 ? "InputTitle active":"InputTitle",
-  4:classTwelve=labelId===12 ? "InputTitle active":"InputTitle"
-
-}
-
+  let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
+  let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
+  let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
+  let classSeven = labelId === 7 ? "InputTitle -active" : "InputTitle";
+  let classEight, classNine, classTen, classEleven, classTwelve;
+  let imgClasses = {
+    0: (classEight = labelId === 8 ? "InputTitle -active" : "InputTitle"),
+    1: (classNine = labelId === 9 ? "InputTitle -active" : "InputTitle"),
+    2: (classTen = labelId === 10 ? "InputTitle -active" : "InputTitle"),
+    3: (classEleven = labelId === 11 ? "InputTitle -active" : "InputTitle"),
+    4: (classTwelve = labelId === 12 ? "InputTitle -active" : "InputTitle"),
+  };
 
   const handleSubmit = async (e) => {
     console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
@@ -78,13 +74,13 @@ let imgClasses = {
     //   closeModal();
     // }
 
-        setName("")
-        setAddress("")
-        setCity("")
-        setCountry("")
-        setPrice("")
-        setDescription("")
-        setImageList(['','','','',''])
+    setName("");
+    setAddress("");
+    setCity("");
+    setCountry("");
+    setPrice("");
+    setDescription("");
+    setImageList(["", "", "", "", ""]);
     history.push("/");
   };
   const handleImageUrlChange = (event, index) => {
@@ -103,7 +99,12 @@ let imgClasses = {
           ))}
         </ul>
         <label>
-          <div id={1} onClick={e=>handleLabelOnclick(e)} className={classOne}>name</div>
+          <div
+            id={1}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classOne}>
+            name
+          </div>
           <input
             type="text"
             value={name}
@@ -113,7 +114,12 @@ let imgClasses = {
           />
         </label>
         <label>
-          <div id={2}onClick={e=>handleLabelOnclick(e)} className={classTwo} >City</div>
+          <div
+            id={2}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classTwo}>
+            City
+          </div>
           <input
             type="text"
             value={city}
@@ -123,7 +129,12 @@ let imgClasses = {
           />
         </label>
         <label>
-          <div id={3}onClick={e=>handleLabelOnclick(e)} className={classThree}>State</div>
+          <div
+            id={3}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classThree}>
+            State
+          </div>
           <input
             type="text"
             value={state}
@@ -133,7 +144,12 @@ let imgClasses = {
           />
         </label>
         <label>
-          <div id={4}onClick={e=>handleLabelOnclick(e)} className={classFour}>Country</div>
+          <div
+            id={4}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classFour}>
+            Country
+          </div>
           <input
             type="text"
             value={country}
@@ -143,7 +159,12 @@ let imgClasses = {
           />
         </label>
         <label>
-          <div id={5}onClick={e=>handleLabelOnclick(e)} className={classFive}>Address</div>
+          <div
+            id={5}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classFive}>
+            Address
+          </div>
           <input
             type="text"
             value={address}
@@ -173,7 +194,12 @@ let imgClasses = {
         </label>
            */}
         <label>
-          <div id={6}onClick={e=>handleLabelOnclick(e)} className={classSix}>Price</div>
+          <div
+            id={6}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classSix}>
+            Price
+          </div>
           <input
             type="integer"
             value={price}
@@ -183,7 +209,12 @@ let imgClasses = {
           />
         </label>
         <label>
-          <div id={7}onClick={e=>handleLabelOnclick(e)} className={classSeven}>Description</div>
+          <div
+            id={7}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classSeven}>
+            Description
+          </div>
           <input
             type="text"
             value={description}
@@ -194,7 +225,12 @@ let imgClasses = {
         </label>
         {imageList.map((imageUrl, index) => (
           <label key={index}>
-            <div id={index+8} onClick={handleLabelOnclick} className={imgClasses[index]} >Image URL {index + 1}</div>
+            <div
+              id={index + 8}
+              onClick={handleLabelOnclick}
+              className={imgClasses[index]}>
+              Image URL {index + 1}
+            </div>
 
             <input
               className={"formInput"}

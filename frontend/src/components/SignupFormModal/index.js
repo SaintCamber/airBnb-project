@@ -14,22 +14,21 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const [labelId,setLabelId]=useState("0")
+  const [labelId, setLabelId] = useState("0");
 
-  function handleLabelOnclick(e){
-    if(e.target.id!==labelId){
-        setLabelId(parseInt(e.target.id))
-        
-      }
-      console.log(labelId,e.target.id)
+  function handleLabelOnclick(e) {
+    if (e.target.id !== labelId) {
+      setLabelId(parseInt(e.target.id));
     }
-let classOne=labelId===1 ? "InputTitle active":"InputTitle"
-let classTwo=labelId===2 ? "InputTitle active":"InputTitle"
-let classThree=labelId===3 ? "InputTitle active":"InputTitle"
+    console.log(labelId, e.target.id);
+  }
+  let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
+  let classTwo = labelId === 2 ? "InputTitle -active" : "InputTitle";
+  let classThree = labelId === 3 ? "InputTitle -active" : "InputTitle";
 
-let classFour=labelId===4 ? "InputTitle active":"InputTitle"
-let classFive=labelId===5 ? "InputTitle active":"InputTitle"
-let classSix=labelId===6 ? "InputTitle active":"InputTitle"
+  let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
+  let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
+  let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,11 +42,12 @@ let classSix=labelId===6 ? "InputTitle active":"InputTitle"
           lastName,
           password,
         })
-      ).then(async (res) => await res.json())
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
+      )
+        .then(async (res) => await res.json())
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
     }
     return setErrors([
       "Confirm Password field must be the same as the Password field",
@@ -56,7 +56,7 @@ let classSix=labelId===6 ? "InputTitle active":"InputTitle"
 
   return (
     <div className={"modal"}>
-      <h1>Sign Up</h1>
+      <h1>SignUp</h1>
       <form onSubmit={handleSubmit} className={"Form"}>
         <ul>
           {errors.map((error, idx) => (
@@ -64,81 +64,75 @@ let classSix=labelId===6 ? "InputTitle active":"InputTitle"
           ))}
         </ul>
         <label>
-        <div id={1} className={classOne} onClick={handleLabelOnclick}>
-          Email
-
-        </div>
+          <div id={1} className={classOne} onClick={handleLabelOnclick}>
+            Email
+          </div>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <label>
-        <div id={2} className={classTwo} onClick={handleLabelOnclick}>
-          Username
-
-        </div>
+          <div id={2} className={classTwo} onClick={handleLabelOnclick}>
+            Username
+          </div>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <label>
-        <div id={3} className={classThree} onClick={handleLabelOnclick}>
-
-          First Name
-        </div>
+          <div id={3} className={classThree} onClick={handleLabelOnclick}>
+            First Name
+          </div>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <label>
-        <div id={4} className={classFour} onClick={handleLabelOnclick}>
-
-          Last Name
-        </div>
+          <div id={4} className={classFour} onClick={handleLabelOnclick}>
+            Last Name
+          </div>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <label>
-        <div id={5} className={classFive} onClick={handleLabelOnclick}>
-          Password
-
-        </div>
+          <div id={5} className={classFive} onClick={handleLabelOnclick}>
+            Password
+          </div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <label>
-        <div id={6} className={classSix} onClick={handleLabelOnclick}>
-
-          Confirm Password
-        </div>
+          <div id={6} className={classSix} onClick={handleLabelOnclick}>
+            Confirm Password
+          </div>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className={"FormInput"}
+            className={"formInput"}
           />
         </label>
         <button type="submit" className={"FormButton"}>

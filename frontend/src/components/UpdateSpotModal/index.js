@@ -27,16 +27,16 @@ function UpdateSpotModal({ spot, oldState, setter }) {
       }
       console.log(labelId,e.target.id)
     }
-let classOne=labelId===1 ? "InputTitle active":"InputTitle"
+let classOne=labelId===1 ? "InputTitle -active":"InputTitle"
 
 
-let classTwo=labelId===2 ? "InputTitle active":"InputTitle"
-let classThree=labelId===3 ? "InputTitle active":"InputTitle"
+let classTwo=labelId===2 ? "InputTitle -active":"InputTitle"
+let classThree=labelId===3 ? "InputTitle -active":"InputTitle"
 
-let classFour=labelId===4 ? "InputTitle active":"InputTitle"
-let classFive=labelId===5 ? "InputTitle active":"InputTitle"
-let classSix=labelId===6 ? "InputTitle active":"InputTitle"
-let classSeven=labelId===7 ? "InputTitle active":"InputTitle"
+let classFour=labelId===4 ? "InputTitle -active":"InputTitle"
+let classFive=labelId===5 ? "InputTitle -active":"InputTitle"
+let classSix=labelId===6 ? "InputTitle -active":"InputTitle"
+let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
 
 
   const handleSubmit = async (e) => {

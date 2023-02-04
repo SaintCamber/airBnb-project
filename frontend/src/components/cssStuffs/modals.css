@@ -9,8 +9,7 @@ padding:25px;
 border-radius: 15px;
 }
 .modal::-webkit-scrollbar {
-    background-color:none;
-    border-radius:15px;
+    display:none;
   }
 .Form {
     display:flex;
@@ -27,13 +26,14 @@ border-radius: 15px;
     width:100%;
     border:2px solid rgb(221,221,221);
     border-radius:15px;
+    margin-top:3px;
 
 }
 .InputTitle{
     position:absolute;
     background-color:white;
     height:100%;
-    width:95%;
+    width:100%;
     font-size:20px;
     z-index:2;
     border-radius:15px;
@@ -48,10 +48,27 @@ border-radius: 15px;
     
 }
 .FormButton{
-    margin-top:10px;
+   
+    display:flex;
+    align-items:center;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+    margin-top: 15px;
+    height:3em;
+    display:flex;
+    font-size: 22px;
+    justify-content: center;
+    padding:0;
+    color:white;
+    cursor:pointer;
+    border:0.5px solid rgb(221,221,221);
+   background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%)
 }
 
-.active {
+
+.-active {
 height:50%;
 width:100%;
 font-size:14px;
@@ -61,7 +78,8 @@ border:none;
 }
 
 .modal h1{
-    width:30vw
+    width:30vw;
+    text-align:center
 }
 
 .FormInput:focus{
