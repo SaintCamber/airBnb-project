@@ -1,0 +1,62 @@
+/* style={{ display: "flex", flexDirection: "column", backgroundColor: "white", boxSizing: "borderBox", width: "24%", height: "auto",maxHeight:"270px",maxWidth:"250px",alignItems: "center", margin: "0 2px",cursor:"pointer"}}
+
+style={{width:"100%",height:"60%",minHeight:"50%"}}
+
+style={{width: "100%", borderRadius: 10, objectFit: "cover", height:"100%",}}
+
+style={{width:"100%",height:"60%"}}
+
+style={{width: "100%",height:"100%", borderRadius: 10, objectFit: "cover"}}
+
+style={{display: "flex", flexDirection: "row",justifyContent:"space-evenly"}}>
+
+}style={{width: "50%"}}>
+
+style={{display: "flex", flexDirection: "row", alignItems: "flex-end", width: "50%", justifyContent: "end"}}
+<div onClick={handleTileClick} style={{ display: "flex", flexDirection: "column", backgroundColor: "white", boxSizing: "borderBox", Width: "24%", height: "auto",alignItems: "center", margin: "0 2px",cursor:"pointer"}}>
+{spot.previewImage ? <div style={{width:"100%",height:"60%",minHeight:"50%"}}><img src={spot.previewImage} alt="spot preview" style={{width: "100%", borderRadius: 10, objectFit: "cover", height:"100%",}}></img></div> :  <div style={{width:"100%",height:"60%"}}><img src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' style={{width: "100%",height:"100%", borderRadius: 10, objectFit: "cover"}} ></img></div>}
+<div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "left"}}>
+  <div style={{display: "flex", flexDirection: "row",justifyContent:"space-evenly"}}>
+    <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-end", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{spot.avgStarRating|0}</span>
+  </div>
+  <h5 style={{fontWeight: 400,margin:0}}>{spot.city}, {spot.state}</h5>
+  <h5 style={{}}>{spot.price}$ per day</h5>
+</div>
+</div>
+); */
+
+
+.SpotTile {
+    display: flex;
+flex-direction: column;
+background-color: white;
+box-sizing: borderBox;
+width: 24%;
+height: auto;
+max-height: 270px;
+max-width: 250px;
+min-width:200px;
+align-items: center;
+margin:0px 2px;
+cursor: pointer
+}
+
+.imgBox{width: 100%;
+    height: 60%;
+    min-height:250px}
+
+.TileImage{width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    height: 100%;
+    min-height: 250px;;
+}
+
+.infoBox{width: 100%;
+    height: 60%;
+max-width: 250px;
+}
+
+.displayInfo{display: flex;
+    flex-direction: row;
+    justify-content: space-evenly}

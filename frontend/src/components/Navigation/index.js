@@ -18,9 +18,15 @@ function Navigation({ isLoaded }){
   return (
     <div className='navbar'>
     <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center'}}>
-    <div  onClick={()=>{alert("feature coming soon!")}} style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
-     <div id='rentHome'  style={{marginRight:25}}>Infinibnb your home</div>
-     <div id='globe' style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></div>
+    <div   style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
+     <div id='rentHome' onClick={()=>{}}  style={{marginRight:25}}>
+     <OpenModalMenuItem
+              itemText="InfiniBnb your Home"
+              onItemClick={closeMenu}
+              modalComponent={<CreateSpotModal />}
+            />
+     </div>
+     <div id='globe'onClick={()=>{alert("feature coming soon!")}} style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></div>
     </div>
 
      <ProfileButton user={sessionUser} ><FontAwesomeIcon icon={faBars}/>

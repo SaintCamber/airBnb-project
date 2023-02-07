@@ -15,10 +15,10 @@ export default function SpotsList(){
     console.log('spotsList',spotsList)
     return (
         <>
-        <IconBar></IconBar>
+        {/* <IconBar></IconBar> */}
         
         <div style={{border:"none",backgroundColor:"white",
-        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%'}}>
+        display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%',gap:"60px 2px"}}>
                 {spotsList.map((spot)=>
                 <SpotListItem key={spot.id} spot={spot}/>
                 )}

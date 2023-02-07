@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
 import { useHistory } from 'react-router-dom'
+import './SpotsListItem.css'
 export default function SpotListItem({spot}){
   const history =useHistory()
    console.log(spot)
@@ -15,11 +16,11 @@ export default function SpotListItem({spot}){
    }
    return (
     
-    <div onClick={handleTileClick} style={{ display: "flex", flexDirection: "column", backgroundColor: "white", boxSizing: "borderBox", width: "24%", height: "auto",minHeight:"380px",alignItems: "center", margin: "0 2px",cursor:"pointer"}}>
-      {spot.previewImage ? <div style={{width:"100%",height:"60%",minHeight:"50%"}}><img src={spot.previewImage} alt="spot preview" style={{width: "100%", borderRadius: 10, objectFit: "cover", height:"100%",}}></img></div> :  <div style={{width:"100%",height:"60%"}}><img src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' style={{width: "100%",height:"100%", borderRadius: 10, objectFit: "cover"}} ></img></div>}
-      <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "left"}}>
-        <div style={{display: "flex", flexDirection: "row",justifyContent:"space-evenly"}}>
-          <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-end", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{spot.avgStarRating|0}</span>
+    <div onClick={handleTileClick} className="SpotTile" >
+      {spot.previewImage ? <div className="imgBox"><img className="TileImage" src={spot.previewImage} alt="spot preview" ></img></div> :  <div className="imgBox" ><img className="TileImage" src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' ></img></div>}
+      <div className="infoBox" >
+        <div className="displayInfo" >
+          <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{spot.avgStarRating||"new"}</span>
         </div>
         <h5 style={{fontWeight: 400,margin:0}}>{spot.city}, {spot.state}</h5>
         <h5 style={{}}>{spot.price}$ per day</h5>

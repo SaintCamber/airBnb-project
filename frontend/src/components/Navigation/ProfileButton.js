@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from 'react-redux';
-import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import { useDispatch } from "react-redux";
+import * as sessionActions from "../../store/session";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 import CreateSpotModal from "../CreateSpotModal";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faBars,faUserCircle} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import DeleteSpotModal from "../DeleteSpotModal";
 import { useSelector } from "react-redux";
 import UpdateSpotModal from "../UpdateSpotModal";
@@ -15,8 +15,8 @@ function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const spot = useSelector(state=>state.spots.SingleSpot)
-  const history = useHistory()
+  const spot = useSelector((state) => state.spots.SingleSpot);
+  const history = useHistory();
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -31,7 +31,7 @@ function ProfileButton({ user }) {
       }
     };
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
@@ -43,38 +43,45 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
     closeMenu();
   };
-  function handleDemo(e){
-   let demoCreds = {'credential':"Demo-lition","password":"password"}
-    e.preventDefault()
-    dispatch(sessionActions.login(demoCreds))
+  function handleDemo(e) {
+    let demoCreds = { credential: "Demo-lition", password: "password" };
+    e.preventDefault();
+    dispatch(sessionActions.login(demoCreds));
   }
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
     <div>
-      <button onClick={openMenu} className='barsUsersButton'>
-      <FontAwesomeIcon icon={faBars}/>
-      <FontAwesomeIcon icon={faUserCircle}/>
+      <button onClick={openMenu} className="barsUsersButton">
+        <FontAwesomeIcon icon={faBars} />
+        <FontAwesomeIcon icon={faUserCircle} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <menu>
-            {user.username}
-            {user.firstName} {user.lastName}
-            {user.email}
-            <div className="bookingsList" onClick={()=>{history.push('/currentBookings')}}>bookings</div>
-            <div className="ownedSpots" onClick={()=>{history.push('/user/spots')}}>Your Spots</div>
-            <OpenModalMenuItem
-              itemText="Create Spot"
-              onItemClick={closeMenu}
-              modalComponent={<CreateSpotModal />}
-            />
-         
+            <div>{user.username}</div>
+            <div>
+              {user.firstName} {user.lastName}
+            </div>
+            <div>{user.email}</div>
+            <div
+              className="bookingsList"
+              onClick={() => {
+                history.push("/currentBookings");
+              }}>
+              bookings
+            </div>
+            <div
+              className="ownedSpots"
+              onClick={() => {
+                history.push("/user/spots");
+              }}>
+              Your Spots
+            </div>
 
-            
-            
-              <div className="logoutButton" onClick={logout}>logout</div>
-            
+            <div className="logoutButton" onClick={logout}>
+              logout
+            </div>
           </menu>
         ) : (
           <menu>
@@ -88,8 +95,9 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-           <div className="bookingsList" onClick={handleDemo}>Demo User</div>
-            
+            <div className="bookingsList" onClick={handleDemo}>
+              Demo User
+            </div>
           </menu>
         )}
       </ul>

@@ -93,3 +93,8 @@ border:none;
 textarea{
     outline:none;
 }
+
+*:disabled{
+    background-image:none;
+    background-color:grey
+}

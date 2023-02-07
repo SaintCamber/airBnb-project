@@ -135,7 +135,7 @@ export default function SingleSpot() {
               <div
                 style={{
                   width: "50%",
-                  height: 240,
+                  height: "412px",
                   margin: 6,
                 }}>
                 <img
@@ -167,14 +167,14 @@ export default function SingleSpot() {
             <div
               style={{
                 width: "50%",
-                height: "100%",
+                height: "412px",
                 display: "flex",
                 flexDirection: "column",
               }}>
               <div
                 style={{
                   width: "100%",
-                  height: 120,
+                  height: "50%",
                   display: "flex",
                   flexDirection: "row",
                 }}>
@@ -212,7 +212,7 @@ export default function SingleSpot() {
               <div
                 style={{
                   width: "100%",
-                  height: 120,
+                  height: "50%",
                   display: "flex",
                   flexDirection: "row",
                 }}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -14,6 +14,7 @@ function CreateSpotModal() {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [labelId, setLabelId] = useState(0);
+  const [ValidationErrors,setValidationErrors] =useState([])
 
   const [price, setPrice] = useState("");
   // const [lat,setLat] = useState('')
@@ -23,6 +24,12 @@ function CreateSpotModal() {
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+useEffect(()=>{
+  let errors = []
+  if(name.length<3)errors.push("name needs to be longer than 3 character")
+  setValidationErrors(errors)
+},[name,address,city,country,state,labelId,price,imageList])
 
   function handleLabelOnclick(e) {
     if (e.target.id !== labelId) {
@@ -66,22 +73,25 @@ function CreateSpotModal() {
 
     dispatch(createSpot(spot, imageList))
       .then(async (res) => await res.json())
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      });
-    // if (!errors.length) {
-    //   closeModal();
-    // }
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        });
+    if (!errors.length) {
+      setName("");
+      setAddress("");
+      setCity("");
+      setCountry("");
+      setPrice("");
+      setDescription("");
+      setImageList(["", "", "", "", ""]);
+      history.push("/");
+      closeModal()
+    }
+    else{
+      
+    }
 
-    setName("");
-    setAddress("");
-    setCity("");
-    setCountry("");
-    setPrice("");
-    setDescription("");
-    setImageList(["", "", "", "", ""]);
-    history.push("/");
   };
   const handleImageUrlChange = (event, index) => {
     const imageUrls = [...imageList];
@@ -241,7 +251,7 @@ function CreateSpotModal() {
             />
           </label>
         ))}
-        <button className={"FormButton"} type="submit">
+        <button className={"FormButton"} type="submit" disabled={ValidationErrors.length>0 ? true:false} >
           Create Spot
         </button>
       </form>
