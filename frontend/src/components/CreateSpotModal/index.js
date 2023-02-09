@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState,useEffect,} from "react";
+import { useDispatch,useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 import { createSpot } from "../../store/Spots";
 import { useHistory } from "react-router-dom";
+import { useRef } from "react";
 import "../cssStuffs/modals.css";
 
 function CreateSpotModal() {
@@ -14,22 +15,18 @@ function CreateSpotModal() {
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [labelId, setLabelId] = useState(0);
-  const [ValidationErrors,setValidationErrors] =useState([])
-
+  const Scroller = useRef(null)
   const [price, setPrice] = useState("");
   // const [lat,setLat] = useState('')
   // const [lng,setLng] = useState('')
   const [imageList, setImageList] = useState(["", "", "", "", ""]);
   const history = useHistory();
   const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState([]);
-  const { closeModal } = useModal();
+  const [Errors, setErrors] = useState([]);
+  const [ValidationErrors, setValidationErrors] = useState([]);
+ const scroller = useRef(null)
+  const { closeModal, } = useModal();
 
-useEffect(()=>{
-  let errors = []
-  if(name.length<3)errors.push("name needs to be longer than 3 character")
-  setValidationErrors(errors)
-},[name,address,city,country,state,labelId,price,imageList])
 
   function handleLabelOnclick(e) {
     if (e.target.id !== labelId) {
@@ -58,7 +55,7 @@ useEffect(()=>{
   const handleSubmit = async (e) => {
     console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
     e.preventDefault();
-    setErrors([]);
+    setErrors([])
     let spot = {
       name,
       address,
@@ -70,14 +67,14 @@ useEffect(()=>{
       lat: Math.floor(Math.random() * 180),
       lng: Math.floor(Math.random() * 180),
     };
-
-    dispatch(createSpot(spot, imageList))
-      .then(async (res) => await res.json())
+   dispatch(createSpot(spot, imageList))
+      .then(async (res) =>await res.json())
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
-    if (!errors.length) {
+          
+          if (data && data.errors) setErrors(data.errors)})
+          
+    if(!Errors.length){
       setName("");
       setAddress("");
       setCity("");
@@ -88,9 +85,11 @@ useEffect(()=>{
       history.push("/");
       closeModal()
     }
-    else{
-      
-    }
+           
+        
+  
+    
+     
 
   };
   const handleImageUrlChange = (event, index) => {
@@ -100,11 +99,11 @@ useEffect(()=>{
   };
 
   return (
-    <div className={"modal"}>
+    <div ref={scroller} id={`CreateModal`} className={"modal"}>
       <h1>Create New Spot</h1>
       <form onSubmit={handleSubmit} className="Form">
         <ul>
-          {errors.map((error, idx) => (
+          {Errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>

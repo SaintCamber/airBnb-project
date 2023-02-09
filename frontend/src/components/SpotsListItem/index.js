@@ -6,10 +6,10 @@ import { useParams } from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faStar} from '@fortawesome/free-regular-svg-icons'
 import { useHistory } from 'react-router-dom'
+import UpdatePage from '../UpdatePage'
 import './SpotsListItem.css'
 export default function SpotListItem({spot}){
   const history =useHistory()
-   console.log(spot)
    const  handleTileClick=(e)=>{
     e.preventDefault()
     history.push(`/Spots/${spot.id}`)

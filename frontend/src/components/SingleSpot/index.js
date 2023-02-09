@@ -32,7 +32,7 @@ export default function SingleSpot() {
     const GetSpot = async () => {
       dispatch(thunkOneSpot(spotId));
     };
-    GetSpot();
+    return GetSpot();
   }, [dispatch, spotId]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);

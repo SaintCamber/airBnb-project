@@ -22,7 +22,8 @@
     display:flex;
     justify-content: flex-start;
     padding:25px;
-    height:70vh;
+   height:400px;
+
     align-content: center;
 flex-direction: column;}
 .topBit{

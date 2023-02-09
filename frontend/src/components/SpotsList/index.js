@@ -7,19 +7,19 @@ import IconBar from '../iconbar'
 import './SpotsList.css'
 export default function SpotsList(){
    let dispatch=useDispatch()
+   const spotsList = useSelector((state)=>state.spots.AllSpots)
 
    useEffect( ()=>{
        dispatch(populateAllSpots())
     },[dispatch])
-    const spotsList = useSelector((state)=>Object.values(state.spots.AllSpots))
-    console.log('spotsList',spotsList)
+    if(!Object.values(spotsList).length) return null
     return (
         <>
         {/* <IconBar></IconBar> */}
         
         <div style={{border:"none",backgroundColor:"white",
         display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%',gap:"60px 2px"}}>
-                {spotsList.map((spot)=>
+                {Object.values(spotsList).reverse().map((spot)=>
                 <SpotListItem key={spot.id} spot={spot}/>
                 )}
         </div>
