@@ -98,3 +98,7 @@ textarea{
     background-image:none;
     background-color:grey
 }
+
+.hidden {
+    display:none
+}

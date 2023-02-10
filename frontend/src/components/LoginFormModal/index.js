@@ -33,7 +33,7 @@ function LoginFormModal() {
         if (data && data.errors) setErrors(data.errors);
       });
   };
-  return (vzdsg
+  return (
     <div className={"modal"}>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit} className="Form">

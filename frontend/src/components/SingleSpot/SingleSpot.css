@@ -7,10 +7,13 @@
 }
 
 .ScrollDiv {
+    display:flex;
     border-bottom:1px solid lightgrey;
     border-top:1px solid light lightgrey;
     height:250px;
     width:100%;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .subScroll{
@@ -45,4 +48,24 @@
 .deleteSpot{
     cursor:pointer;
 
+}
+.containerDiv{
+    display:flex;
+    flex-direction: row;
+}
+.IconDiv{
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    
+}
+
+.TextDiv > h4{
+margin:0px;
+font-size:20px
+}
+
+.TextDiv > p {
+    font-size:10px;
+    margin:0
 }

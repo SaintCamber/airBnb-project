@@ -35,7 +35,7 @@ function Navigation({ isLoaded }){
      <FontAwesomeIcon icon={faUserCircle}/></ProfileButton>
     </div>
 
-     <DateSelector></DateSelector>
+     {/* <DateSelector></DateSelector> */}
     <div onClick={()=>{history.push('/home')}} id='homeLogo'><FontAwesomeIcon icon="fa-solid fa-infinity" /> Infinibnb</div>
     </div>
 

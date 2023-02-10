@@ -77,7 +77,6 @@ export const populateAllSpots = () => async (dispatch) => {
 export const thunkOneSpot = (spotId) => async (dispatch) => {
   console.log("inside thunkOneSpot");
   let response = await csrfFetch(`/api/spots/${spotId}`);
-  console.log("response", response);
   let data = await response.json();
   if (response.ok) {
     console.log("single spot data", data);
@@ -133,7 +132,7 @@ export const createSpot = (Spot, images) => async (dispatch) => {
         
       }
     }
-    return response
+    return Data
 };
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
@@ -187,7 +186,7 @@ export const UpdateSpot = (spot) => async (dispatch) => {
   }
 };
 
-const initialState = { AllSpots: {}, SingleSpot: {}, currentUsersSpots: {} };
+const initialState = { AllSpots: {}, SingleSpot: {}, newest: {} };
 
 export default function SpotsReducer(state = initialState, action) {
   let newState;
@@ -198,7 +197,7 @@ export default function SpotsReducer(state = initialState, action) {
       newState = { ...state };
       let Spot = action.spot;
       newState["AllSpots"] = { ...state.AllSpots, [Spot.id]: Spot };
-
+      newState["newest"] = {...Spot}
       return newState;
     case UPDATE_SPOT:
       // console.log("update action",action)
@@ -220,7 +219,7 @@ export default function SpotsReducer(state = initialState, action) {
 
     case SINGLE:
       newState = { ...state };
-      newState["SingleSpot"] = { ...action.payload };
+      newState["SingleSpot"] = { ...action.payload }
       return newState;
 
     case DELETE_SPOT:

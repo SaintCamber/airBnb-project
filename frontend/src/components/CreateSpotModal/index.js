@@ -9,12 +9,13 @@ import "../cssStuffs/modals.css";
 
 function CreateSpotModal() {
   const dispatch = useDispatch();
+  const [id,setId]=useState('')
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
-  const [labelId, setLabelId] = useState(0);
+  const [labelId, setLabelId] = useState("");
   const Scroller = useRef(null)
   const [price, setPrice] = useState("");
   // const [lat,setLat] = useState('')
@@ -22,11 +23,28 @@ function CreateSpotModal() {
   const [imageList, setImageList] = useState(["", "", "", "", ""]);
   const history = useHistory();
   const [description, setDescription] = useState("");
-  const [errors, setErrors] = useState([]);
   const [ValidationErrors, setValidationErrors] = useState([]);
  const scroller = useRef(null)
   const { closeModal, } = useModal();
+  const hasSubmittedOnce = false
 
+ useEffect(()=>{
+  let errors = []
+  if(name.length<3&&name.length){errors.push("name must be longer than 3 characters")}
+  else if (name.length>50&&name.length){errors.push("name can't be longer than 50 characters")}
+if(address.length<5&&address.length){errors.push("please enter a valid address")}
+if(city.length<4&&city.length){errors.push("cities must have a name at least 4 characters long")}
+if(state.length<3&&state.length){errors.push("Please use the entire state name abbreviations are not valid")}
+if(country.length<3&&country.length){errors.push("country must be longer than 3 characters please use full name")}
+if(price.length&&typeof price!=="Number"){errors.push("must enter a valid price")}
+if(description.length>0&&(description.length<30||description.length>500)){errors.push("description must be between 30 and 500 characters")}
+if(imageList[0].length>0&&!imageList[0].endsWith("jpg")){errors.push('Image#1 Invalid Valid images end in jpg ')}
+if(imageList[1].length>0&&!imageList[1].endsWith("jpg")){errors.push('Image#2 Invalid Valid images end in jpg ')}
+if(imageList[2].length>0&&!imageList[2].endsWith("jpg")){errors.push('Image#3 Invalid Valid images end in jpg ')}
+if(imageList[3].length>0&&!imageList[3].endsWith("jpg")){errors.push('Image#4 Invalid Valid images end in jpg ')}
+if(imageList[4].length>0&&!imageList[4].endsWith("jpg")){errors.push('Image#5 Invalid Valid images end in jpg ')}
+setValidationErrors(errors)
+ },[name,city,address,country,state,description,price,imageList[0],imageList[1],imageList[2],imageList[3],imageList[4]])
 
   function handleLabelOnclick(e) {
     if (e.target.id !== labelId) {
@@ -55,7 +73,21 @@ function CreateSpotModal() {
   const handleSubmit = async (e) => {
     console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
     e.preventDefault();
-    setErrors([])
+  //   let errors = []
+  //   if(name.length<3&&name.length){errors.push("name must be longer than 3 characters")}
+  //   else if (name.length>50&&name.length){errors.push("name can't be longer than 50 characters")}
+  // if(address.length<5&&address.length){errors.push("please enter a valid address")}
+  // if(city.length<4&&city.length){errors.push("cities must have a name at least 4 characters long")}
+  // if(state.length<3&&state.length){errors.push("Please use the entire state name abbreviations are not valid")}
+  // if(country.length<3&&country.length){errors.push("country must be longer than 3 characters please use full name")}
+  // if(!price.length){errors.push("must enter a price")}
+  // if(description.length>0&&(description.length<30||description.length>500)){errors.push("description must be between 30 and 500 characters")}
+  // if(imageList[0].length<0||!imageList[0].endsWith("jpg")){errors.push('Image#1 Invalid Valid images end in jpg ')}
+  // if(imageList[1].length<0||!imageList[1].endsWith("jpg")){errors.push('Image#2 Invalid Valid images end in jpg ')}
+  // if(imageList[2].length<0||!imageList[2].endsWith("jpg")){errors.push('Image#3 Invalid Valid images end in jpg ')}
+  // if(imageList[3].length<0||!imageList[3].endsWith("jpg")){errors.push('Image#4 Invalid Valid images end in jpg ')}
+  // if(imageList[4].length<0||!imageList[4].endsWith("jpg")){errors.push('Image#5 Invalid Valid images end in jpg ')}
+  // setValidationErrors(errors)
     let spot = {
       name,
       address,
@@ -67,26 +99,22 @@ function CreateSpotModal() {
       lat: Math.floor(Math.random() * 180),
       lng: Math.floor(Math.random() * 180),
     };
-   dispatch(createSpot(spot, imageList))
-   .catch(async (res) => {
-     const data = await res.json();
-     
-     if (data && data.errors) setErrors(data.errors)
-   })
-     .then(()=>{
-       if(errors.length){
-         setName("");
-         setAddress("");
-         setCity("");
-         setCountry("");
-         setPrice("");
-         setDescription("");
-         setImageList(["", "", "", "", ""]);
-         history.push("/");
-         closeModal()
+    
+    
+    if(!ValidationErrors.length){
+      dispatch(createSpot(spot, imageList))
+      setName("");
+      setAddress("");
+      setCity("");
+      setCountry("");
+      setPrice("");
+      setDescription("");
+      setImageList(["", "", "", "", ""]);
+      closeModal()
+      history.push(`/Spots/newest`)
        }
 
-     })
+   
           
            
         
@@ -106,7 +134,7 @@ function CreateSpotModal() {
       <h1>Create New Spot</h1>
       <form onSubmit={handleSubmit} className="Form">
         <ul>
-          {errors.map((error, idx) => (
+          {ValidationErrors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
@@ -215,7 +243,7 @@ function CreateSpotModal() {
           <input
             type="integer"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(parseInt(e.target.value))}
             required
             className={"formInput"}
           />
@@ -253,7 +281,7 @@ function CreateSpotModal() {
             />
           </label>
         ))}
-        <button className={"FormButton"} type="submit" disabled={ValidationErrors.length>0 ? true:false} >
+        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||(price===0||price===NaN)||!description.length||!imageList[4].length||!imageList[0].length|!imageList[1].length||!imageList[2].length||!imageList[3].length ? true:false }>
           Create Spot
         </button>
       </form>

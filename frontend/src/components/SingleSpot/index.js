@@ -18,9 +18,11 @@ import "./SingleSpot.css";
 export default function SingleSpot() {
   console.log("inside single spot");
   let params = useParams();
-  let spotId = Number(params.spotId);
+  let newest = useSelector((state) => state.spots.newest)
+  let spotId =useParams.spotId==='newest'? newest.id: Number(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
-  
+  if(spotId==='newest')
+  Spot = newest
   let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
   const [showMenu, setShowMenu] = useState(false);
@@ -287,7 +289,7 @@ export default function SingleSpot() {
             <div className="ScrollDiv" style={{marginTop:"20px"}}>
             <div className={'containerDiv'}>
         <div className={'IconDiv'}>
-           <FontAwesomeIcon icon={'fa-moon'} className="iconic"/>
+           <FontAwesomeIcon icon={'fa-moon'} className="iconic fa-xl"/>
         </div>
         <div className={'TextDiv'}>
             <h4>{`Moonlight`}</h4>
@@ -298,7 +300,7 @@ export default function SingleSpot() {
 
         <div className={'containerDiv'}>
         <div className={'IconDiv'}>
-           <FontAwesomeIcon icon={'fa-sun'} className="iconic"/>
+           <FontAwesomeIcon icon={'fa-sun'} className="iconic fa-xl"/>
         </div>
         <div className={'TextDiv'}>
             <h4>{`Sunlight`}</h4>
@@ -309,7 +311,7 @@ export default function SingleSpot() {
 
         <div className={'containerDiv'}>
         <div className={'IconDiv'}>
-           <FontAwesomeIcon icon={'fa-water'} className="iconic"/>
+           <FontAwesomeIcon icon={'fa-water'} className="iconic fa-xl"/>
         </div>
         <div className={'TextDiv'}>
             <h4>{`Water`}</h4>

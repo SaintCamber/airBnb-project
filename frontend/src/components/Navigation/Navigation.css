@@ -55,6 +55,7 @@
     box-sizing: content-box;
     text-decoration: none;
     white-space: nowrap;
+    cursor:pointer;
   }
 
 
