@@ -18,14 +18,14 @@ const BookingsList = (userId) => {
     e.preventDefault();
 
     await dispatch(deleteBookingThunk(e.target.id))
-        
+        alert('booking deleted!')
     
   };
   let things = useSelector((state) =>
     Object.values(state.bookings.userBookings)
   );
   useEffect(() => {
-    console.log("dispatch currentUSerBookings");
+    // console.log("dispatch currentUSerBookings");
     dispatch(currentUserBookings());
   }, [dispatch]);
   return (
@@ -46,7 +46,7 @@ const BookingsList = (userId) => {
                 new Date(booking.startDate)>new Date() ? <button id={`${booking.id}`} onClick={deleteBooking}>
               
                 delete
-              </button>:""
+              </button>:<div>Reservations that have started can't be cancelled</div>
               }
             </li>
          

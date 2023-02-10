@@ -29,11 +29,21 @@ function SignupFormModal() {
   let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
   let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
   let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
-
+function resetForm(){
+  setEmail("")
+  setUsername("")
+  setFirstName("")
+  setLastName("")
+  setPassword("")
+  setConfirmPassword("")
+  setErrors([])
+}
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
+      if(firstName.length<4)setErrors([...errors,"firstName must be longer than 4 characters"])
+      if(lastName.length<4)setErrors([...errors,"lastName must be longer than 4 characters"])
       return dispatch(
         sessionActions.signup({
           email,
@@ -46,9 +56,12 @@ function SignupFormModal() {
         .then(async (res) => await res.json())
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
+          if (data && data.errors) setErrors([...errors,...data.errors]);
+        }).then(()=>{
+          if(!errors.length)closeModal()
+          else resetForm()});
     }
+    
     return setErrors([
       "Confirm Password field must be the same as the Password field",
     ]);
@@ -135,7 +148,7 @@ function SignupFormModal() {
             className={"formInput"}
           />
         </label>
-        <button type="submit" className={"FormButton"}>
+        <button type="submit" disabled={!email.length||!username.length||!firstName.length||!lastName.length||!password.length||!confirmPassword.length ?  true:false}className={"FormButton"}>
           Sign Up
         </button>
       </form>

@@ -42,6 +42,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push('/')
   };
   function handleDemo(e) {
     let demoCreds = { credential: "Demo-lition", password: "password" };
