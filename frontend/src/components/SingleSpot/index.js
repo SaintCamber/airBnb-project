@@ -11,10 +11,10 @@ import {
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
 import "./SingleSpot.css";
-import amenitiesTile from "../amenitiesTile";
-import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import DeleteSpotModal from "../DeleteSpotModal";
-import UpdateSpotModal from "../UpdateSpotModal";
+// import amenitiesTile from "../amenitiesTile";
+// import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+// import DeleteSpotModal from "../DeleteSpotModal";
+// import UpdateSpotModal from "../UpdateSpotModal";
 export default function SingleSpot() {
   console.log("inside single spot");
   let params = useParams();
@@ -32,7 +32,7 @@ export default function SingleSpot() {
     const GetSpot = async () => {
       dispatch(thunkOneSpot(spotId));
     };
-    return GetSpot();
+     GetSpot();
   }, [dispatch, spotId]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
@@ -63,7 +63,7 @@ export default function SingleSpot() {
             <div style={{ display: "inline-block", width: "50%" }}>
               <h1>{Spot?.name}</h1>
               <FontAwesomeIcon icon={faStar} />
-              {` ${Math.floor(Spot?.avgStarRating)}  `}
+              {` ${Math.floor(Spot?.avgStarRating*100)/100}  `}
               <>
                 <NavLink
                   to="/reviews/spotId"

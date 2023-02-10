@@ -6,14 +6,12 @@ const READ_SPOT = "read-spot";
 const DELETE_SPOT = "remove-spot";
 const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
-const OWNED = "owned-spots"
+const OWNED = "owned-spots";
 
-
-export function Update(spot){
-  return {type:UPDATE_SPOT,spot}
+export function Update(spot) {
+  return { type: UPDATE_SPOT, spot };
 }
-export function addSpot(spot, images) {
-  spot.SpotImages = images;
+export function addSpot(spot) {
   return {
     type: CREATE_SPOT,
     spot,
@@ -28,22 +26,20 @@ export function AllSpots(Spots) {
 //getOneSpot action creator
 //
 export function getOneSpot(spot) {
-  console.log("inside getOneSpot action creator")
-  console.log("spot",spot)
+  console.log("inside getOneSpot action creator");
+  console.log("spot", spot);
   return { type: SINGLE, payload: spot };
 }
-const deleteSpot =(spotId)=>{
-  return {type: DELETE_SPOT,spotId}
+const deleteSpot = (spotId) => {
+  return { type: DELETE_SPOT, spotId };
+};
 
-}
-
-const ownedSpots = (spots)=>{
+const ownedSpots = (spots) => {
   return {
-    type:OWNED,
-    spots
-
-  }
-}
+    type: OWNED,
+    spots,
+  };
+};
 //the getOneSpot action creator is called in the thunkOneSpot thunk action creator
 //the thunkOneSpot thunk action creator is called in the SingleSpot component
 //the SingleSpot component is rendered in the App component
@@ -70,7 +66,6 @@ export const populateAllSpots = () => async (dispatch) => {
   }
 };
 
-
 // get the spot id of a single spot from the url params
 // dispatch the getOneSpot action creator
 // hit the /api/spots/:spotId with a get request
@@ -91,9 +86,9 @@ export const thunkOneSpot = (spotId) => async (dispatch) => {
   }
 };
 
-
 export const createSpot = (Spot, images) => async (dispatch) => {
-  let { address, city, state, country, lat, lng, name, price, description } = Spot;
+  let { address, city, state, country, lat, lng, name, price, description } =
+    Spot;
   let response = await csrfFetch("/api/spots", {
     method: "POST",
     body: JSON.stringify({
@@ -111,15 +106,17 @@ export const createSpot = (Spot, images) => async (dispatch) => {
 
   let Data = await response.json();
   if (response.ok) {
-
     // Add images to spot
     const promises = [];
     for (let i = 0; i < images.length; i++) {
       const url = images[i];
-      const preview = i === 0;  // set the first image as the preview
-      const body = JSON.stringify({url, preview});
-      console.log("promise body ", body)
-      const promise = csrfFetch(`/api/spots/${Data.id}/images`, {method: "POST", body});
+      const preview = i === 0; // set the first image as the preview
+      const body = JSON.stringify({ url, preview });
+      console.log("promise body ", body);
+      const promise = csrfFetch(`/api/spots/${Data.id}/images`, {
+        method: "POST",
+        body,
+      });
       promises.push(promise);
     }
     // Wait for all image post requests to complete
@@ -128,72 +125,92 @@ export const createSpot = (Spot, images) => async (dispatch) => {
     const successResponses = responses.filter((response) => response.ok);
     // If all responses are successful, dispatch the addSpot action
     if (successResponses.length === images.length) {
-     let List = await Promise.all(successResponses.map((response) => response.json()));
-      dispatch(addSpot(Data,List));
+      let List = await Promise.all(
+        successResponses.map((response) => response.json())
+      );
+        Data.SpotImages = [...List]
+       dispatch(addSpot(Data))
+        
+      }
     }
-  }
-  return Data
+    return response
 };
 
-
-
-
-export const deleteSpotThunk=(spotId)=>async(dispatch)=>{
-  let response = await csrfFetch(`/api/spots/${spotId}`,{
-    method:"DELETE"
-  })
-  if(response.ok){
-    dispatch(deleteSpot())
-    
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+  let response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(deleteSpot());
   }
-}
-export const UpdateSpot=(spot)=>async(dispatch)=>{
-  let { address, city, state, country, lat, lng, name, price, description,id } =
-    spot;
-    let oldSpotData={...spot}
-    console.log("SPSOT ID",id)
-  let response = await csrfFetch(`/api/spots/${id}`,{method:"PUT",body:JSON.stringify({ address, city, state, country, lat, lng, name, price, description})})
-  if (response.ok){
-    console.log('UPDATE RESPONSE OK')
-    let data = await response.json()
-    let keys = Object.keys(data)
-    let vals = Object.values(data)
-    for(let i = 0;i<keys.length;i++){
-      oldSpotData[keys[i]]=vals[i]
+};
+export const UpdateSpot = (spot) => async (dispatch) => {
+  let {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    price,
+    description,
+    id,
+  } = spot;
+  let oldSpotData = { ...spot };
+  console.log("SPSOT ID", id);
+  let response = await csrfFetch(`/api/spots/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      price,
+      description,
+    }),
+  });
+  if (response.ok) {
+    console.log("UPDATE RESPONSE OK");
+    let data = await response.json();
+    let keys = Object.keys(data);
+    let vals = Object.values(data);
+    for (let i = 0; i < keys.length; i++) {
+      oldSpotData[keys[i]] = vals[i];
     }
-    console.log(oldSpotData)
-    dispatch(Update(oldSpotData))
-    return oldSpotData
+    console.log("oldSpotData", oldSpotData);
+    dispatch(Update(oldSpotData));
+    return response
   }
-if (response.errors){
-  return response
-}
-}
+};
 
-  const initialState = { AllSpots: {}, SingleSpot: {} ,currentUsersSpots:{}};
+const initialState = { AllSpots: {}, SingleSpot: {}, currentUsersSpots: {} };
 
-export default function  SpotsReducer(state = initialState, action) {
+export default function SpotsReducer(state = initialState, action) {
   let newState;
   console.log("inside reducer");
   console.log("action", action);
   switch (action.type) {
     case CREATE_SPOT:
       newState = { ...state };
-      let Spot =  action.spot;
-      newState["AllSpots"] = { ...state.AllSpots,[Spot.id]: Spot }
+      let Spot = action.spot;
+      newState["AllSpots"] = { ...state.AllSpots, [Spot.id]: Spot };
 
       return newState;
     case UPDATE_SPOT:
-      console.log("update action",action)
-      let SpotsList = {...state.AllSpots}
-      delete SpotsList[action.spot.id]
-      SpotsList[action.spot.id]=action.spot
-      let newStateOfAllSpots = {...state}
-      newStateOfAllSpots.AllSpots = {...SpotsList}
-      newStateOfAllSpots.SingleSpot = {...action.spot}
-     
-      return newStateOfAllSpots
-    case READ_All_SPOTS :
+      // console.log("update action",action)
+      let SpotsList = { ...state.AllSpots };
+      delete SpotsList[action.spot.id];
+      SpotsList[action.spot.id] = action.spot;
+      let newStateOfAllSpots = { ...state };
+      newStateOfAllSpots.AllSpots = { ...SpotsList };
+      newStateOfAllSpots.SingleSpot = { ...action.spot };
+
+      return newStateOfAllSpots;
+    case READ_All_SPOTS:
       let allSpots = {};
       console.log("action.spots", action.Spots);
       action.Spots.forEach((spot) => (allSpots[spot.id] = { ...spot }));
@@ -203,16 +220,14 @@ export default function  SpotsReducer(state = initialState, action) {
 
     case SINGLE:
       newState = { ...state };
-      newState["SingleSpot"] = { ...action.payload } ;
+      newState["SingleSpot"] = { ...action.payload };
       return newState;
-    
-    case DELETE_SPOT:
-      newState = {...state}
-     delete newState.AllSpots[action.spotId]
-     newState.SingleSpot = {}
-      return newState
 
-    
+    case DELETE_SPOT:
+      newState = { ...state };
+      delete newState.AllSpots[action.spotId];
+      newState.SingleSpot = {};
+      return newState;
 
     default:
       return state;

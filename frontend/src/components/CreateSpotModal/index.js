@@ -22,7 +22,7 @@ function CreateSpotModal() {
   const [imageList, setImageList] = useState(["", "", "", "", ""]);
   const history = useHistory();
   const [description, setDescription] = useState("");
-  const [Errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [ValidationErrors, setValidationErrors] = useState([]);
  const scroller = useRef(null)
   const { closeModal, } = useModal();
@@ -68,23 +68,26 @@ function CreateSpotModal() {
       lng: Math.floor(Math.random() * 180),
     };
    dispatch(createSpot(spot, imageList))
-      .then(async (res) =>await res.json())
-        .catch(async (res) => {
-          const data = await res.json();
+   .catch(async (res) => {
+     const data = await res.json();
+     
+     if (data && data.errors) setErrors(data.errors)
+   })
+     .then(()=>{
+       if(errors.length){
+         setName("");
+         setAddress("");
+         setCity("");
+         setCountry("");
+         setPrice("");
+         setDescription("");
+         setImageList(["", "", "", "", ""]);
+         history.push("/");
+         closeModal()
+       }
+
+     })
           
-          if (data && data.errors) setErrors(data.errors)})
-          
-    if(!Errors.length){
-      setName("");
-      setAddress("");
-      setCity("");
-      setCountry("");
-      setPrice("");
-      setDescription("");
-      setImageList(["", "", "", "", ""]);
-      history.push("/");
-      closeModal()
-    }
            
         
   
@@ -103,7 +106,7 @@ function CreateSpotModal() {
       <h1>Create New Spot</h1>
       <form onSubmit={handleSubmit} className="Form">
         <ul>
-          {Errors.map((error, idx) => (
+          {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>

@@ -59,11 +59,12 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <menu>
-            <div>Hello,{user.username}</div>
-            <div>
-              {user.firstName} {user.lastName}
-            </div>
+           <div className={"userInfo"}>
+              
+           <div>Hello,{user.firstName} {user.lastName}!</div>
             <div>{user.email}</div>
+
+           </div> 
             <div
               className="bookingsList"
               onClick={() => {

@@ -4,10 +4,11 @@ import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { UpdateSpot } from "../../store/Spots";
-import "../cssStuffs/modals.css";
 import { populateOwnedSpots } from "../../store/session";
+import "../cssStuffs/modals.css";
 function UpdateSpotModal({ spot, oldState, setter }) {
   const dispatch = useDispatch();
+  const history=useHistory()
   const [name, setName] = useState(spot.name);
   const [address, setAddress] = useState(spot.address);
   const [city, setCity] = useState(spot.city);
@@ -42,7 +43,7 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors([]);
-    let newSpot = { ...spot };
+    let newSpot = {...spot};
     newSpot["name"] = name;
     newSpot["address"] = address;
     newSpot["city"] = city;
@@ -52,22 +53,17 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
     newSpot["lng"] = Math.floor(Math.random() * 180);
     newSpot["description"] = description;
     newSpot["price"] = price;
-    newSpot["id"] = spot.id;
+    // newSpot["id"] = spot.id;
     console.log("the updated spot is now ", newSpot);
     return dispatch(UpdateSpot(newSpot))
-    .then(async (res) => await res.json())
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {setErrors(data.errors)}
-        else{ 
-          let newState = { ...oldState };
-    newState[spot.id] = { ...spot, ...newSpot };
-    setter(newState);
-        };
-      });
-      // dispatch(populateOwnedSpots())
-    
-    }
+    .catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    })
+    .then(setter({...oldState,[spot.id]:newSpot}))
+    .then(closeModal)
+      
+  }
     
 
   return (

@@ -48,6 +48,8 @@ export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
     dispatch(setUser(data.user));
+  dispatch(populateOwnedSpots())
+
     return response;
   };
 
@@ -88,7 +90,9 @@ export const populateOwnedSpots = () =>async (dispatch)=>{
     console.log("current users spots",data)
     dispatch(ownedSpots(data))
   }
+  return currentUsersSpots
 }
+
 const initialState = { user: null,userOwnedSpots:{} };
 const sessionReducer = (state = initialState, action) => {
   let newState;
@@ -107,7 +111,7 @@ const sessionReducer = (state = initialState, action) => {
         let currentSpots = {}
         action.payload.Spots.forEach((spot)=>currentSpots[spot.id]=spot)
         
-        newState["userOwnedSpots"] = currentSpots
+        newState["userOwnedSpots"] = {...currentSpots}
         return newState
     default:
       return state;

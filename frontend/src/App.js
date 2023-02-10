@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
 import { Link } from "react-router-dom";
+import learn from './components/learn';
 // in App.js
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -23,16 +24,16 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser(),dispatch(sessionActions.populateOwnedSpots())).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
   return (
     
     <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",justifyContent:'space-evenly',padding:"25px"}}>
-      <div style={{display:'flex',height:"50px",width:"100%",alignContent:"center",alignItems:'center',justifyContent:'center'}}>show total prices up front  <Link style={{marginLeft:15}}>Learn More</Link></div>
+      <div style={{display:'flex',height:"50px",width:"100%",alignContent:"center",alignItems:'center',justifyContent:'center'}}>show total prices up front  <Link to="/learn" style={{marginLeft:15}}>Learn More</Link></div>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path = {'/'}>
+          <Route exact path = {['/','/home']}>
             <SpotsList />
           </Route>
           <Route path="/user/spots">
@@ -43,6 +44,10 @@ function App() {
           </Route>
           <Route path={'/currentBookings'}>
             <BookingsList />
+          </Route>
+          <Route path={"/learn"}>
+            Learn more Page coming soon!
+            <Link to='/'>Home</Link>
           </Route>
           <Route path='*'>
             <PageNotFound />

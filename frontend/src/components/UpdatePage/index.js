@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { populateOwnedSpots } from "../../store/Spots";
+import { populateOwnedSpots } from "../../store/session.js";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import UpdateSpotModal from "../UpdateSpotModal";
@@ -7,11 +7,14 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteSpotModal from "../DeleteSpotModal";
 import "./index.css"
 export default function UpdatePage(){
+    const dispatch=useDispatch()
     let [showMenu,setShowMenu] = useState(false)
     let ownedSpots = useSelector(state=>state.session.userOwnedSpots)
     let [ownedState,setOwnedState] = useState(ownedSpots)
     const closeMenu = () => setShowMenu(false);
-   
+   useEffect(()=>{
+    dispatch(populateOwnedSpots())
+   },[ownedState])
 return (
 <div className='holdingDiv'>
 {

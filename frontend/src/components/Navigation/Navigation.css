@@ -39,10 +39,12 @@
     border-radius: 30px;
     background-color: white;
     border: 0.5px solid darkgray;
+    cursor:pointer;
   }
 
   .barsUsersButton:hover{
-    box-shadow: -5px 5px 5px -1px #F48670
+    box-shadow: -5px 5px 5px -1px #F48670;
+    cursor:pointer
 
   }
 
@@ -123,4 +125,8 @@
   }
   .ownedSpots:hover{
     color:blue
+  }
+
+  .userInfo {
+    border-bottom:1px solid black
   }
