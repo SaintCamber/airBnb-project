@@ -17,7 +17,7 @@ function CreateSpotModal() {
   const [state, setState] = useState("");
   const [labelId, setLabelId] = useState("");
   const Scroller = useRef(null)
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   // const [lat,setLat] = useState('')
   // const [lng,setLng] = useState('')
   const [imageList, setImageList] = useState(["", "", "", "", ""]);
@@ -36,7 +36,7 @@ if(address.length<5&&address.length){errors.push("please enter a valid address")
 if(city.length<4&&city.length){errors.push("cities must have a name at least 4 characters long")}
 if(state.length<3&&state.length){errors.push("Please use the entire state name abbreviations are not valid")}
 if(country.length<3&&country.length){errors.push("country must be longer than 3 characters please use full name")}
-if(price.length&&typeof price!=="Number"){errors.push("must enter a valid price")}
+if(price.length&&!parseInt(price)){errors.push("must enter a valid price")}
 if(description.length>0&&(description.length<30||description.length>500)){errors.push("description must be between 30 and 500 characters")}
 if(imageList[0].length>0&&!imageList[0].endsWith("jpg")){errors.push('Image#1 Invalid Valid images end in jpg ')}
 if(imageList[1].length>0&&!imageList[1].endsWith("jpg")){errors.push('Image#2 Invalid Valid images end in jpg ')}
@@ -243,7 +243,7 @@ setValidationErrors(errors)
           <input
             type="integer"
             value={price}
-            onChange={(e) => setPrice(parseInt(e.target.value))}
+            onChange={(e) => setPrice(e.target.value)}
             required
             className={"formInput"}
           />
@@ -281,7 +281,7 @@ setValidationErrors(errors)
             />
           </label>
         ))}
-        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||(price===0||price===NaN)||!description.length||!imageList[4].length||!imageList[0].length|!imageList[1].length||!imageList[2].length||!imageList[3].length ? true:false }>
+        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||(!price.length)||!description.length||!imageList[4].length||!imageList[0].length|!imageList[1].length||!imageList[2].length||!imageList[3].length ? true:false }>
           Create Spot
         </button>
       </form>
