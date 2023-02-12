@@ -15,7 +15,8 @@
     position:sticky;
     top:180px;
     bottom:250px;
-    width:23vw; 
+    width:23vw;
+    min-width: 270px; 
     box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px;
     border:1px solid rgb(221,221,221);
     border-radius:15px;

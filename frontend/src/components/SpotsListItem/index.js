@@ -23,7 +23,7 @@ export default function SpotListItem({spot}){
           <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{spot.avgStarRating||"new"}</span>
         </div>
         <h5 style={{fontWeight: 400,margin:0}}>{spot.city}, {spot.state}</h5>
-        <h5 style={{}}>{spot.price}$ per day</h5>
+        <h5 style={{}}>{spot.price}$ Night</h5>
       </div>
     </div>
   );

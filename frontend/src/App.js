@@ -14,6 +14,7 @@ import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
 import { Link } from "react-router-dom";
 import learn from './components/learn';
+import NotLoggedin from './components/notLoggedin';
 // in App.js
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -23,6 +24,8 @@ library.add(fas)
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const user = useSelector(state=>state.session.user)
+  useSelector((state) => state.spots.Newest)
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -36,14 +39,14 @@ function App() {
           <Route exact path = {['/','/home']}>
             <SpotsList />
           </Route>
-          <Route path="/user/spots">
-            <UpdatePage />
-          </Route>
           <Route path="/spots/:spotId">
             <SingleSpot  />
           </Route>
+          <Route path="/user/spots">
+            {user ?<UpdatePage />:<NotLoggedin/>}
+          </Route>
           <Route path={'/currentBookings'}>
-            <BookingsList />
+            {user ? <BookingsList />:<NotLoggedin/>}
           </Route>
           <Route path={"/learn"}>
             Learn more Page coming soon!

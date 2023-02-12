@@ -29,6 +29,7 @@ border-radius: 15px;
     margin-top:3px;
 
 }
+
 .InputTitle{
     position:absolute;
     background-color:white;
@@ -37,6 +38,8 @@ border-radius: 15px;
     font-size:20px;
     z-index:2;
     border-radius:15px;
+    display:flex;
+    align-items: center;
 }
 .formInput{
     position:absolute;
@@ -69,12 +72,7 @@ border-radius: 15px;
 
 
 .-active {
-height:50%;
-width:100%;
-font-size:14px;
-background-color:transparent;
-border:none;
-
+display:none
 }
 
 .modal h1{
@@ -82,11 +80,11 @@ border:none;
     text-align:center
 }
 
-.FormInput:focus{
+.formInput:focus{
     position:absolute;
     width:100%;
-    border:0.5px solid rgb(221,221,221);
     height:3em;
+    background-color:transparent
     
 }
 

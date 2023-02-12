@@ -74,9 +74,11 @@ const BookingsCard = ({ spot }) => {
 
   const checkAvailability = (e) => {
     e.preventDefault();
-    
-    console.log("checking availability");
-    console.log("bookings bookings bookings ", bookings);
+if(endDate-startDate<1){
+  alert("minimum two days")
+ return}
+    // console.log("checking availability");
+    // console.log("bookings bookings bookings ", bookings);
     let unavailable = [];
     bookings.forEach((booking) => {
       let start = new Date(booking.startDate);
@@ -120,7 +122,7 @@ const BookingsCard = ({ spot }) => {
         <div className="topBit">
           <div className="TopFirst">
 
-            <span className="pricing">{spot.price}</span>
+            <span className="pricing">${spot.price}</span>
             <span>night</span>
           </div>
           <div className="TopSecond"><p>{`${spot.numReviews} Reviews`}</p></div>
@@ -144,7 +146,7 @@ const BookingsCard = ({ spot }) => {
           <span className='charge'><p>you won't be charged yet</p></span>
           <div className='chargeTop'>
           <span className='fees'><p>
-          {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} 
+          {spot.price}$ X {Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))} nights 
           </p> <p>${spot.price*Math.ceil((endDate.getTime() - startDate.getTime())/(1000*3600*24))}</p></span>
           <span className='fees'><p>cleaning fee</p> <p>$ {`${Math.floor(spot.price/35)}`}</p></span>
           <span className='fees'><p>service fee</p>  <p>$ {`${Math.floor(spot.price/60)}`}</p></span>

@@ -186,7 +186,7 @@ export const UpdateSpot = (spot) => async (dispatch) => {
   }
 };
 
-const initialState = { AllSpots: {}, SingleSpot: {}, newest: {} };
+const initialState = { AllSpots: {}, SingleSpot: {} };
 
 export default function SpotsReducer(state = initialState, action) {
   let newState;
@@ -197,7 +197,7 @@ export default function SpotsReducer(state = initialState, action) {
       newState = { ...state };
       let Spot = action.spot;
       newState["AllSpots"] = { ...state.AllSpots, [Spot.id]: Spot };
-      newState["newest"] = {...Spot}
+      newState.SingleSpot = {...action.spot}
       return newState;
     case UPDATE_SPOT:
       // console.log("update action",action)
