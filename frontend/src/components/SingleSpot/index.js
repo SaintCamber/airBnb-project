@@ -58,33 +58,37 @@ export default function SingleSpot() {
               width: "100%",
               height: "100%",
             }}>
-            <div style={{ display: "inline-block", width: "50%" }}>
+            <div style={{ display: "inline-block", width: "50%", }}>
               <h1>{Spot?.name}</h1>
-              <FontAwesomeIcon icon={faStar} />
-              {` ${Math.floor(Spot?.avgStarRating*100)/100}  `}
               <>
-                <NavLink
+              <FontAwesomeIcon icon={faStar} />
+              {Math.floor(Spot?.avgStarRating*100)/100||"new"  }
+                <p
                   to="/reviews/spotId"
                   style={{
                     color: "black",
                     fontFamily: "helvetica",
                     fontSize: "9px",
+                    margin:0,
+                    marginLeft:"5px",
+                    display:"inline-flex",
                   }}>
-                  Reviews: {Spot.numReviews}{" "}
-                </NavLink>
+                  Reviews: {Spot.numReviews}
+                </p>
               </>
               <NavLink
-                to="/StateMap"
+                to="/maps"
                 style={{
                   color: "black",
                   fontFamily: "helvetica",
                   fontSize: "9px",
+                  marginLeft:"5px"
                 }}>
                 {Spot.city}
               </NavLink>
               ,
               <NavLink
-                to="/stillMapButCountry"
+                to="/maps"
                 style={{
                   color: "black",
                   fontFamily: "helvetica",
