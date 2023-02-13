@@ -17,7 +17,7 @@ function CreateSpotModal() {
   const [state, setState] = useState("");
   const [labelId, setLabelId] = useState("");
   const Scroller = useRef(null)
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState('');
   // const [lat,setLat] = useState('')
   // const [lng,setLng] = useState('')
   const [imageList, setImageList] = useState(["", "", "", "", ""]);
@@ -102,7 +102,7 @@ setValidationErrors(errors)
     
     
     if(!ValidationErrors.length){
-      dispatch(createSpot(spot, imageList))
+      dispatch(createSpot(spot, imageList)).then(res=>history.push(`/spots/${res.id}`))
       setName("");
       setAddress("");
       setCity("");
@@ -111,7 +111,7 @@ setValidationErrors(errors)
       setDescription("");
       setImageList(["", "", "", "", ""]);
       closeModal()
-      history.push(`/Spots/newest`)
+      history.push(`/Spots/`)
        }
 
    
@@ -143,7 +143,7 @@ setValidationErrors(errors)
             id={1}
             onClick={(e) => handleLabelOnclick(e)}
             className={classOne}>
-            name
+            {name||"name"}
           </div>
           <input
             type="text"
@@ -158,7 +158,7 @@ setValidationErrors(errors)
             id={2}
             onClick={(e) => handleLabelOnclick(e)}
             className={classTwo}>
-            City
+            {city||"City"}
           </div>
           <input
             type="text"
@@ -173,7 +173,7 @@ setValidationErrors(errors)
             id={3}
             onClick={(e) => handleLabelOnclick(e)}
             className={classThree}>
-            State
+            {state||"State"}
           </div>
           <input
             type="text"
@@ -188,7 +188,7 @@ setValidationErrors(errors)
             id={4}
             onClick={(e) => handleLabelOnclick(e)}
             className={classFour}>
-            Country
+            {country||"Country"}
           </div>
           <input
             type="text"
@@ -203,7 +203,7 @@ setValidationErrors(errors)
             id={5}
             onClick={(e) => handleLabelOnclick(e)}
             className={classFive}>
-            Address
+          { address ||"Address"}
           </div>
           <input
             type="text"
@@ -238,7 +238,7 @@ setValidationErrors(errors)
             id={6}
             onClick={(e) => handleLabelOnclick(e)}
             className={classSix}>
-            Price
+            {price||"Price"}
           </div>
           <input
             type="integer"
@@ -253,15 +253,15 @@ setValidationErrors(errors)
             id={7}
             onClick={(e) => handleLabelOnclick(e)}
             className={classSeven}>
-            Description
+           {description||"Description"} 
           </div>
           <input
-            type="text"
             value={description}
+            type="text"
             onChange={(e) => setDescription(e.target.value)}
             required
-            className={"formInput"}
-          />
+            className="formInput"
+            />
         </label>
         {imageList.map((imageUrl, index) => (
           <label key={index}>

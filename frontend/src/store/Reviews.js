@@ -24,7 +24,7 @@ getCurrentUsersReviews =()=>async dispatch=>{}
 
 
 
-initialState={spot:{},user:{}}
+initialState={spot:{}}
 
 export default (state = initialState, action) => {
     switch (action.type) {

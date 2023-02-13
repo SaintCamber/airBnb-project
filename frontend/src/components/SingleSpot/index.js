@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { thunkOneSpot } from "../../store/Spots";
 import { useEffect ,useState} from "react";
-import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useParams ,useHistory, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpFromBracket,
@@ -16,13 +15,10 @@ import "./SingleSpot.css";
 // import DeleteSpotModal from "../DeleteSpotModal";
 // import UpdateSpotModal from "../UpdateSpotModal";
 export default function SingleSpot() {
-  console.log("inside single spot");
   let params = useParams();
-  let newest = useSelector((state) => state.spots.newest)
-  let spotId =useParams.spotId==='newest'? newest.id: Number(params.spotId);
+  let spotId =parseInt(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
-  if(spotId==='newest')
-  Spot = newest
+ const history = useHistory()
   let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
   const [showMenu, setShowMenu] = useState(false);
@@ -62,33 +58,37 @@ export default function SingleSpot() {
               width: "100%",
               height: "100%",
             }}>
-            <div style={{ display: "inline-block", width: "50%" }}>
+            <div style={{ display: "inline-block", width: "50%", }}>
               <h1>{Spot?.name}</h1>
-              <FontAwesomeIcon icon={faStar} />
-              {` ${Math.floor(Spot?.avgStarRating*100)/100}  `}
               <>
-                <NavLink
+              <FontAwesomeIcon icon={faStar} />
+              {Math.floor(Spot?.avgStarRating*100)/100||"new"  }
+                <p
                   to="/reviews/spotId"
                   style={{
                     color: "black",
                     fontFamily: "helvetica",
                     fontSize: "9px",
+                    margin:0,
+                    marginLeft:"5px",
+                    display:"inline-flex",
                   }}>
-                  Reviews: {Spot.numReviews}{" "}
-                </NavLink>
+                  Reviews: {Spot.numReviews}
+                </p>
               </>
               <NavLink
-                to="/StateMap"
+                to="/maps"
                 style={{
                   color: "black",
                   fontFamily: "helvetica",
                   fontSize: "9px",
+                  marginLeft:"5px"
                 }}>
                 {Spot.city}
               </NavLink>
               ,
               <NavLink
-                to="/stillMapButCountry"
+                to="/maps"
                 style={{
                   color: "black",
                   fontFamily: "helvetica",
@@ -116,13 +116,13 @@ export default function SingleSpot() {
               }}>
 
              
-              <NavLink to="/save">
+              <div className="saveShare" >
                 <FontAwesomeIcon icon={faHeart} /> Save
-              </NavLink>
-              <NavLink to="/share">
-                <FontAwesomeIcon icon={faArrowUpFromBracket} />
-                Share
-              </NavLink>
+              </div>
+              <div className="saveShare" >
+                <FontAwesomeIcon icon={faArrowUpFromBracket} /> Share
+
+              </div>
               
             </div>
           </div>
@@ -138,7 +138,8 @@ export default function SingleSpot() {
                 style={{
                   width: "50%",
                   height: "412px",
-                  margin: 6,
+                  margin: 4,
+                  
                 }}>
                 <img
                   src={images?.url}
@@ -147,6 +148,8 @@ export default function SingleSpot() {
                     objectFit: "cover",
                     height: "100%",
                     width: "100%",
+                    borderTopLeftRadius:"15px",
+                  borderBottomLeftRadius:"15px",
                   }}></img>
               </div>
             ) : (
@@ -154,7 +157,7 @@ export default function SingleSpot() {
                 style={{
                   width: "50%",
                   height: "100",
-                  margin: 5,
+                  margin: 2,
                 }}>
                 <img
                   src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg"
@@ -163,6 +166,8 @@ export default function SingleSpot() {
                     objectFit: "cover",
                     height: "100%",
                     width: "100%",
+                    borderTopLeftRadius:"15px",
+                  borderBottomLeftRadius:"15px",
                   }}></img>
               </div>
             )}
@@ -183,8 +188,8 @@ export default function SingleSpot() {
                 <div
                   style={{
                     width: "50%",
-                    marginBottom: 5,
-                    marginRight: 5,
+                    marginBottom: 2,
+                    marginRight: 2,
                   }}>
 
                   {allImages[1]? <img src={allImages[1].url} style={{
@@ -198,17 +203,23 @@ export default function SingleSpot() {
                 <div
                   style={{
                     width: "50%",
-                    marginBottom: 5,
-                    marginLeft: 5,
+                    marginBottom: 2,
+                    marginLeft: 2,
                   }}>
                   
                   {allImages[2]? <img src={allImages[2].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    width: "100%",
+                    borderTopRightRadius:"15px",
+                    
+                    }} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} ></img>}
+                    width: "100%",
+                    borderTopRightRadius:"15px",
+                    
+                    }} ></img>}
                 </div>
               </div>
               <div
@@ -221,8 +232,8 @@ export default function SingleSpot() {
                 <div
                   style={{
                     width: "50%",
-                    marginTop: 5,
-                    marginRight: 5,
+                    marginTop: 2,
+                    marginRight: 2
                   }}>
                   
                   {allImages[3]? <img src={allImages[3].url} style={{
@@ -231,19 +242,22 @@ export default function SingleSpot() {
                     width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} ></img>}
+                    width: "100%",
+                    }} ></img>}
                 </div>
                 <div
                   style={{
                     width: "50%",
-                    marginTop: 5,
-                    marginLeft: 5,
+                    marginTop: 2,
+                    marginLeft: 2,
                   }}>
                   
                   {allImages[4]? <img src={allImages[4].url} style={{
                     objectFit: "cover",
                     height: "100%",
-                    width: "100%"}} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
+                    width: "100%",
+                  borderBottomRightRadius:"15px",
+                    }} alt='image1'></img>:<img src="https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg" alt="image1" style={{
                     objectFit: "cover",
                     height: "100%",
                     width: "100%"}} ></img>}
@@ -322,20 +336,20 @@ export default function SingleSpot() {
             </div>
             <div className="ScrollDiv"><div className='coverContainer'>
             <span className='cover'><span className="placeHolderRed">Infini</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
-                <span className="learn">learn more</span>
+                <div onClick={()=>(history.push('/learn'))} className="learn">learn more</div>
             </div>
             </div>
             <div className="ScrollDiv"><p>
               {Spot.description}
             </p></div>
-            <div className="ScrollDiv">some more content</div>
-            <div className="ScrollDiv">content baby</div>
+            <div className="ScrollDiv">Additional Pictures of the property,maybe just one of them and a button to move between them?</div>
+            <div className="ScrollDiv">the rest of the amenities available at the location, the 3 deemed most important will replace the three displayed above?</div>
           </div>
           <div style={{ width: "40%" }}>
             <BookingsCard spot={Spot}></BookingsCard>
           </div>
         </div>
-          <div className="subScroll">under scrollables</div>
+          <div className="subScroll">REVIEWS</div>
       </>
     )
   );
