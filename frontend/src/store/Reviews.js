@@ -10,16 +10,23 @@ const UserReviews='user/reviews'
 
 // actionCreators
   const CreateReview =(payload)=>{return {type:CREATE,payload}}
-  const   ReadReview =(payload)=>{return {type:READ,payload}}
+  const ReadSpotReviews =(payload)=>{return {type:READ,payload}}
   const UpdateReview =(payload)=>{return {type:UPDATE,payload}}
   const DeleteReview =(payload)=>{return {type:DELETE,payload}}
   const currentUserReviews = (payload)=>{return {type:UserReviews,payload}}
 
 //thunks
-readSpotReviews = ()=>async dispatch=>{
 
-}
 createNewSpotReview = ({spotId,review})=>async dispatch=>{}
+getSpotReviews = (spotId)=> async dispatch=>{
+    let response = await csrfFetch(`/api/spots/${spotId}/reviews`)
+    id (response.ok){
+        let data = await response.json()
+        dispatch(ReadSpotReviews())
+        return data
+
+    }
+}
 updateSpotReview = (reviewId)=>async dispatch=>{}
 deleteSpotReview = (reviewId)=>async dispatch=>{}
 getCurrentUsersReviews =()=>async dispatch=>{
@@ -37,14 +44,17 @@ initialState={spotReviews:{},userReviews:{}}
 export default (state = initialState, action) => {
     switch (action.type) {
         case CREATE:
+            let stateCreate ={...state,userReviews:{[action.payload.id]:{...action.payload}}}
             return stateCREATE
         case READ: 
+        let stateREAD = {...state,spotReviews:{...action.payload}}
         return stateREAD
         case UPDATE: 
         return stateUPDATE
         case DELETE: 
             return stateDELETE
         case UserReviews:
+            let stateReviews= {...state,userReviews:{...action.payload}}
             return stateReviews    
         default:
             return state;

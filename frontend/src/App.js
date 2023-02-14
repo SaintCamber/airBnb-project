@@ -30,7 +30,7 @@ function App() {
   }, [dispatch]);
   return (
     
-    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100vw",justifyContent:'space-evenly',padding:"25px",paddingTop:'0px'}}>
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100vw",justifyContent:'space-evenly',paddingLeft:"25px",paddingRight:"25px",margin:"0px"}}>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
