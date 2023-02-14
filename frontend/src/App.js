@@ -30,8 +30,7 @@ function App() {
   }, [dispatch]);
   return (
     
-    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100%",justifyContent:'space-evenly',padding:"25px"}}>
-      <div style={{display:'flex',height:"50px",width:"100%",alignContent:"center",alignItems:'center',justifyContent:'center'}}>show total prices up front  <Link to="/learn" style={{marginLeft:15}}>Learn More</Link></div>
+    <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100vw",justifyContent:'space-evenly',padding:"25px",paddingTop:'0px'}}>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
