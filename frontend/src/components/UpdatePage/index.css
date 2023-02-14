@@ -17,8 +17,10 @@
     width:100%;
     display:flex;
     align-content:center;
-    flex-direction : column;
-    align-items :center;
+    flex-direction : row;
+    justify-content: space-between;
+    flex-wrap:wrap;
+    gap:60px 2px;
    
 }
 .spacer{width:3vw;}
