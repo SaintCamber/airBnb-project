@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf"
+
 // action.types
 const CREATE="create/reviews"
 const READ="read/reviews"
@@ -17,14 +19,20 @@ const UserReviews='user/reviews'
 readSpotReviews = ()=>async dispatch=>{
 
 }
-createNewSpotReview = ()=>async dispatch=>{}
-updateSpotReview = ()=>async dispatch=>{}
-deleteSpotReview = ()=>async dispatch=>{}
-getCurrentUsersReviews =()=>async dispatch=>{}
+createNewSpotReview = ({spotId,review})=>async dispatch=>{}
+updateSpotReview = (reviewId)=>async dispatch=>{}
+deleteSpotReview = (reviewId)=>async dispatch=>{}
+getCurrentUsersReviews =()=>async dispatch=>{
+    let response =await csrfFetch("/api/reviews/current")
+    if(response.ok){
+        let data = await response.json()
+        dispatch(currentUserReviews(data))
+    }
+}
 
 
 
-initialState={spot:{}}
+initialState={spotReviews:{},userReviews:{}}
 
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -36,6 +44,8 @@ export default (state = initialState, action) => {
         return stateUPDATE
         case DELETE: 
             return stateDELETE
+        case UserReviews:
+            return stateReviews    
         default:
             return state;
     }
