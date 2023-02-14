@@ -1,6 +1,7 @@
 import { csrfFetch } from "./csrf";
 export const check = "check";
 const create = "create";
+const update = "update"
 const deleteBooking = "delete";
 const currentBookingsList = "current";
 const checkBooking = (curBookings) => {
@@ -18,7 +19,9 @@ const createBooking = (booking) => {
 const currentBookings = (data) => {
   return { type: currentBookingsList, data };
 };
-
+const updateBooking = (booking)=>{
+  return {type:update,payload:booking}
+}
 let initialState = { CurBookings: {}, userBookings: {} };
 export const CheckBookingsThunk = (spotId) => async (dispatch) => {
   console.log("bookingSpotId", spotId);
@@ -44,6 +47,18 @@ export const createBookingThunk = (Book) => async (dispatch) => {
   }
   
 };
+export const UpdateBookingThunk=(booking)=>async dispatch=>{
+  console.log("inside the update booking thunk")
+  console.log("the booking is",booking)
+ let response = csrfFetch(`/api/bookings/${booking.id}`,{
+  method:"put",
+  body:JSON.stringify({ startDate: booking.startDate, endDate:booking.endDate })
+ })
+ if (response.ok){
+  let data = await response.json()
+  dispatch(updateBooking(data))
+ }
+}
 
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {
   console.log("delete booking thunk called");
@@ -87,7 +102,13 @@ const bookingsReducer = (state = initialState, action) => {
       newState.CurBookings = { ...current };
       newState.CurBookings[action.booking.id]=action.booking
       return newState;
-
+    case update:
+      let updateState = { ...state }; 
+      let currentBooks = { ...state.CurBookings };
+       currentBooks[action.payload.id]=action.payload
+       updateState.userBookings[action.payload.id]={...action.payload}
+       updateState.CurBookings={...currentBooks}
+       return updateState
     case deleteBooking:
       let bookingState = { ...state };
       console.log("testing testing testing", bookingState.userBookings);

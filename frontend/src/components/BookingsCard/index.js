@@ -125,7 +125,7 @@ if(endDate-startDate<1){
             <span className="pricing">${spot.price}</span>
             <span>night</span>
           </div>
-          <div className="TopSecond"><p>{`${spot.numReviews} Reviews`}</p></div>
+          <div className="TopSecond"><p><FontAwesomeIcon icon={faStar}/>{spot.numReviews > 0 ?`${spot.numReviews} Reviews`:"new"}</p></div>
         </div> 
         <div className="middleBit">
           <div >

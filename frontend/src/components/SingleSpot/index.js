@@ -116,10 +116,10 @@ export default function SingleSpot() {
               }}>
 
              
-              <div className="saveShare" >
+              <div className="saveShare"  onClick={()=>alert('Feature coming soon, please check back later')}>
                 <FontAwesomeIcon icon={faHeart} /> Save
               </div>
-              <div className="saveShare" >
+              <div className="saveShare" onClick={()=>alert('Feature coming soon, please check back later')} >
                 <FontAwesomeIcon icon={faArrowUpFromBracket} /> Share
 
               </div>

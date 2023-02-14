@@ -1,57 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { deleteBookingThunk } from "../../store/bookings";
 import { currentUserBookings } from "../../store/bookings";
-import { useEffect } from "react";
+import  UpdateBookingModal  from "../UpdateBookingModal";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import './index.css'
 import { faBus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
 const BookingsList = (userId) => {
   let dispatch = useDispatch();
-  let [bookings, setBookings] = useState({});
-  let history = useHistory()
+  let things = useSelector((state) =>
+    state.bookings.userBookings
+  );
+  let [userBookings, setUserBookings] = useState({...things});
+  const [showMenu,setShowMenu] = useState(false)
+  const closeMenu = () => setShowMenu(false);
+  let history = useHistory();
   console.log("inside current bookings");
   const deleteBooking = async (e) => {
     e.preventDefault();
 
-    await dispatch(deleteBookingThunk(e.target.id))
-        alert('booking deleted!')
-    
+    await dispatch(deleteBookingThunk(e.target.id));
+    alert("booking deleted!");
   };
-  let things = useSelector((state) =>
-    Object.values(state.bookings.userBookings)
-  );
   useEffect(() => {
-    // console.log("dispatch currentUSerBookings");
     dispatch(currentUserBookings());
-  }, [dispatch]);
+  }, [dispatch,userBookings]);
   return (
     <div>
-       
-      <ul>
-        {things.map((booking) =>
-         
-            <li key={`booking#${booking.id}`}>
-              <span style={{marignRight:"20px"}}>
-              {booking.spot.address}
-              </span>
-              <span>
-              {booking.startDate.split("T")[0]}:{booking.endDate.split("T")[0]}
+        {Object.values(things).map((booking) => (
+          <div className='bookingTile'>
 
-              </span>
-              {
-                new Date(booking.startDate)>new Date() ? <button id={`${booking.id}`} onClick={deleteBooking}>
-              
+            <span style={{ marignRight: "20px" }}>{booking.spot.address}</span>
+            <span>
+              From{booking.startDate.split("T")[0]} Until{booking.endDate.split("T")[0]}
+            </span>
+            {new Date(booking.startDate) > new Date() ? (
+              <button id={`${booking.id}`} onClick={deleteBooking}>
                 delete
-              </button>:<div>Reservations that have started can't be cancelled</div>
+              </button>
+            ) : (
+              <div>Reservations that have started can't be cancelled</div>
+            )}
+
+            <OpenModalMenuItem
+              className="modalButton"
+              itemText={<button>Update</button>}
+              onItemClick={closeMenu}
+              modalComponent={
+                <UpdateBookingModal
+                className="modalButton"
+                itemText={<button>Update</button>}
+              onItemClick={closeMenu}
+                  oldBooking={booking}
+                  userBookings={userBookings}
+                  setUserBookings={setUserBookings}
+                />
               }
-            </li>
-         
-        )}
-      </ul>
+            />
+          </div>
+        ))}
     </div>
   );
 };
