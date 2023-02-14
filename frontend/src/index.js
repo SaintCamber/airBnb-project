@@ -26,6 +26,7 @@ function Root() {
         <Modal />
     </ReduxProvider>
     </ModalProvider>
+
       </BrowserRouter>
   );
 }

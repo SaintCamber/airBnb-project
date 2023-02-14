@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -6,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import { deleteBookingThunk } from "../../store/bookings";
 import { currentUserBookings } from "../../store/bookings";
 import  UpdateBookingModal  from "../UpdateBookingModal";
+import DeleteBookingModal from "../DeleteBookingModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './index.css'
 import { faBus } from "@fortawesome/free-solid-svg-icons";
@@ -22,12 +24,7 @@ const BookingsList = (userId) => {
   const closeMenu = () => setShowMenu(false);
   let history = useHistory();
   console.log("inside current bookings");
-  const deleteBooking = async (e) => {
-    e.preventDefault();
-
-    await dispatch(deleteBookingThunk(e.target.id));
-    alert("booking deleted!");
-  };
+  
   useEffect(() => {
     dispatch(currentUserBookings());
   }, [dispatch,userBookings]);
@@ -41,9 +38,20 @@ const BookingsList = (userId) => {
               From{booking.startDate.split("T")[0]} Until{booking.endDate.split("T")[0]}
             </span>
             {new Date(booking.startDate) > new Date() ? (
-              <button id={`${booking.id}`} onClick={deleteBooking}>
-                delete
-              </button>
+              <OpenModalMenuItem
+              className="modalButton"
+              itemText={<button>Cancel</button>}
+              onItemClick={closeMenu}
+              modalComponent={
+                <DeleteBookingModal
+                className="modalButton"
+              onItemClick={closeMenu}
+                  booking={booking}
+                  oldState={userBookings}
+                  UpdateOldState={setUserBookings}
+                />
+              }
+            />
             ) : (
               <div>Reservations that have started can't be cancelled</div>
             )}

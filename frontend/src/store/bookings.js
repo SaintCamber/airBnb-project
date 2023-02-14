@@ -64,9 +64,8 @@ export const deleteBookingThunk = (bookingId) => async (dispatch) => {
   console.log("delete booking thunk called");
   let response = await csrfFetch(`/api/bookings/${bookingId}`, {
     method: "DELETE",
-  });
+  }).catch(e=>console.log(e));
   if (response.ok) {
-    console.log("delete response ok");
     dispatch(deleteABooking(bookingId));
   }
 };
@@ -105,7 +104,7 @@ const bookingsReducer = (state = initialState, action) => {
     case update:
       let updateState = { ...state }; 
       let currentBooks = { ...state.CurBookings };
-       currentBooks[action.payload.id]=action.payload
+       currentBooks[action.payload.id]={...action.payload}
        updateState.userBookings[action.payload.id]={...action.payload}
        updateState.CurBookings={...currentBooks}
        return updateState
