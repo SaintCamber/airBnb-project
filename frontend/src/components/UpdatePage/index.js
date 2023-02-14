@@ -31,7 +31,7 @@ export default function UpdatePage(){
 {
    Object.values( ownedSpots).map(spot=>(
    <div>
-   <div  className="SpotTile" >
+   <div  className="SpotTile" style={{marginBottom :"30px"}} >
       {spot.previewImage ? <div className="imgBox"><img className="TileImage" src={spot.previewImage} alt="spot preview" ></img></div> :  <div className="imgBox" ><img className="TileImage" src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' ></img></div>}
       <div className="infoBox" >
         <div className="displayInfo" >

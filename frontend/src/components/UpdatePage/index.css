@@ -43,3 +43,17 @@
     flex-wrap:wrap
 
 }
+
+.SpotTile {
+    display: flex;
+flex-direction: column;
+background-color: white;
+box-sizing: borderBox;
+width: 24%;
+height: auto;
+max-height: 270px;
+min-width:200px;
+align-items: center;
+margin:0px 2px;
+cursor: pointer
+}

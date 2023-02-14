@@ -53,10 +53,10 @@ const BookingsList = (userId) => {
               }
             />
             ) : (
-              <div>Reservations that have started can't be cancelled</div>
+              <div>unable to cancel past bookings</div>
             )}
-
-            <OpenModalMenuItem
+            {new Date(booking.startDate) > new Date() ? (
+              <OpenModalMenuItem
               className="modalButton"
               itemText={<button>Update</button>}
               onItemClick={closeMenu}
@@ -71,6 +71,11 @@ const BookingsList = (userId) => {
                 />
               }
             />
+            ) : (
+              <div>unable to update past bookings</div>
+            )}
+
+            
           </div>
         ))}
     </div>
@@ -78,3 +83,4 @@ const BookingsList = (userId) => {
 };
 
 export default BookingsList;
+
