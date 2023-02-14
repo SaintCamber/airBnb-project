@@ -102,16 +102,19 @@ setValidationErrors(errors)
     
     
     if(!ValidationErrors.length){
-      await dispatch(createSpot(spot, imageList)).then(res=>history.push(`/spots/${res.id}`))
-      setName("");
+      await dispatch(createSpot(spot, imageList))
+      .then(()=>{
+        setName("");
       setAddress("");
       setCity("");
       setCountry("");
       setPrice("");
       setDescription("");
       setImageList(["", "", "", "", ""]);
-      closeModal()
-       }
+      closeModal()})
+      .then(res=>history.push(`/spots/${res.id}`))
+      
+    }
 
    
           
