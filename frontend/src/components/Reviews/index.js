@@ -41,6 +41,7 @@ const Reviews = ({spot}) => {
                         <div style={{marginRight:"7vw"}}>{review.stars}</div>
                         <div>{review.User.firstName} {review.User.lastName}</div>
                         </div>
+                        <div>{review.createdAt.split("T")[0]}</div>
                         
                        <div className="TextDiv"> {review.review}</div>
                        {currentUser.id === review.User.id ? <button>edit</button>:""}

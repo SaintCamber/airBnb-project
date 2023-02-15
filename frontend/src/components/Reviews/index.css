@@ -13,7 +13,7 @@
     height:auto;
     display:flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-content:center;
     flex-wrap: wrap;
     border:0.5px solid rgb(221,221,221);
