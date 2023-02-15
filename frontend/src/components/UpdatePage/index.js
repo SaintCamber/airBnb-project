@@ -16,13 +16,14 @@ export default function UpdatePage(){
     const dispatch=useDispatch()
     let [showMenu,setShowMenu] = useState(false)
     let ownedSpots = useSelector(state=>state.session.userOwnedSpots)
+    let allSpots = useSelector(state=>state.spots.AllSpots)
     let [ownedState,setOwnedState] = useState(ownedSpots)
     const closeMenu = () => setShowMenu(false);
    useEffect(()=>{
        dispatch( populateOwnedSpots())
    
   
-   },[dispatch])
+   },[dispatch,allSpots])
 
    
    return (

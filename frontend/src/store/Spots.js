@@ -1,5 +1,4 @@
 import { csrfFetch } from "./csrf";
-
 const CREATE_SPOT = "create-spot";
 const UPDATE_SPOT = "update-spot";
 const READ_SPOT = "read-spot";
@@ -140,7 +139,7 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
     method: "DELETE",
   });
   if (response.ok) {
-    dispatch(deleteSpot());
+    dispatch(deleteSpot(spotId));
   }
 };
 export const UpdateSpot = (spot) => async (dispatch) => {

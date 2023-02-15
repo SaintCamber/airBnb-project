@@ -45,6 +45,7 @@ const Reviews = ({spot}) => {
                         
                        <div className="TextDiv"> {review.review}</div>
                        {currentUser.id === review.User.id ? <button>edit</button>:""}
+                       {currentUser.id === review.User.id ? <button>delete</button>:""}
                         </div>
                     </div>
                 )

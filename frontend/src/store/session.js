@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 const OWNED = 'session/spots'
+const REMOVE_SPOT = '/session/spot/remove'
 //action creators for the final pojo sent when logging someone in
 const setUser = (user) => {
   return {
@@ -21,6 +22,12 @@ const ownedSpots =(spots) =>{
   return {
     type:OWNED,
     payload:spots
+  }
+}
+const removeSpot=(spotId)=>{
+  return {
+    type:REMOVE_SPOT,
+    spotId
   }
 }
 //action to login a user,looks to be destructuring crediential and password from the use obj passed in as a parameter then defining a response object
@@ -93,6 +100,10 @@ export const populateOwnedSpots = () =>async (dispatch)=>{
   return currentUsersSpots
 }
 
+export const removeOwnedSpot = (spotId)=>async dispatch=>{
+dispatch(removeSpot(spotId))
+}
+
 const initialState = { user: null,userOwnedSpots:{} };
 const sessionReducer = (state = initialState, action) => {
   let newState;
@@ -113,6 +124,10 @@ const sessionReducer = (state = initialState, action) => {
         
         newState["userOwnedSpots"] = {...currentSpots}
         return newState
+      case REMOVE_SPOT:
+        let REMOVEstate={...state}
+       delete REMOVEstate.userOwnedSpots[action.spotId]  
+       return REMOVEstate
     default:
       return state;
   }

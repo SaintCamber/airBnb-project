@@ -50,7 +50,15 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   }
 };
 export const updateSpotReview = (reviewId) => async (dispatch) => {};
-export const constdeleteSpotReview = (reviewId) => async (dispatch) => {};
+export const deleteSpotReview = (reviewId) => async (dispatch) => {
+    let response = await csrfFetch(`/api/reviews/${reviewId}`,{
+        method:"DELETE"
+    })
+    if(response.ok){
+        let data = response.json()
+        dispatch(DeleteReview(reviewId))
+    }
+};
 export const getCurrentUsersReviews = () => async (dispatch) => {
   let response = await csrfFetch("/api/reviews/current");
   if (response.ok) {
@@ -75,7 +83,9 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case UPDATE:
     //   return stateUPDATE;
     case DELETE:
-    //   return stateDELETE;
+        let stateDELETE = {...state}
+        delete stateDELETE.userReviews[action.payload]
+      return stateDELETE;
     case UserReviews:
       let stateReviews = { ...state, userReviews: { ...action.payload } };
       return stateReviews;
