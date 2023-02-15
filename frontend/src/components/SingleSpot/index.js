@@ -10,6 +10,7 @@ import {
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
 import "./SingleSpot.css";
+import Reviews from "../Reviews";
 // import amenitiesTile from "../amenitiesTile";
 // import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 // import DeleteSpotModal from "../DeleteSpotModal";
@@ -349,7 +350,9 @@ export default function SingleSpot() {
             <BookingsCard spot={Spot}></BookingsCard>
           </div>
         </div>
-          <div className="subScroll">REVIEWS</div>
+          <div className="subScroll">
+            {currentUser ? <Reviews spot={Spot}></Reviews>:"log in to see reviews"}
+          </div>
       </>
     )
   );
