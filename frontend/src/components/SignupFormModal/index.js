@@ -56,16 +56,14 @@ function resetForm(){
             password,
           })
         )
-        .then(async res=>resetForm())
-      .catch(
-        (async (res) => {
-          const data = res.json();
-          console.log("datadatadata",data)
+        .then(resetForm)
+        .catch(async (res) => {
+          const data = await res.json();
           if (data && data.errors) setErrors(data.errors)
           
         })
         
-        )
+        
        
 
         
