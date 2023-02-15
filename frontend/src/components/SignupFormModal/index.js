@@ -37,11 +37,13 @@ function resetForm(){
   setPassword("")
   setConfirmPassword("")
   setErrors([])
+  closeModal()
+  
 }
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrors([]);
     if (password === confirmPassword) {
-      setErrors([]);
       if(firstName.length<4)setErrors([...errors,"firstName must be longer than 4 characters"])
       if(lastName.length<4)setErrors([...errors,"lastName must be longer than 4 characters"])
       
@@ -54,12 +56,12 @@ function resetForm(){
             password,
           })
         )
-        .then(res=>closeModal())
+        .then(async res=>resetForm())
       .catch(
         (async (res) => {
-          const data = await res.json();
+          const data = res.json();
           console.log("datadatadata",data)
-          if (data && data.errors) setErrors([...errors,...data.errors])
+          if (data && data.errors) setErrors(data.errors)
           
         })
         
