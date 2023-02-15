@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import BookingsCard from "../BookingsCard";
+import Reviews from "../Reviews/index";
+
 import "./SingleSpot.css";
 // import amenitiesTile from "../amenitiesTile";
 // import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -21,6 +23,7 @@ export default function SingleSpot() {
  const history = useHistory()
   let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
+  const userReviews = useSelector(state=>state.Reviews.userReviews)
   const [showMenu, setShowMenu] = useState(false);
 
   console.log("spotId", spotId);
@@ -31,7 +34,7 @@ export default function SingleSpot() {
       dispatch(thunkOneSpot(spotId));
     };
      GetSpot();
-  }, [dispatch, spotId]);
+  }, [dispatch, spotId,userReviews]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
@@ -349,7 +352,9 @@ export default function SingleSpot() {
             <BookingsCard spot={Spot}></BookingsCard>
           </div>
         </div>
-          <div className="subScroll">REVIEWS</div>
+          <div className="subScroll">
+            <Reviews spot={Spot}/>
+          </div>
       </>
     )
   );
