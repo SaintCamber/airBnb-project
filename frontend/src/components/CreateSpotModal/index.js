@@ -38,11 +38,11 @@ if(state.length<3&&state.length){errors.push("Please use the entire state name a
 if(country.length<3&&country.length){errors.push("country must be longer than 3 characters please use full name")}
 if(price.length&&!parseInt(price)){errors.push("must enter a valid price")}
 if(description.length>0&&(description.length<30||description.length>500)){errors.push("description must be between 30 and 500 characters")}
-if(imageList[0].length>0&&!imageList[0].endsWith("jpg")){errors.push('Image#1 Invalid Valid images end in jpg ')}
-if(imageList[1].length>0&&!imageList[1].endsWith("jpg")){errors.push('Image#2 Invalid Valid images end in jpg ')}
-if(imageList[2].length>0&&!imageList[2].endsWith("jpg")){errors.push('Image#3 Invalid Valid images end in jpg ')}
-if(imageList[3].length>0&&!imageList[3].endsWith("jpg")){errors.push('Image#4 Invalid Valid images end in jpg ')}
-if(imageList[4].length>0&&!imageList[4].endsWith("jpg")){errors.push('Image#5 Invalid Valid images end in jpg ')}
+if(imageList[0].length>0&&(!imageList[0].endsWith("jpg")&&!imageList[0].endsWith('.png'))){errors.push('Image#1 Invalid Valid images end in jpg ')}
+if(imageList[1].length>0&&(!imageList[1].endsWith("jpg")&&!imageList[1].endsWith('.png'))){errors.push('Image#2 Invalid Valid images end in jpg ')}
+if(imageList[2].length>0&&(!imageList[2].endsWith("jpg")&&!imageList[2].endsWith('.png'))){errors.push('Image#3 Invalid Valid images end in jpg ')}
+if(imageList[3].length>0&&(!imageList[3].endsWith("jpg")&&!imageList[3].endsWith('.png'))){errors.push('Image#4 Invalid Valid images end in jpg ')}
+if(imageList[4].length>0&&(!imageList[4].endsWith("jpg")&&!imageList[4].endsWith('.png'))){errors.push('Image#5 Invalid Valid images end in jpg ')}
 setValidationErrors(errors)
  },[name,city,address,country,state,description,price,imageList[0],imageList[1],imageList[2],imageList[3],imageList[4]])
 
@@ -263,6 +263,7 @@ setValidationErrors(errors)
             onChange={(e) => setDescription(e.target.value)}
             required
             className="formInput"
+
             />
         </label>
         {imageList.map((imageUrl, index) => (
