@@ -44,28 +44,35 @@ function resetForm(){
       setErrors([]);
       if(firstName.length<4)setErrors([...errors,"firstName must be longer than 4 characters"])
       if(lastName.length<4)setErrors([...errors,"lastName must be longer than 4 characters"])
-      return dispatch(
-        sessionActions.signup({
-          email,
-          username,
-          firstName,
-          lastName,
-          password,
-        })
-      )
-        .then(async (res) => await res.json())
-        .catch(async (res) => {
+      
+        return dispatch(
+          sessionActions.signup({
+            email,
+            username,
+            firstName,
+            lastName,
+            password,
+          })
+        )
+        .then(res=>closeModal())
+      .catch(
+        (async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors([...errors,...data.errors]);
-        }).then(()=>{
-          if(!errors.length)closeModal()
-          else resetForm()});
-    }
-    
+          console.log("datadatadata",data)
+          if (data && data.errors) setErrors([...errors,...data.errors])
+          
+        })
+        
+        )
+       
+
+        
+      }
     return setErrors([
       "Confirm Password field must be the same as the Password field",
     ]);
-  };
+  }
+
 
   return (
     <div className={"modal"}>
