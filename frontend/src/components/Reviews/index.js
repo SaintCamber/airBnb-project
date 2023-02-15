@@ -7,7 +7,8 @@ import {
   } from "@fortawesome/free-solid-svg-icons";
 import CreateReviewModal from './CreateReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import {getSpotReviews } from '../../store/Reviews';
+import DeleteReviewModal from './DeleteReveiwModal'
+import {getSpotReviews ,getCurrentUsersReviews} from '../../store/Reviews';
 import { useModal } from '../../context/Modal';
 import './index.css'
 const Reviews = ({spot}) => {
@@ -17,9 +18,13 @@ const Reviews = ({spot}) => {
     const userReviews = useSelector(state=>state.Reviews.userReviews)
     const dispatch=useDispatch()
     const {spotId} = useParams()
+    const [rerender,setRerender]=useState(false)
     useEffect(()=>{
         dispatch(getSpotReviews(spotId))
     },[dispatch,userReviews])
+    useEffect(()=>{
+        dispatch(getCurrentUsersReviews())
+    },[dispatch,singleSpotReviews])
     return (
         <div style={{display:"flex",flexDirection:"column",flexWrap:"wrap"}}>
         <h2>User Reviews</h2>
@@ -45,7 +50,13 @@ const Reviews = ({spot}) => {
                         
                        <div className="TextDiv"> {review.review}</div>
                        {currentUser.id === review.User.id ? <button>edit</button>:""}
-                       {currentUser.id === review.User.id ? <button>delete</button>:""}
+                       {currentUser.id === review.User.id ? <OpenModalMenuItem 
+className="modalButton"
+    itemText={<button>Delete</button>}
+              onItemClick={closeMenu}
+              modalComponent={<DeleteReviewModal rerender={rerender} setRerender={setRerender} ReviewId={review.id}/>}
+                        
+                       />:""}
                         </div>
                     </div>
                 )

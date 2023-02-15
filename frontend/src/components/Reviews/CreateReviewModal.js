@@ -35,7 +35,7 @@ async function handleSubmit(){
            
   <strong>Rating</strong>
   <input
-    class="rating rating--nojs"
+    className="rating rating--nojs"
     max="5"
     step="0.5"
     type="range"

@@ -78,16 +78,21 @@ const initialState = { spotReviews: {}, userReviews: {} };
       };
       return stateCREATE;
     case READ:
-      let stateREAD = { ...state, spotReviews: { ...action.payload.Reviews } };
+      let stateREAD = { ...state};
+      stateREAD.spotReviews ={}
+      action.payload.Reviews.map(review=>stateREAD.spotReviews[review.id]=review)
       return stateREAD;
     case UPDATE:
     //   return stateUPDATE;
     case DELETE:
         let stateDELETE = {...state}
+        console.log("inside Delete",state.spotReviews)
         delete stateDELETE.userReviews[action.payload]
+        delete stateDELETE.spotReviews[action.payload]
       return stateDELETE;
     case UserReviews:
-      let stateReviews = { ...state, userReviews: { ...action.payload } };
+      let stateReviews = { ...state};
+      action.payload.Reviews.map(review=>stateReviews.userReviews[review.id]=review)
       return stateReviews;
     default:
       return state;
