@@ -4,7 +4,7 @@ import { useModal } from "../../context/Modal";
 import { useSelector } from "react-redux";
 import { deleteSpotThunk } from "../../store/Spots";
 import { useHistory } from "react-router-dom";
-
+import '../cssStuffs/modals.css'
 
 const DeleteSpotModal=({spot,oldState,setter})=>{
     let user = useSelector(state=>state.session.user)
@@ -30,11 +30,14 @@ const DeleteSpotModal=({spot,oldState,setter})=>{
 
     return (
         <>
-        <div>
+        <div className="modal">
+            <form className='Form'>
             <h2>Are you certain you'd like to delete this spot?</h2>
             <h5>{spot.name}: {spot.address}</h5>
-            <button onClick={handleClick}>yes</button>
-            <button onClick={closeModal}>cancel</button>
+            <button className="FormButton" onClick={handleClick}>yes</button>
+            <button className="FormButton" onClick={closeModal}>cancel</button>
+
+            </form>
         </div>
         </>
     )
