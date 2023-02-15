@@ -49,7 +49,21 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
     return data;
   }
 };
-export const updateSpotReview = (reviewId) => async (dispatch) => {};
+export const updateSpotReview = (review) => async (dispatch) => {
+    let {spotId,userId,id,newReview,stars} = review
+    const response = await csrfFetch(`/api/reviews/${id}`,{
+        method:"PUT",
+        body: JSON.stringify({
+            review:newReview,
+            stars
+        })
+    })
+    if(response.ok){
+        let data = await response.json()
+        dispatch(UpdateReview(review))
+    }
+
+};
 export const deleteSpotReview = (reviewId) => async (dispatch) => {
     let response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method:"DELETE"
@@ -83,7 +97,11 @@ const initialState = { spotReviews: {}, userReviews: {} };
       action.payload.Reviews.map(review=>stateREAD.spotReviews[review.id]=review)
       return stateREAD;
     case UPDATE:
-    //   return stateUPDATE;
+        let stateUPDATE={...state}
+        console.log("action/.payload",action.payload)
+        stateUPDATE.userReviews[action.payload.id]={...action.payload}
+        stateUPDATE.spotReviews[action.payload.id]={...action.payload}
+      return stateUPDATE;
     case DELETE:
         let stateDELETE = {...state}
         console.log("inside Delete",state.spotReviews)
