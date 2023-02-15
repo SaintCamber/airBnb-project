@@ -347,7 +347,7 @@ export default function SingleSpot() {
             <div className="ScrollDiv">the rest of the amenities available at the location, the 3 deemed most important will replace the three displayed above?</div>
           </div>
           <div style={{ width: "40%" }}>
-            <BookingsCard spot={Spot}></BookingsCard>
+            <BookingsCard spot={Spot} currentUser={currentUser}></BookingsCard>
           </div>
         </div>
           <div className="subScroll">

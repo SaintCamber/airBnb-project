@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import "./index.css";
 import "../cssStuffs/calendar.css";
 
-const BookingsCard = ({ spot }) => {
+const BookingsCard = ({ spot,currentUser}) => {
   console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
   let [endDate, setEndDate] = useState(new Date());
@@ -74,6 +74,10 @@ const BookingsCard = ({ spot }) => {
 
   const checkAvailability = (e) => {
     e.preventDefault();
+    if(spot.ownerId===currentUser.id){
+      alert("you aren't able to reserve a spot you own")
+      return
+    }
 if(endDate-startDate<1){
   alert("minimum two days")
  return}
