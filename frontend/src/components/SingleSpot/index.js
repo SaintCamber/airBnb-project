@@ -63,7 +63,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
               <h1>{Spot?.name}</h1>
               <>
               <FontAwesomeIcon icon={faStar} />
-              { Spot?.numReviews>0 ? (isNaN(Spot.avgStarRating) ? "":Spot?.avgStarRating.toFixed(2)):""}
+              { Spot?.numReviews>0 ? (isNaN(Spot.avgStarRating) ? "":Number(Spot?.avgStarRating).toFixed(2)):""}
                 <p
                   to="/reviews/spotId"
                   style={{

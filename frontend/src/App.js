@@ -36,7 +36,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path = {['/','/home']}>
+          <Route exact path = {['/',"/home"]}>
             {Spots ? <SpotsList />:<h1>unable to retrieve spots,please try again later</h1>}
           </Route>
           <Route path="/spots/:spotId">
