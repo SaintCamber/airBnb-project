@@ -27,6 +27,8 @@ export default function UpdatePage(){
 
    
    return (
+    <>
+<h1>Manage Spots</h1>
 <div className='holdingDiv' >
 {
    Object.values( ownedSpots).map(spot=>(
@@ -61,6 +63,6 @@ className="modalButton"
 
 }
 
-</div>)
-
+</div>
+</>)
 }

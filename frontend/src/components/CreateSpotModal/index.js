@@ -257,14 +257,12 @@ setValidationErrors(errors)
             className={classSeven}>
            {description||"Description"} 
           </div>
-          <input
+          <textArea
             value={description}
-            type="text"
             onChange={(e) => setDescription(e.target.value)}
-            required
             className="formInput"
-
-            />
+            placeHolder="please provide a brief Description"
+            ></textArea>
         </label>
         {imageList.map((imageUrl, index) => (
           <label key={index}>

@@ -61,22 +61,26 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
       if (data && data.errors) setErrors(data.errors);
     })
     .then(setter({...oldState,[spot.id]:newSpot}))
-    .then(closeModal)
+    .then(closeModal).then(history.push(`/spots/${spot.id}`))
       
   }
     
-
   return (
-    <div className={"modal"}>
-      <h1>Update Spot</h1>
-      <form className="Form" onSubmit={handleSubmit}>
+    <div   className={"modal"}>
+      <h1>Update Your Spot</h1>
+      <form onSubmit={handleSubmit} className="Form">
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
         <label>
-          <div  id={1} onClick={e=>handleLabelOnclick(e)} className={classOne} >name</div>
+          <div
+            id={1}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classOne}>
+            {name||"name"}
+          </div>
           <input
             type="text"
             value={name}
@@ -86,7 +90,12 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div  id={2}onClick={e=>handleLabelOnclick(e)} className={classTwo}>City</div>
+          <div
+            id={2}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classTwo}>
+            {city||"City"}
+          </div>
           <input
             type="text"
             value={city}
@@ -96,7 +105,12 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div  id={3}onClick={e=>handleLabelOnclick(e)} className={classThree}>State</div>
+          <div
+            id={3}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classThree}>
+            {state||"State"}
+          </div>
           <input
             type="text"
             value={state}
@@ -106,7 +120,12 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div  id={4}onClick={e=>handleLabelOnclick(e)} className={classFour}>Country</div>
+          <div
+            id={4}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classFour}>
+            {country||"Country"}
+          </div>
           <input
             type="text"
             value={country}
@@ -116,7 +135,12 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div  id={5}onClick={e=>handleLabelOnclick(e)} className={classFive}>Address</div>
+          <div
+            id={5}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classFive}>
+          { address ||"Address"}
+          </div>
           <input
             type="text"
             value={address}
@@ -132,6 +156,7 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
             value={lat}
             onChange={(e) => setLat(e.target.value)}
             required
+
           />
         </label>
         <label>
@@ -141,10 +166,16 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
             value={lng}
             onChange={(e) => setLng(e.target.value)}
             required
-          />
-        </label> */}
+/>
+        </label>
+           */}
         <label>
-          <div id={6}onClick={e=>handleLabelOnclick(e)} className={classSix}>Price</div>
+          <div
+            id={6}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classSix}>
+            {price||"Price"}
+          </div>
           <input
             type="integer"
             value={price}
@@ -154,16 +185,22 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div id={7}onClick={e=>handleLabelOnclick(e)} className={classSeven}>Description</div>
+          <div
+            id={7}
+            onClick={(e) => handleLabelOnclick(e)}
+            className={classSeven}>
+           {description||"Description"} 
+          </div>
           <input
-            type="text"
             value={description}
+            type="text"
             onChange={(e) => setDescription(e.target.value)}
             required
-            className={"formInput"}
-          />
+            className="formInput"
+
+            />
         </label>
-        <button className="FormButton" type="submit">
+        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||!price.length||!description.length ? true:false }>
           Update Spot
         </button>
       </form>

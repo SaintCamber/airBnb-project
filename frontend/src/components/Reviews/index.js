@@ -31,7 +31,7 @@ const Reviews = ({
   }, [dispatch, singleSpotReviews]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      <h2>User Reviews</h2>
+      {Object.values(singleSpotReviews).length ? <h2>User Reviews</h2>:<h2>be the first to add a Review!</h2>}
       {currentUser.id !== spot.ownerId &&
       !Object.values(singleSpotReviews).find(
         (review) => currentUser.id === review.User.id

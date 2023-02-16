@@ -351,7 +351,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
           </div>
         </div>
           <div className="subScroll">
-            {currentUser ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:"log in to see reviews"}
+            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:"Please log in to see reviews"}
           </div>
       </>
     )
