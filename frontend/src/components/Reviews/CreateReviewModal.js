@@ -11,8 +11,9 @@ const CreateReviewModal = ({
   setReRenderSingleSpot,
 }) => {
   const dispatch = useDispatch();
-  let [review, setReview] = useState("Enter Your Review Here...");
+  let [review, setReview] = useState("");
   let [stars, setStars] = useState(3);
+  let [errors,setErrors] = useState([])
   const { closeModal } = useModal();
   async function handleSubmit() {
     let newReview = { spotId, userId, stars, review };
@@ -22,7 +23,10 @@ const CreateReviewModal = ({
         setReview("");
       })
       .then(closeModal)
-      .then(setReRenderSingleSpot({}));
+      .then(setReRenderSingleSpot({})).catch(async (res)=>{
+        let data = await res.json()
+        if(data&&data.errors) setErrors(data.errors)
+      })
   }
 
   return (
@@ -37,6 +41,10 @@ const CreateReviewModal = ({
           style={{ display: "flex", justifyContent: "center", margin: "0px" }}>
           How was Your Stay?
         </h3>
+        <ul>
+        {errors.map(error=><li>error</li>)}
+
+        </ul>
         <label style={{ height: "6em" }}>
           <textArea
             value={review}
@@ -58,7 +66,7 @@ const CreateReviewModal = ({
           }}
         />
 
-        <button className="FormButton">Post Review</button>
+        <button disabled={review.length<10?true:false}className="FormButton">Post Review</button>
       </form>
     </div>
   );
