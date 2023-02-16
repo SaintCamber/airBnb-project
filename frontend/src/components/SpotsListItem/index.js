@@ -21,7 +21,7 @@ export default function SpotListItem({spot}){
       {spot.previewImage ? <div className="imgBox"><img className="TileImage" src={spot.previewImage} alt="spot preview" ></img></div> :  <div className="imgBox" ><img className="TileImage" src='https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg' alt='preview' ></img></div>}
       <div className="infoBox" >
         <div className="displayInfo" >
-          <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{ spot?.numReviews>0 ? "what":(isNaN(avgStarRating) ? "new":avgStarRating.toFixed(2))}</span>
+          <NavLink to={`/Spots/${spot.id}` }style={{width: "50%"}}>{spot.name}</NavLink> <span style={{display: "flex", flexDirection: "row", alignItems: "flex-", width: "50%", justifyContent: "end"}}><FontAwesomeIcon icon={faStar}/>{ spot?.numReviews>0 ? "what":(isNaN(avgStarRating) ? "new":Number(avgStarRating).toFixed(2))}</span>
         </div>
         <h5 style={{fontWeight: 400,margin:0}}>{spot.city}, {spot.state}</h5>
         <h5 style={{}}>{spot.price}$ Night</h5>
