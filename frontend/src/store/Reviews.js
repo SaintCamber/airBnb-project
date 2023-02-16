@@ -105,8 +105,9 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case DELETE:
         let stateDELETE = {...state}
         console.log("inside Delete",state.spotReviews)
-        delete stateDELETE.userReviews[action.payload]
-        delete stateDELETE.spotReviews[action.payload]
+        stateDELETE.spotReviews = {...Object.values(stateDELETE.spotReviews).filter(review=>review.id!==action.payload)}
+        stateDELETE.userReviews ={...Object.values(stateDELETE.userReviews).filter(review=>review.id!==action.payload)}
+
       return stateDELETE;
     case UserReviews:
       let stateReviews = { ...state};

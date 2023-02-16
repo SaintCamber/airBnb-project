@@ -33,6 +33,13 @@ function LoginFormModal() {
         if (data && data.errors) setErrors(data.errors);
       });
   };
+
+  function handleDemo(e) {
+    let demoCreds = { credential: "Demo-lition", password: "password" };
+    e.preventDefault();
+    dispatch(sessionActions.login(demoCreds));
+    closeModal()
+  }
   return (
     <div className={"modal"}>
       <h1>Log In</h1>
@@ -42,6 +49,9 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
                       ))}
         </ul>
+        <div className="bookingsList" onClick={handleDemo}>
+              Demo User
+            </div>
         <label  >
           <div id={1}onClick={e=>handleLabelOnclick(e)} className={classOne}>Username or Email</div>
           <input
@@ -62,10 +72,11 @@ function LoginFormModal() {
             className={"formInput"}
           />
         </label>
-        <button className="FormButton" type="submit">
+        <button className="FormButton" type="submit" disabled={credential.length<4||password.length<6?true:false}>
           Log In
         </button>
       </form>
+      
     </div>
   );
 }

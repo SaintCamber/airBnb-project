@@ -44,11 +44,7 @@ function ProfileButton({ user }) {
     closeMenu();
     history.push('/')
   };
-  function handleDemo(e) {
-    let demoCreds = { credential: "Demo-lition", password: "password" };
-    e.preventDefault();
-    dispatch(sessionActions.login(demoCreds));
-  }
+ 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
@@ -97,9 +93,7 @@ function ProfileButton({ user }) {
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-            <div className="bookingsList" onClick={handleDemo}>
-              Demo User
-            </div>
+           
           </menu>
         )}
       </ul>

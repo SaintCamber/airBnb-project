@@ -3,7 +3,7 @@ import { useDispatch,useSelector } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { updateSpotReview } from '../../store/Reviews'
 
-const UpdateReviewModal = ({review})=>{
+const UpdateReviewModal = ({review,ReRenderSingleSpot,setReRenderSingleSpot})=>{
     const dispatch =useDispatch()
     let [newReview,setNewReview] = useState(review.review)
     let [stars,setStars] = useState(review.stars)
@@ -15,7 +15,7 @@ async function handleSubmit(e){
     await dispatch(updateSpotReview(actionReview)).then(()=>{
         setStars(3)
         setNewReview('')
-    }).then(closeModal)}
+    }).then(closeModal).then(setReRenderSingleSpot({}))}
 
 
 

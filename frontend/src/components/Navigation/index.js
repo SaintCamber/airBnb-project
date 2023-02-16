@@ -21,13 +21,11 @@ function Navigation({ isLoaded }){
     <div className='navbar'>
     <div style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center'}}>
     <div   style={{display:"flex",flexDirection:'row',justifyContent:"center",alignContent:'center',textAlign:"center",paddingTop:8}}>
-     <div id='rentHome' onClick={()=>{}}  style={{marginRight:25}}>
      { sessionUser&&<OpenModalMenuItem
-              itemText="InfiniBnb your Home"
+              itemText=<button className="newSpot">InfiniBnb your Home</button>
               onItemClick={closeMenu}
               modalComponent={<CreateSpotModal />}
             />}
-     </div>
      <div id='globe'onClick={()=>{alert("feature coming soon!")}} style={{marginRight:25}}><FontAwesomeIcon icon={faGlobe}/></div>
     </div>
 

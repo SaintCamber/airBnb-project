@@ -10,7 +10,12 @@ import UpdateReviewModal from "./UpdateReviewModal";
 import { getSpotReviews, getCurrentUsersReviews } from "../../store/Reviews";
 import { useModal } from "../../context/Modal";
 import "./index.css";
-const Reviews = ({ review,spot }) => {
+const Reviews = ({
+  review,
+  spot,
+  setReRenderSingleSpot,
+  ReRenderSingleSpot,
+}) => {
   const { closeMenu } = useModal();
   const singleSpotReviews = useSelector((state) => state.Reviews.spotReviews);
   const currentUser = useSelector((state) => state.session.user);
@@ -36,7 +41,12 @@ const Reviews = ({ review,spot }) => {
           itemText={<button>Add A Review</button>}
           onItemClick={closeMenu}
           modalComponent={
-            <CreateReviewModal spotId={spotId} userId={currentUser.id} />
+            <CreateReviewModal
+              spotId={spotId}
+              userId={currentUser.id}
+              ReRenderSingleSpot={ReRenderSingleSpot}
+              setReRenderSingleSpot={setReRenderSingleSpot}
+            />
           }
         />
       ) : (
@@ -64,8 +74,8 @@ const Reviews = ({ review,spot }) => {
                     onItemClick={closeMenu}
                     modalComponent={
                       <UpdateReviewModal
-                        rerender={rerender}
-                        setRerender={setRerender}
+                      ReRenderSingleSpot={ReRenderSingleSpot}
+                        setReRenderSingleSpot={setReRenderSingleSpot}
                         review={review}
                         spot={spot}
                       />
@@ -81,9 +91,9 @@ const Reviews = ({ review,spot }) => {
                     onItemClick={closeMenu}
                     modalComponent={
                       <DeleteReviewModal
-                        rerender={rerender}
-                        setRerender={setRerender}
-                        ReviewId={review.id}
+                        ReRenderSingleSpot={ReRenderSingleSpot}
+                        setReRenderSingleSpot={setReRenderSingleSpot}
+                        Review={review}
                       />
                     }
                   />

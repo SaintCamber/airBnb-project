@@ -1,12 +1,10 @@
 // frontend/src/App.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,lazy,Suspense } from "react";
 import { useDispatch } from "react-redux";
 import {Route, Switch} from "react-router-dom";
 // import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-import SpotsList from "./components/SpotsList";
-import SingleSpot from "./components/SingleSpot";
 import UpdatePage from "./components/UpdatePage"
 import {useSelector} from 'react-redux'
 import { useLocation } from "react-router-dom";
@@ -14,6 +12,8 @@ import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
 import { Link } from "react-router-dom";
 import learn from './components/learn';
+import SpotsList from './components/SpotsList';
+import SingleSpot from './components/SingleSpot';
 import NotLoggedin from './components/notLoggedin';
 // in App.js
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -25,6 +25,8 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const user = useSelector(state=>state.session.user)
+  const Spots = useSelector(state=>state.spots.AllSpots)
+  const Singleton = useSelector(state=>state.spots.SingleSpot)
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -35,11 +37,13 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path = {['/','/home']}>
-            <SpotsList />
+            {Spots ? <SpotsList />:<h1>unable to retrieve spots,please try again later</h1>}
           </Route>
           <Route path="/spots/:spotId">
-            <SingleSpot  />
+            {Singleton? <SingleSpot  />:<h1>unable to retrieve spot details, please try again later</h1>}
           </Route>
+
+
           <Route exact path="/user/spots">
             {user ?<UpdatePage />:<NotLoggedin/>}
           </Route>

@@ -23,7 +23,7 @@ export default function SingleSpot() {
   let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
   const [showMenu, setShowMenu] = useState(false);
-
+const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
   console.log("spotId", spotId);
   let dispatch = useDispatch();
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function SingleSpot() {
       dispatch(thunkOneSpot(spotId));
     };
      GetSpot();
-  }, [dispatch, spotId]);
+  }, [dispatch, spotId,ReRenderSingleSpot]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
@@ -63,7 +63,7 @@ export default function SingleSpot() {
               <h1>{Spot?.name}</h1>
               <>
               <FontAwesomeIcon icon={faStar} />
-              {Math.floor(Spot?.avgStarRating*100)/100||"new"  }
+              { Spot?.numReviews>0 ? (isNaN(Spot.avgStarRating) ? "":Spot?.avgStarRating.toFixed(2)):""}
                 <p
                   to="/reviews/spotId"
                   style={{
@@ -74,7 +74,7 @@ export default function SingleSpot() {
                     marginLeft:"5px",
                     display:"inline-flex",
                   }}>
-                  Reviews: {Spot.numReviews}
+                  {Spot.numReviews===1 ? (`${Spot.numReviews} Review`):(Spot.numReviews>0 ? (`Reviews:${Spot.NumReviews}`):"new")}
                 </p>
               </>
               <NavLink
@@ -277,7 +277,7 @@ export default function SingleSpot() {
             }}>
             <div style={{ width: "100%", alignItems: "flex-start" }}>
               <h1 style={{ padding: 0, margin: 0, flexWrap: "nowrap" }}>
-                {Spot.name} is Hosted by {Spot.owner?.firstName}
+                {Spot.name} is Hosted by {Spot.owner?.firstName} {Spot.owner?.lastName}
               </h1>
               <ul
                 style={{
@@ -347,11 +347,11 @@ export default function SingleSpot() {
             <div className="ScrollDiv">the rest of the amenities available at the location, the 3 deemed most important will replace the three displayed above?</div>
           </div>
           <div style={{ width: "40%" }}>
-            <BookingsCard spot={Spot} currentUser={currentUser}></BookingsCard>
+            <BookingsCard spot={Spot} currentUser={currentUser} ></BookingsCard>
           </div>
         </div>
           <div className="subScroll">
-            {currentUser ? <Reviews spot={Spot}></Reviews>:"log in to see reviews"}
+            {currentUser ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:"log in to see reviews"}
           </div>
       </>
     )

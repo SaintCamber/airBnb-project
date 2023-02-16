@@ -59,6 +59,7 @@ function resetForm(){
         .then(resetForm)
         .catch(async (res) => {
           const data = await res.json();
+          console.log("datadtatrdard",data)
           if (data && data.errors) setErrors(data.errors)
           
         })
@@ -155,7 +156,7 @@ function resetForm(){
             className={"formInput"}
           />
         </label>
-        <button type="submit" disabled={!email.length||!username.length||!firstName.length||!lastName.length||!password.length||!confirmPassword.length ?  true:false}className={"FormButton"}>
+        <button type="submit" disabled={!email.length||username.length<4||!firstName.length||!lastName.length||password.length<6||password!==confirmPassword ?  true:false}className={"FormButton"}>
           Sign Up
         </button>
       </form>
