@@ -35,7 +35,7 @@ const DeleteUpdateModal=({booking,oldState,UpdateOldState})=>{
         <form className="Form">
             <h2>Are you certain you'd like to cancel this booking?</h2>
             <button className="FormButton" onClick={e=>handleClick(e)}>yes</button>
-            <button className="FormButton" onClick={closeModal}>no</button>
+            <button className="FormButton .cancel" onClick={closeModal}>no</button>
             
         </form>
         </div>

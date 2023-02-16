@@ -30,7 +30,7 @@ const DeleteReviewModal = ({
           <button type="submit" className="formButton">
             yes
           </button>
-          <button className="formButton" onClick={closeModal}>
+          <button className="formButton cancel" onClick={closeModal}>
             cancel
           </button>
         </form>

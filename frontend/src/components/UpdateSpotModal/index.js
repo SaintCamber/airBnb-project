@@ -191,14 +191,12 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
             className={classSeven}>
            {description||"Description"} 
           </div>
-          <input
+          <textArea
             value={description}
-            type="text"
             onChange={(e) => setDescription(e.target.value)}
-            required
             className="formInput"
-
-            />
+            placeHolder="please provide a brief Description"
+            ></textArea>
         </label>
         <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||!price.length||!description.length ? true:false }>
           Update Spot
