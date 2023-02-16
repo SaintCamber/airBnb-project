@@ -103,6 +103,7 @@ setValidationErrors(errors)
     
     if(!ValidationErrors.length){
       await dispatch(createSpot(spot, imageList))
+      .then(res=>history.push(`/spots/${res.id}`))
       .then(()=>{
         setName("");
       setAddress("");
@@ -112,7 +113,6 @@ setValidationErrors(errors)
       setDescription("");
       setImageList(["", "", "", "", ""]);
       closeModal()})
-      .then(res=>history.push(`/spots/${res.id}`))
       
     }
 
