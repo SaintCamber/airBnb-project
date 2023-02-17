@@ -25,14 +25,18 @@ border-radius: 15px;
     height:3em;
     width:100%;
     border:2px solid rgb(221,221,221);
-    border-radius:15px;
-    margin-top:3px;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
+    margin-top:15px;
+    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
+
 
 }
 
 .InputTitle{
     position:absolute;
-    background-color:white;
     height:100%;
     width:100%;
     font-size:20px;
@@ -48,9 +52,13 @@ border-radius: 15px;
     height:3em;
     border:none;
     outline: none;
-    border-radius:15px;
+    border-top-right-radius:15px;
+    border-top-left-radius:15px;
+    border-bottom-right-radius:15px;
+    border-bottom-left-radius:15px;
     overflow: hidden;
     text-align: center;
+    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
     
 }
 .FormButton{
