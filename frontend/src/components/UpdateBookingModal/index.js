@@ -65,35 +65,34 @@ if(endDate-startDate<=1){
       (date) => date.toString() === new Date(endDate).toString()
     );
     if (startDateMatch || endDateMatch) {
-      alert("unavailable");
+      alert("a booking already exists during that time period, please try again");
       return false;
     }
-    if(endDate<startDate){
+    if(endDate<=startDate){
       alert("invalid Date range")
       return false
     }
-    if(startDate<new Date()){
+    if(startDate<=new Date()){
       alert("invalid Start Date")
      return false
-
     }
     return true
   };
 
 
-  const disableButton = () => {
-    let start = new Date(startDate);
-    let end = new Date(endDate);
-    if (end.getTime() > start.getTime() ) return false;
-    if (start <= new Date()) return false;
-    if (end - start < 2) return false;
-    else return true;
-  };
+  // const disableButton = () => {
+  //   let start = new Date(startDate);
+  //   let end = new Date(endDate);
+  //   if (end.getTime() > start.getTime() ) return false;
+  //   if (start.getTime() <= new Date().getTime()) return false;
+  //   if (end.getTime() - start.getTime() < 2) return false;
+  //   else return true;
+  // };
 
-  console.log(bookings);
+  // console.log(bookings);
   return (
     <div className="modal">
-      <h1>Update booking</h1>
+      <h1>Update Booking</h1>
       <form
         className="Form"
         onSubmit={(e) => {
@@ -119,8 +118,11 @@ if(endDate-startDate<=1){
             id={"startDate"}
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            type="date"
             className={"formInput"}
+            type="date"
+         placeholder="MM/DD/YYYY"
+        
+     
           />
         </label>
         <p className="pForm">End Date</p>
@@ -134,7 +136,7 @@ if(endDate-startDate<=1){
             className={"formInput"}
           />
         </label>
-        <button disabled={disableButton()} className={"FormButton"}>
+        <button  className={"FormButton"}>
           Update
         </button>
       </form>

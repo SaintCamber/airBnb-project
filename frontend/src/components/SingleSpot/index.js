@@ -20,9 +20,9 @@ export default function SingleSpot() {
   let spotId =parseInt(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
  const history = useHistory()
-  let SpotList = useSelector((state) => state.spots.AllSpots);
+  // let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
-  const [showMenu, setShowMenu] = useState(false);
+  // const [, setShowMenu] = useState(false);
 const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
   console.log("spotId", spotId);
   let dispatch = useDispatch();
@@ -45,7 +45,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
         url: "https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg",
       };
   console.log("image", images);
-  const closeMenu = () => setShowMenu(false);
+  // const closeMenu = () => setShowMenu(false);
 
   return (
     Spot && (
@@ -351,7 +351,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
           </div>
         </div>
           <div className="subScroll">
-            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:"Please log in to see reviews"}
+            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reveiws")}
           </div>
       </>
     )

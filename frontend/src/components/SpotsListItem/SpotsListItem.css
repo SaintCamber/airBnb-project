@@ -36,8 +36,9 @@ height: auto;
 max-height: 270px;
 min-width:200px;
 align-items: center;
-margin:0px 2px;
-cursor: pointer
+margin:4px 0px;
+cursor: pointer;
+
 }
 
 .imgBox{width: 100%;
@@ -53,8 +54,13 @@ cursor: pointer
 
 .infoBox{width: 100%;
     height: 60%;
-}
+background-color: white;
 
+
+}
+.infoBox > h5 {
+    margin:0px
+}
 .displayInfo{display: flex;
     flex-direction: row;
     justify-content: space-evenly}

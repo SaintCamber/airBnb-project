@@ -1,5 +1,5 @@
 // frontend/src/App.js
-import React, { useState, useEffect,lazy,Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {Route, Switch} from "react-router-dom";
 // import SignupFormPage from "./components/SignupFormModal";
@@ -7,11 +7,12 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UpdatePage from "./components/UpdatePage"
 import {useSelector} from 'react-redux'
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
+import ManageReviews from "./components/Reviews/ManageReviews";
 import { Link } from "react-router-dom";
-import learn from './components/learn';
+// import learn from './components/learn';
 import SpotsList from './components/SpotsList';
 import SingleSpot from './components/SingleSpot';
 import NotLoggedin from './components/notLoggedin';
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path={'/currentBookings'}>
             {user ? <BookingsList />:<NotLoggedin/>}
+          </Route>
+          <Route exact path="/user/reviews">
+            <ManageReviews />
           </Route>
           <Route path={"/learn"}>
             Learn more Page coming soon!

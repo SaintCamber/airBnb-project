@@ -4,18 +4,18 @@ import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import CreateSpotModal from "../CreateSpotModal";
+// import CreateSpotModal from "../CreateSpotModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import DeleteSpotModal from "../DeleteSpotModal";
+// import DeleteSpotModal from "../DeleteSpotModal";
 import { useSelector } from "react-redux";
-import UpdateSpotModal from "../UpdateSpotModal";
+// import UpdateSpotModal from "../UpdateSpotModal";
 import { useHistory } from "react-router-dom";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const spot = useSelector((state) => state.spots.SingleSpot);
+  // const spot = useSelector((state) => state.spots.SingleSpot);
   const history = useHistory();
   const openMenu = () => {
     if (showMenu) return;
@@ -76,7 +76,13 @@ function ProfileButton({ user }) {
               }}>
               Your Spots
             </div>
-
+            <div
+              className="ownedSpots"
+              onClick={() => {
+                history.push("/user/reviews");
+              }}>
+              Manage Reviews
+            </div>
             <div className="logoutButton" onClick={logout}>
               logout
             </div>

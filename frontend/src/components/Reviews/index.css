@@ -4,7 +4,7 @@
     flex-direction: row-reverse;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap:60px 2px;
+    gap:60px 4px;
 
 }
 
@@ -16,9 +16,10 @@
     justify-content: flex-start;
     align-content:center;
     flex-wrap: wrap;
-    border:0.5px solid rgb(221,221,221);
-    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px;
+    border:0.5px solid rgb(201,201,201);
+    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
     padding: 10px;
+    border-radius: 15px 15px 15px;
 
 }
 .reviewStars {

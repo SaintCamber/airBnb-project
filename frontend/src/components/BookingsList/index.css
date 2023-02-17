@@ -7,7 +7,8 @@
     width: 24%;
    margin-top:1vw;
    margin-bottom:1vw;
-    background-color: white;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+    background-color: rgb(255, 255, 255);
+    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
+
     overflow: auto;
 }

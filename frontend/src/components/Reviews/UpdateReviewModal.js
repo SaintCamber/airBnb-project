@@ -1,5 +1,5 @@
-import React, {useState,useEffect} from 'react'
-import { useDispatch,useSelector } from 'react-redux'
+import React, {useState} from 'react'
+import { useDispatch} from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { updateSpotReview } from '../../store/Reviews'
 
@@ -26,6 +26,7 @@ async function handleSubmit(e){
             <label style={{height:"6em"}}>
                 <textArea
                 value={newReview}
+                placeholder={`${newReview}`}
                 onChange={(e)=>setNewReview(e.target.value)}
                     className="formInput"
                 ></textArea>
