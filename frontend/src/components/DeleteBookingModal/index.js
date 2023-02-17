@@ -9,7 +9,6 @@ import { useHistory } from "react-router-dom";
 
 
 const DeleteUpdateModal=({booking,oldState,UpdateOldState})=>{
-    console.log("the booking is",booking)
    let {closeModal} = useModal()
    let dispatch = useDispatch()
     let history = useHistory()

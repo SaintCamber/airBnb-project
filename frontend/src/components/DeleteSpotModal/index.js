@@ -34,8 +34,8 @@ const DeleteSpotModal=({spot,oldState,setter})=>{
             <>
             <div className="modal">
                <form className="Form">
-                <h2>Are you certain you'd like to delete this spot?</h2>
-                <h5>{spot.name}: {spot.address}</h5>
+                <h1>Are you certain you'd like to delete this spot?</h1>
+                <h3>{spot.name}: {spot.address}</h3>
                 <button className="FormButton" onClick={handleClick}>yes</button>
                 <button className="FormButton cancel" onClick={closeModal}>cancel</button>
     
