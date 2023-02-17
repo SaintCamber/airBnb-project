@@ -11,7 +11,7 @@ import { getCurrentUsersReviews } from "../../store/Reviews";
 import "../cssStuffs/modals.css";
 import "./index.css";
 
-const ManageReviews = () => {
+const ManageReviews = ({reviews,}) => {
   let { userReviews, currentUser } = useUser();
   let [ReRenderSingleSpot, setReRenderSingleSpot] = useState({});
   // let {closeModal} =useModal()
@@ -20,16 +20,16 @@ const ManageReviews = () => {
   const closeMenu = () => setShowMenu(false);
   useEffect(() => {
     dispatch(getCurrentUsersReviews());
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser,reviews]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {!userReviews ? (
+      {!reviews ? (
         <h1>visit a spot to post a reveiw</h1>
       ) : (
         <h1>Manage Reviews</h1>
       )}
       <div className="reviewContainer">
-        {Object.values(userReviews).map((review) => {
+        {Object.values(reviews)?.map((review) => {
           return (
             <div className="reviewTile">
               <div className="reviewBox">
@@ -43,7 +43,7 @@ const ManageReviews = () => {
                 <div>{review.createdAt.split("T")[0]}</div>
 
                 <div className="TextDiv"> {review.review}</div>
-                {currentUser.id === review.User.id ? (
+                {currentUser?.id === review.User.id ? (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Edit Review</button>}
@@ -60,7 +60,7 @@ const ManageReviews = () => {
                 ) : (
                   ""
                 )}
-                {currentUser.id === review.User.id ? (
+                {currentUser?.id === review.User.id ? (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Delete</button>}

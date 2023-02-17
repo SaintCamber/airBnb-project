@@ -1,5 +1,5 @@
 // frontend/src/App.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,Suspense,lazy } from "react";
 import { useDispatch } from "react-redux";
 import {Route, Switch} from "react-router-dom";
 // import SignupFormPage from "./components/SignupFormModal";
@@ -10,7 +10,7 @@ import {useSelector} from 'react-redux'
 // import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
-import ManageReviews from "./components/Reviews/ManageReviews";
+// import ManageReviews from "./components/Reviews/ManageReviews";
 import { Link } from "react-router-dom";
 // import learn from './components/learn';
 import SpotsList from './components/SpotsList';
@@ -19,18 +19,25 @@ import NotLoggedin from './components/notLoggedin';
 // in App.js
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
+import { getCurrentUsersReviews } from "./store/Reviews";
+const ManageReviews = lazy(()=>import('./components/Reviews/ManageReviews'))
 library.add(fas)
 
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const user = useSelector(state=>state.session.user)
   const Spots = useSelector(state=>state.spots.AllSpots)
   const Singleton = useSelector(state=>state.spots.SingleSpot)
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getCurrentUsersReviews())
   }, [dispatch]);
+  
+  
+  const user = useSelector(state=>state.session.user)
+  const userReviews =useSelector(state=>state.Reviews.userReviews)
+
   return (
     
     <div style={{display:"flex",alignItems:'center',flexDirection:'column',width:"100vw",justifyContent:'space-evenly',paddingLeft:"25px",paddingRight:"25px",margin:"0px"}}>
@@ -51,9 +58,12 @@ function App() {
           <Route path={'/currentBookings'}>
             {user ? <BookingsList />:<NotLoggedin/>}
           </Route>
+          <Suspense>
           <Route exact path="/user/reviews">
-            <ManageReviews />
+            <ManageReviews reviews={userReviews} currentUser={user}/>
           </Route>
+
+          </Suspense>
           <Route path={"/learn"}>
             Learn more Page coming soon!
             <Link to='/'>Home</Link>
