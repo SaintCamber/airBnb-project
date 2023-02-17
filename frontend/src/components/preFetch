@@ -1,0 +1,2 @@
+import {Await} from 'react-router-dom'
+

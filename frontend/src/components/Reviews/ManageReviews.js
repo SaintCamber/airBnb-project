@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useModal } from "../../context/Modal";
-
+import { useUser } from "../../context/userContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
@@ -9,24 +9,25 @@ import DeleteReviewModal from "./DeleteReveiwModal";
 import UpdateReviewModal from "./UpdateReviewModal";
 import { getCurrentUsersReviews } from "../../store/Reviews";
 import "../cssStuffs/modals.css";
+import "./index.css";
 
-
-
-const ManageReviews= ()=>{
-    let userReviews = useSelector(state=>state.Reviews.userReviews)
-    let currentUser = useSelector(state=>state.session.user)
-    let [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
-    // let {closeModal} =useModal()
-    let [showMenu,setShowMenu] = useState(false)
-    let dispatch=useDispatch()
-    const closeMenu = ()=>setShowMenu(false)
-    useEffect(()=>{
-        dispatch(getCurrentUsersReviews())
-        
-    },[dispatch,currentUser])
-return (
+const ManageReviews = () => {
+  let { userReviews, currentUser } = useUser();
+  let [ReRenderSingleSpot, setReRenderSingleSpot] = useState({});
+  // let {closeModal} =useModal()
+  let [showMenu, setShowMenu] = useState(false);
+  let dispatch = useDispatch();
+  const closeMenu = () => setShowMenu(false);
+  useEffect(() => {
+    dispatch(getCurrentUsersReviews());
+  }, [dispatch, currentUser]);
+  return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-       {!userReviews?<h1>visit a spot to post a reveiw</h1> :<h1>Manage Reviews</h1>   }   
+      {!userReviews ? (
+        <h1>visit a spot to post a reveiw</h1>
+      ) : (
+        <h1>Manage Reviews</h1>
+      )}
       <div className="reviewContainer">
         {Object.values(userReviews).map((review) => {
           return (
@@ -49,7 +50,7 @@ return (
                     onItemClick={closeMenu}
                     modalComponent={
                       <UpdateReviewModal
-                      ReRenderSingleSpot={ReRenderSingleSpot}
+                        ReRenderSingleSpot={ReRenderSingleSpot}
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         review={review}
                         spot={review.Spot}
@@ -82,6 +83,6 @@ return (
       </div>
     </div>
   );
-    }
+};
 
-    export default ManageReviews
+export default ManageReviews;
