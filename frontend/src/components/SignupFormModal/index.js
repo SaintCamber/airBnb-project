@@ -14,21 +14,8 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const [labelId, setLabelId] = useState("0");
 
-  function handleLabelOnclick(e) {
-    if (e.target.id !== labelId) {
-      setLabelId(parseInt(e.target.id));
-    }
-    console.log(labelId, e.target.id);
-  }
-  let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
-  let classTwo = labelId === 2 ? "InputTitle -active" : "InputTitle";
-  let classThree = labelId === 3 ? "InputTitle -active" : "InputTitle";
 
-  let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
-  let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
-  let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
 function resetForm(){
   setEmail("")
   setUsername("")
@@ -85,10 +72,10 @@ function resetForm(){
           ))}
         </ul>
         <label>
-          <div id={1} className={classOne} onClick={handleLabelOnclick}>
-            Email
-          </div>
+       
           <input
+          placeholder="email@example.com"
+
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -97,11 +84,11 @@ function resetForm(){
           />
         </label>
         <label>
-          <div id={2} className={classTwo} onClick={handleLabelOnclick}>
-            Username
-          </div>
+          
           <input
             type="text"
+          placeholder="Username"
+
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -109,11 +96,11 @@ function resetForm(){
           />
         </label>
         <label>
-          <div id={3} className={classThree} onClick={handleLabelOnclick}>
-            First Name
-          </div>
+        
           <input
             type="text"
+          placeholder="FirstName"
+
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
@@ -121,10 +108,10 @@ function resetForm(){
           />
         </label>
         <label>
-          <div id={4} className={classFour} onClick={handleLabelOnclick}>
-            Last Name
-          </div>
-          <input
+
+            <input
+          placeholder="LastName"
+
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -133,10 +120,10 @@ function resetForm(){
           />
         </label>
         <label>
-          <div id={5} className={classFive} onClick={handleLabelOnclick}>
-            Password
-          </div>
+ 
           <input
+          placeholder="Password"
+
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -145,10 +132,9 @@ function resetForm(){
           />
         </label>
         <label>
-          <div id={6} className={classSix} onClick={handleLabelOnclick}>
-            Confirm Password
-          </div>
+    
           <input
+          placeholder="Confirm Password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
