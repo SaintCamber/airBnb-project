@@ -11,17 +11,8 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const [labelId,setLabelId]=useState("0")
   
-  function handleLabelOnclick(e){
-      if(e.target.id!==labelId){
-          setLabelId(parseInt(e.target.id))
-          
-        }
-        console.log(labelId,e.target.id)
-      }
-  let classOne=labelId===1 ? "InputTitle -active":"InputTitle"
-  let classTwo=labelId===2 ? "InputTitle -active":"InputTitle"
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,12 +40,10 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
                       ))}
         </ul>
-        <div className="bookingsList" onClick={handleDemo}>
-              Demo User
-            </div>
+      
         <label  >
-          <div id={1}onClick={e=>handleLabelOnclick(e)} className={classOne}>Username or Email</div>
           <input
+          placeholder="Username"
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -63,8 +52,8 @@ function LoginFormModal() {
           />
         </label>
         <label>
-          <div id={2} onClick={e=>handleLabelOnclick(e)} className={classTwo}>Password</div>
           <input
+          placeholder="Password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
