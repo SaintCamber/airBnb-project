@@ -18,7 +18,7 @@ function UpdateSpotModal({ spot, oldState, setter }) {
   // const [lat,setLat] = useState('')
   // const [lng,setLng] = useState('')
   const [description, setDescription] = useState(spot.description);
-  const [errors, setErrors] = useState([]);
+  const [validationErrors, setValidationErrors] = useState([]);
   const { closeModal } = useModal();
   const [labelId,setLabelId]=useState("0")
   function handleLabelOnclick(e){
@@ -42,7 +42,7 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
+    setValidationErrors([]);
     let newSpot = {...spot};
     newSpot["name"] = name;
     newSpot["address"] = address;
@@ -58,30 +58,26 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
     return dispatch(UpdateSpot(newSpot))
     .catch(async (res) => {
       const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
+      if (data && data.validationErrors) setValidationErrors(data.validationErrors);
     })
     .then(setter({...oldState,[spot.id]:newSpot}))
     .then(closeModal).then(history.push(`/spots/${spot.id}`))
       
   }
     
+  
   return (
-    <div   className={"modal"}>
-      <h1>Update Your Spot</h1>
+    <div className={"modal"}>
+      <h1>Create New Spot</h1>
       <form onSubmit={handleSubmit} className="Form">
         <ul>
-          {errors.map((error, idx) => (
+          {validationErrors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
         </ul>
         <label>
-          <div
-            id={1}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classOne}>
-            {name||"name"}
-          </div>
           <input
+          placeholder="Name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -90,13 +86,10 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div
-            id={2}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classTwo}>
-            {city||"City"}
-          </div>
+         
           <input
+          placeholder="City"
+
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -105,13 +98,9 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div
-            id={3}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classThree}>
-            {state||"State"}
-          </div>
+         
           <input
+        placeholder="State"
             type="text"
             value={state}
             onChange={(e) => setState(e.target.value)}
@@ -120,13 +109,10 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div
-            id={4}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classFour}>
-            {country||"Country"}
-          </div>
+        
           <input
+          placeholder="country"
+
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
@@ -135,13 +121,9 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div
-            id={5}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classFive}>
-          { address ||"Address"}
-          </div>
+        
           <input
+        placeholder="Address"
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -170,13 +152,10 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
         </label>
            */}
         <label>
-          <div
-            id={6}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classSix}>
-            {price||"Price"}
-          </div>
+         
           <input
+          placeholder="enter a price"
+
             type="integer"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -185,20 +164,15 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
           />
         </label>
         <label>
-          <div
-            id={7}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classSeven}>
-           {description||"Description"} 
-          </div>
+        
           <textArea
-            value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="formInput"
-            placeHolder="please provide a brief Description"
+            value={description}
+            placeHolder={description}
             ></textArea>
         </label>
-        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||!price.length||!description.length ? true:false }>
+                <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||Number(price)<10||description.length <30 ? true:false }>
           Update Spot
         </button>
       </form>
