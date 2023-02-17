@@ -15,21 +15,23 @@ const ManageReviews = ({reviews,}) => {
   let { userReviews, currentUser } = useUser();
   let [ReRenderSingleSpot, setReRenderSingleSpot] = useState({});
   // let {closeModal} =useModal()
+  const [, updateState] = useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   let [showMenu, setShowMenu] = useState(false);
   let dispatch = useDispatch();
   const closeMenu = () => setShowMenu(false);
   useEffect(() => {
     dispatch(getCurrentUsersReviews());
-  }, [dispatch, currentUser,reviews]);
+  }, [dispatch, currentUser,reviews,ReRenderSingleSpot]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {!reviews ? (
-        <h1>visit a spot to post a reveiw</h1>
+      {!Object.values(reviews).length ? (
+        <h1>visit a spot to post a Reveiw</h1>
       ) : (
         <h1>Manage Reviews</h1>
       )}
       <div className="reviewContainer">
-        {Object.values(reviews)?.map((review) => {
+        {Object.values(reviews).map((review) => {
           return (
             <div className="reviewTile">
               <div className="reviewBox">
@@ -43,7 +45,6 @@ const ManageReviews = ({reviews,}) => {
                 <div>{review.createdAt.split("T")[0]}</div>
 
                 <div className="TextDiv"> {review.review}</div>
-                {currentUser?.id === review.User.id ? (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Edit Review</button>}
@@ -54,13 +55,11 @@ const ManageReviews = ({reviews,}) => {
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         review={review}
                         spot={review.Spot}
+                        update={forceUpdate}
                       />
                     }
                   />
-                ) : (
-                  ""
-                )}
-                {currentUser?.id === review.User.id ? (
+                
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Delete</button>}
@@ -70,12 +69,11 @@ const ManageReviews = ({reviews,}) => {
                         ReRenderSingleSpot={ReRenderSingleSpot}
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         Review={review}
+                        update={forceUpdate}
                       />
                     }
                   />
-                ) : (
-                  ""
-                )}
+                
               </div>
             </div>
           );

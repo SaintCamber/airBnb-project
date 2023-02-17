@@ -3,7 +3,7 @@ import { useDispatch} from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { updateSpotReview } from '../../store/Reviews'
 
-const UpdateReviewModal = ({review,ReRenderSingleSpot,setReRenderSingleSpot})=>{
+const UpdateReviewModal = ({review,ReRenderSingleSpot,setReRenderSingleSpot,update})=>{
     const dispatch =useDispatch()
     let [newReview,setNewReview] = useState(review.review)
     let [stars,setStars] = useState(review.stars)
