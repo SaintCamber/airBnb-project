@@ -46,29 +46,29 @@ if(imageList[4].length>0&&(!imageList[4].endsWith("jpg")&&!imageList[4].endsWith
 setValidationErrors(errors)
  },[name,city,address,country,state,description,price,imageList[0],imageList[1],imageList[2],imageList[3],imageList[4]])
 
-  function handleLabelOnclick(e) {
-    if (e.target.id !== labelId) {
-      setLabelId(parseInt(e.target.id));
-    }
-    console.log(labelId, e.target.id);
-  }
-  let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
+  // function handleLabelOnclick(e) {
+  //   if (e.target.id !== labelId) {
+  //     setLabelId(parseInt(e.target.id));
+  //   }
+  //   console.log(labelId, e.target.id);
+  // }
+  // let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
 
-  let classTwo = labelId === 2 ? "InputTitle -active" : "InputTitle";
-  let classThree = labelId === 3 ? "InputTitle -active" : "InputTitle";
+  // let classTwo = labelId === 2 ? "InputTitle -active" : "InputTitle";
+  // let classThree = labelId === 3 ? "InputTitle -active" : "InputTitle";
 
-  let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
-  let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
-  let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
-  let classSeven = labelId === 7 ? "InputTitle -active" : "InputTitle";
-  let classEight, classNine, classTen, classEleven, classTwelve;
-  let imgClasses = {
-    0: (classEight = labelId === 8 ? "InputTitle -active" : "InputTitle"),
-    1: (classNine = labelId === 9 ? "InputTitle -active" : "InputTitle"),
-    2: (classTen = labelId === 10 ? "InputTitle -active" : "InputTitle"),
-    3: (classEleven = labelId === 11 ? "InputTitle -active" : "InputTitle"),
-    4: (classTwelve = labelId === 12 ? "InputTitle -active" : "InputTitle"),
-  };
+  // let classFour = labelId === 4 ? "InputTitle -active" : "InputTitle";
+  // let classFive = labelId === 5 ? "InputTitle -active" : "InputTitle";
+  // let classSix = labelId === 6 ? "InputTitle -active" : "InputTitle";
+  // let classSeven = labelId === 7 ? "InputTitle -active" : "InputTitle";
+  // let classEight, classNine, classTen, classEleven, classTwelve;
+  // let imgClasses = {
+  //   0: (classEight = labelId === 8 ? "InputTitle -active" : "InputTitle"),
+  //   1: (classNine = labelId === 9 ? "InputTitle -active" : "InputTitle"),
+  //   2: (classTen = labelId === 10 ? "InputTitle -active" : "InputTitle"),
+  //   3: (classEleven = labelId === 11 ? "InputTitle -active" : "InputTitle"),
+  //   4: (classTwelve = labelId === 12 ? "InputTitle -active" : "InputTitle"),
+  // };
 
   const handleSubmit = async (e) => {
     console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
@@ -141,13 +141,8 @@ setValidationErrors(errors)
           ))}
         </ul>
         <label>
-          <div
-            id={1}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classOne}>
-            {name||"name"}
-          </div>
           <input
+          placeholder="Name"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -156,13 +151,10 @@ setValidationErrors(errors)
           />
         </label>
         <label>
-          <div
-            id={2}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classTwo}>
-            {city||"City"}
-          </div>
+         
           <input
+          placeholder="City"
+
             type="text"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -171,13 +163,9 @@ setValidationErrors(errors)
           />
         </label>
         <label>
-          <div
-            id={3}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classThree}>
-            {state||"State"}
-          </div>
+         
           <input
+        placeholder="State"
             type="text"
             value={state}
             onChange={(e) => setState(e.target.value)}
@@ -186,13 +174,10 @@ setValidationErrors(errors)
           />
         </label>
         <label>
-          <div
-            id={4}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classFour}>
-            {country||"Country"}
-          </div>
+        
           <input
+          placeholder="country"
+
             type="text"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
@@ -201,13 +186,9 @@ setValidationErrors(errors)
           />
         </label>
         <label>
-          <div
-            id={5}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classFive}>
-          { address ||"Address"}
-          </div>
+        
           <input
+        placeholder="Address"
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -236,13 +217,10 @@ setValidationErrors(errors)
         </label>
            */}
         <label>
-          <div
-            id={6}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classSix}>
-            {price||"Price"}
-          </div>
+         
           <input
+          placeholder="enter a price"
+
             type="integer"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
@@ -251,14 +229,8 @@ setValidationErrors(errors)
           />
         </label>
         <label>
-          <div
-            id={7}
-            onClick={(e) => handleLabelOnclick(e)}
-            className={classSeven}>
-           {description||"Description"} 
-          </div>
+        
           <textArea
-            value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="formInput"
             placeHolder="please provide a brief Description"
@@ -266,14 +238,9 @@ setValidationErrors(errors)
         </label>
         {imageList.map((imageUrl, index) => (
           <label key={index}>
-            <div
-              id={index + 8}
-              onClick={handleLabelOnclick}
-              className={imgClasses[index]}>
-              Image URL {index + 1}
-            </div>
-
+          
             <input
+            placeholder={`imageURL #${index}`}
               className={"formInput"}
               type="text"
               value={imageUrl}
