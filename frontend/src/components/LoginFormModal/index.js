@@ -33,6 +33,7 @@ function LoginFormModal() {
   }
   return (
     <div className={"modal"}>
+      <div className={"Demo"} onClick={handleDemo}>{"Demo User"}</div>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit} className="Form">
         <ul>
@@ -40,7 +41,6 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
                       ))}
         </ul>
-      
         <label  >
           <input
           placeholder="Username"

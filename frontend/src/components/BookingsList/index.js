@@ -29,6 +29,8 @@ const BookingsList = (userId) => {
     dispatch(currentUserBookings());
   }, [dispatch,userBookings]);
   return (
+    <>
+    <h1>Manage Bookings</h1>
     <div style={{width:"100%",display:"flex",flexDirection:"row-reverse",justifyContent:"space-around",flexWrap:"wrap"}}>
         {Object.values(things).map((booking) => (
           <div className='bookingTile'>
@@ -79,7 +81,7 @@ const BookingsList = (userId) => {
           </div>
         ))}
     </div>
-  );
+  </>);
 };
 
 export default BookingsList;

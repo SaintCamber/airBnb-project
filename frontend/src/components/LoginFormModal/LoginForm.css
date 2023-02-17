@@ -35,3 +35,11 @@
   .loginForm label {
     width:80%
   }
+
+  .Demo {
+    cursor:pointer;
+}
+
+.Demo:hover {
+    color:blue
+}

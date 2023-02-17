@@ -116,3 +116,11 @@ textarea{
 textarea {
     text-align: center;
 }
+
+.Demo {
+    cursor:pointer;
+}
+
+.Demo:hover {
+    color:blue
+}

@@ -21,7 +21,7 @@ const DeleteReviewModal = ({
     <>
       <div className="modal">
         <form
-          className="form"
+          className="Form"
           onSubmit={(e) => {
             e.preventDefault();
             handleClick();
