@@ -1,43 +1,54 @@
-.reviewContainer {
-    width:100%;
-    display:flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap:60px 4px;
+.ManageReviewContainer {
+  width:100%;
+  display:flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap:60px 4px;
 
 }
 
-.reviewTile {
-    width:24%;
-    height:auto;
-    display:flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-content:center;
-    flex-wrap: wrap;
-    border:0.5px solid rgb(201,201,201);
-    box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
-    padding: 10px;
-    border-radius: 15px 15px 15px;
-    min-width: 270px;
+.ReviewTile {
+  width:24%;
+  height:auto;
+  display:flex;
+  margin:10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  border:0.5px solid rgb(201,201,201);
+  box-shadow:rgb(0 0 0 / 12%) 0px 6px 16px inset;
+  padding: 10px;
+  border-radius: 15px 15px 15px 15px;
+  min-width: 270px;
 
 }
-.reviewStars {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    border-bottom:1px solid rgb(221,221,221)
-}
-
-.reviewBox {
-    display: inline-flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
+.ManageButton{ 
+  border-radius: 15px;
 
 }
 
+.ReviewText {
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: content-box;
+
+
+}
+.ReviewDate{
+  width:100%;
+  border-bottom: 1px solid rgb(221,221,221)
+}
+.modals{
+  display: flex;
+  flex-direction: row;
+}
+
+.StarBox{
+color:gold
+}
 .TextDiv {
     padding:15px
 }

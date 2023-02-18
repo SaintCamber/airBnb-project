@@ -24,8 +24,21 @@ const BookingsCard = ({ spot,currentUser}) => {
   const calendarRef = useRef(null);
   let dispatch = useDispatch();
   const tileDisabled = ({ activeStartDate, date, view }) => {
-    return date < new Date();
-  };
+    if( date.getTime() < new Date().getTime()){return true
+        }    else if (date.getTime()<activeStartDate.getTime())return true
+      
+    let unavailable = [];
+    bookings.forEach((booking) => {
+        let start = new Date(booking.startDate);
+        let end = new Date(booking.endDate);
+        while (start <= end) {
+          unavailable.push(start.toDateString());
+          start.setDate(start.getDate()+1);
+        }
+      })
+      if(unavailable.includes(date.toDateString()))return true
+  }
+
 
   const bookings = useSelector((state) =>
     Object.values(state.bookings.CurBookings)

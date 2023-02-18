@@ -5,18 +5,14 @@ import { deleteSpotReview } from "../../store/Reviews";
 
 const DeleteReviewModal = ({
   Review,
-  ReRenderSingleSpot,
-  setReRenderSingleSpot}
-) => {
+setState
+
+}) => {
 
   const { closeModal } = useModal();
   let dispatch = useDispatch();
-  async function handleClick() {
-    await dispatch(deleteSpotReview(Review.id))
-      .then(closeModal)
-      .then(setReRenderSingleSpot({}));
-  }
-
+           
+            function handleClick(){ return dispatch(deleteSpotReview(Review.id)).then(setState({})).then(closeModal)}
   return (
     <>
       <div className="modal">
@@ -27,6 +23,7 @@ const DeleteReviewModal = ({
             handleClick();
           }}>
           <h2>Are you certain you'd like to delete this review?</h2>
+          <h4 style={{border:"1px solid rgb()(221,221,221)"}}>"{Review.review}"</h4>
           <button type="submit" className="formButton">
             yes
           </button>

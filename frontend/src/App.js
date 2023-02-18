@@ -58,7 +58,7 @@ function App() {
           <Route path={'/currentBookings'}>
             {user ? <BookingsList />:<NotLoggedin/>}
           </Route>
-          <Suspense>
+          <Suspense fallback={<h1>Loading please wait...</h1>}>
           <Route exact path="/user/reviews">
             <ManageReviews reviews={userReviews} currentUser={user}/>
           </Route>

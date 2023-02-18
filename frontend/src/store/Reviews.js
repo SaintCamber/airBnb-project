@@ -49,13 +49,14 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
     return data;
   }
 };
-export const updateSpotReview = (review) => async (dispatch) => {
-    let {spotId,userId,id,newReview,stars} = review
-    const response = await csrfFetch(`/api/reviews/${id}`,{
+export const updateSpotReview = (newReview) => async (dispatch) => {
+    let {review,stars} = newReview
+    console.log("the review inside reducer",review)
+    const response = await csrfFetch(`/api/reviews/${newReview.id}`,{
         method:"PUT",
         body: JSON.stringify({
-            review:newReview,
-            stars
+            "review":newReview,
+            "stars":stars
         })
     })
     if(response.ok){
@@ -97,10 +98,11 @@ const initialState = { spotReviews: {}, userReviews: {} };
       action.payload.Reviews.map(review=>stateREAD.spotReviews[review.id]=review)
       return stateREAD;
     case UPDATE:
-        let stateUPDATE={...state}
+        let stateUPDATE={...state,"userReviews":{...state.userReviews},"spotReviews":{...state.spotReviews}}
         console.log("action/.payload",action.payload)
         stateUPDATE.userReviews[action.payload.id]={...action.payload}
         stateUPDATE.spotReviews[action.payload.id]={...action.payload}
+        console.log("stateUPDATE",stateUPDATE)
       return stateUPDATE;
     case DELETE:
         let stateDELETE = {...state}
