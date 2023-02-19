@@ -11,7 +11,8 @@ import { getCurrentUsersReviews } from "../../store/Reviews";
 import "../cssStuffs/modals.css";
 import "./index.css";
 
-const ManageReviews = ({reviews,}) => {
+const ManageReviews = ({reviews}) => {
+
   let { userReviews, currentUser } = useUser();
   let [ReRenderSingleSpot, setReRenderSingleSpot] = useState({});
   // let {closeModal} =useModal()
@@ -30,26 +31,27 @@ const ManageReviews = ({reviews,}) => {
   }, [updatedReview]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {!Object.values(reviews).length ? (
+      {!Object.values(reviews)?.length ? (
         <h1>visit a spot to post a Review</h1>
       ) : (
         <h1>Manage Reviews</h1>
       )}
       <div className="reviewContainer">
-        {Object.values(reviews).map((review) => {
+        {Object.values(reviews)?.map((review) => {
           return (
-            <div className="reviewTile">
+            <div className="reviewTile" key={review.id}>
               <div className="reviewBox">
                 <div className="reviewStars">
                   <FontAwesomeIcon icon={faStar} />
-                  <div style={{ marginRight: "7vw" }}>{review.stars}</div>
+                  <div style={{ marginRight: "7vw" }}>{review?.stars}</div>
                   <div>
-                    {review.User.firstName} {review.User.lastName}
+                    {review?.User?.firstName} {review?.User?.lastName}
                   </div>
                 </div>
-                <div>{review.createdAt.split("T")[0]}</div>
-
-                <div className="TextDiv"> {review.review}</div>
+                <div>{review?.createdAt?.split("T")[0]}</div>
+  
+                <div className="TextDiv"> {review?.review}</div>
+                {review && (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Edit Review</button>}
@@ -59,11 +61,13 @@ const ManageReviews = ({reviews,}) => {
                         ReRenderSingleSpot={ReRenderSingleSpot}
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         review={review}
-                        spot={review.Spot}
+                        spot={review?.Spot}
                       />
                     }
                   />
-                
+                )}
+  
+                {review && (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button>Delete</button>}
@@ -76,7 +80,7 @@ const ManageReviews = ({reviews,}) => {
                       />
                     }
                   />
-                
+                )}
               </div>
             </div>
           );
@@ -84,6 +88,5 @@ const ManageReviews = ({reviews,}) => {
       </div>
     </div>
   );
-};
-
+      }  
 export default ManageReviews;
