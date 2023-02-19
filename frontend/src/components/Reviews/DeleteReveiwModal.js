@@ -5,7 +5,7 @@ import { deleteSpotReview } from "../../store/Reviews";
 
 const DeleteReviewModal = ({
 Review
-) => {
+}) => {
 
   const { closeModal } = useModal();
   let dispatch = useDispatch();

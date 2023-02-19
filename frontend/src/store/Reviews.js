@@ -105,9 +105,7 @@ const initialState = { spotReviews: {}, userReviews: {} };
       delete stateUPDATE.userReviews[action.payload.id];
       stateUPDATE.spotReviews[action.payload.id] = action.payload;
       stateUPDATE.userReviews[action.payload.id] = action.payload;
-     
-       
-      return  JSON.parse(JSON.stringify(stateUPDATE);
+      return  (JSON.parse(JSON.stringify(stateUPDATE)));
     case DELETE:
         let stateDELETE = {...state}
         console.log("inside Delete",state.spotReviews)

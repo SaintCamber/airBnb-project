@@ -7,7 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UpdatePage from "./components/UpdatePage"
 import {useSelector} from 'react-redux'
-import HOCsingle from "./components/Reviews/HOCsingle";
+import HOCsingle from "./components/Reviews/HOCsingle/index";
 // import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
@@ -30,7 +30,6 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const Spots = useSelector(state=>state.spots.AllSpots)
   const Singleton = useSelector(state=>state.spots.SingleSpot)
-  const forceUpdate = React.useCallback(() => updateState({}), []);
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -39,7 +38,7 @@ function App() {
   
   
   const user = useSelector(state=>state.session.user)
-  const Reviews =useSelector(state=>state.Reviews)
+  const Reviews =useSelector(state=>state.Reviews.usersReviews)
 
   return (
     

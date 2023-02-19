@@ -1,4 +1,18 @@
-function reviewTile({review}){
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useModal } from "../../context/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteReviewModal from "./DeleteReveiwModal";
+import UpdateReviewModal from "./UpdateReviewModal";
+import { getCurrentUsersReviews } from "../../store/Reviews";
+import "../cssStuffs/modals.css";
+import "./index.css";
+
+function ReviewTile({review}){
+let [shoeMenu,setShowMenu]=useState(false)
+const closeMenu = () => setShowMenu(false);
 
 
 
@@ -43,3 +57,5 @@ return (
     </div>
   )
         }
+
+        export default ReviewTile
