@@ -61,8 +61,9 @@ router.put('/:reviewId',requireAuth,isReviewOwnedByCurrentUser,async(req,res,nex
     if(!reviewToEdit){res.statusCode = 404
     return res.json({message:"Spot couldn't be found",statusCode:404})}
     let {review,stars} = req.body
-    reviewToEdit.update({review,stars})
-    reviewToEdit.save()
+    reviewToEdit.review = review
+    reviewToEdit.stars = stars
+    await reviewToEdit.save()
     res.json(reviewToEdit)
 
 })
