@@ -107,7 +107,7 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   return (
     <div className="modal">
       <h1>Update Booking</h1>
-      <form
+      <form 
         className="Form"
         onSubmit={(e) => {
           e.preventDefault();
@@ -121,9 +121,10 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
           }
         }}
       >
-        <div>
-          <label htmlFor="startDate">Start Date</label>
+        <h3 style={{textAlign:"center"}}>Start Date</h3>
+        <div style={{display:"flex",flexDirection:"center"}}>
           <Calendar
+            style={{width:"50vw",maxWidth:"100%"}}
             name="startDate"
             value={startDate}
             onChange={handleStartDateChange}
@@ -131,9 +132,10 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
             tileDisabled={tileDisabled}
           />
         </div>
-        <div>
-          <label htmlFor="endDate">End Date</label>
+          <h3 style={{textAlign:"center"}}>End Date</h3>
+        <div  style={{display:"flex",flexDirection:"center"}}>
           <Calendar
+              style={{width:"50vw",maxWidth:"100%"}}  
             name="endDate"
             value={endDate}
             onChange={handleEndDateChange}
@@ -141,7 +143,7 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
             tileDisabled={tileDisabled}
           />
         </div>
-        <button type="submit">Update Booking</button>
+        <button className="FormButton" type="submit">Update Booking</button>
       </form>
     </div>
   );
