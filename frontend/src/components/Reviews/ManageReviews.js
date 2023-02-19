@@ -23,6 +23,11 @@ const ManageReviews = ({reviews,}) => {
   useEffect(() => {
     dispatch(getCurrentUsersReviews());
   }, [dispatch, currentUser,reviews,ReRenderSingleSpot]);
+  const updatedReview = useSelector(state => state.userReviews);
+
+  useEffect(() => {
+    setReRenderSingleSpot(prevState => ({ ...prevState }));
+  }, [updatedReview]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
       {!Object.values(reviews).length ? (
@@ -55,7 +60,6 @@ const ManageReviews = ({reviews,}) => {
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         review={review}
                         spot={review.Spot}
-                        update={forceUpdate}
                       />
                     }
                   />
@@ -69,7 +73,6 @@ const ManageReviews = ({reviews,}) => {
                         ReRenderSingleSpot={ReRenderSingleSpot}
                         setReRenderSingleSpot={setReRenderSingleSpot}
                         Review={review}
-                        update={forceUpdate}
                       />
                     }
                   />

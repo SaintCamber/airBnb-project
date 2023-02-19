@@ -61,10 +61,43 @@ export const updateSpotReview = (review) => async (dispatch) => {
     })
     if(response.ok){
         let data = await response.json()
-        dispatch(UpdateReview(review))
+        dispatch(UpdateReview(data))
     }
 
 };
+
+
+
+const UPDATE_REVIEW = 'reviews/update';
+
+export const updateReview = (review) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/reviews/${review.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(review),
+    });
+
+    const updatedReview = await res.json();
+
+    dispatch({
+      type: UPDATE_REVIEW,
+      review: updatedReview,
+    });
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+
+
+
+
 export const deleteSpotReview = (reviewId) => async (dispatch) => {
     let response = await csrfFetch(`/api/reviews/${reviewId}`,{
         method:"DELETE"
@@ -97,16 +130,16 @@ const initialState = { spotReviews: {}, userReviews: {} };
       stateREAD.spotReviews ={}
       action.payload.Reviews.map(review=>stateREAD.spotReviews[review.id]=review)
       return stateREAD;
-    case UPDATE:
+    case UPDATE_REVIEW:
         let stateUPDATE={...state}
-        console.log("action/.payload",action.payload)
-        delete stateUPDATE.spotReviews[action.payload.id]
-        delete stateUPDATE.userReviews[action.payload.id]
-        stateUPDATE.spotReviews[action.payload.id]={...action.payload}
-        stateUPDATE.userReviews[action.payload.id]={...action.payload}
-        stateUPDATE.userReviews[action.payload.id].review=stateUPDATE.spotReviews[action.payload.id].review
-        console.log("-----------------",stateUPDATE.userReviews)
-        console.log("-----------------",stateUPDATE.spotReviews)
+        // console.log("action/.payload",action.payload)
+        delete stateUPDATE.spotReviews[action.review.id]
+        delete stateUPDATE.userReviews[action.review.id]
+        stateUPDATE.spotReviews[action.review.id]={...action.review}
+        stateUPDATE.userReviews[action.review.id]={...action.review}
+        stateUPDATE.userReviews[action.review.id].review=stateUPDATE.spotReviews[action.review.id].review
+        // console.log("-----------------",stateUPDATE.userReviews)
+        // console.log("-----------------",stateUPDATE.spotReviews)
         
       return JSON.parse(JSON.stringify(stateUPDATE))
 
@@ -123,8 +156,8 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case UserReviews:
       let stateReviews = { ...state};
       action.payload.Reviews.forEach(review=>stateReviews.userReviews[review.id]=review)
-      console.log("stateReviews",stateReviews)
-      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",action.payload.Reviews)
+      // console.log("stateReviews",stateReviews)
+      // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",action.payload.Reviews)
       return stateReviews;
 
     default:

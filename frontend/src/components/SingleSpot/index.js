@@ -22,6 +22,8 @@ export default function SingleSpot() {
  const history = useHistory()
   // let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
+  const singleSpotReviews = useSelector((state) => state.Reviews.spotReviews);
+
   // const [, setShowMenu] = useState(false);
 const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
   console.log("spotId", spotId);
@@ -33,6 +35,11 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
     };
      GetSpot();
   }, [dispatch, spotId,ReRenderSingleSpot]);
+  const updatedReview = useSelector(state => state.userReviews);
+
+  useEffect(() => {
+    setReRenderSingleSpot(prevState => ({ ...prevState }));
+  }, [updatedReview]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
@@ -351,7 +358,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
           </div>
         </div>
           <div className="subScroll">
-            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reveiws")}
+            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot}  singleSpotReviews={singleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} singleSpotReviews={singleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reveiws")}
           </div>
       </>
     )
