@@ -23,15 +23,14 @@ const BookingsCard = ({ spot,currentUser}) => {
   const endButtonRef = useRef(null);
   const calendarRef = useRef(null);
   let dispatch = useDispatch();
-  const tileDisabled = ({ activeStartDate, date, view }) => {
-    return date < new Date();
-  };
-
+  
+  
   const bookings = useSelector((state) =>
     Object.values(state.bookings.CurBookings)
   );
   console.log("bookings currently set to ", bookings);
 
+  
   useEffect(() => {
     dispatch(CheckBookingsThunk(spot.id)).catch((e)=>null);
     console.log("checkBookings fired");
@@ -71,42 +70,26 @@ const BookingsCard = ({ spot,currentUser}) => {
     };
   }, [showCalendar,buttonClass,buttonClassTwo]);
   let divClass1 = showCalendar ? "show" : "hidden";
-
   const checkAvailability = (e) => {
     e.preventDefault();
-    if(spot.ownerId===currentUser.id){
-      alert("you aren't able to reserve a spot you own")
-      return
+    if (spot.ownerId === currentUser.id) {
+      alert("you aren't able to reserve a spot you own");
+      return;
     }
-if(endDate-startDate<1){
-  alert("minimum two days")
- return}
-    // console.log("checking availability");
-    // console.log("bookings bookings bookings ", bookings);
-    let unavailable = [];
-    bookings.forEach((booking) => {
-      let start = new Date(booking.startDate);
-      let end = new Date(booking.endDate);
-      while (start <= end) {
-        unavailable.push(start.toDateString());
-        start.setDate(start.getDate()+1);
-      }
-    });
-    const startDateMatch = unavailable.find(
-      (date) => date === startDate.toDateString()
-    );
-    const endDateMatch = unavailable.find(
-      (date) => date === endDate.toDateString()
-    );
-    if (startDateMatch || endDateMatch) {
+    if (endDate - startDate < 1) {
+      alert("minimum two days");
+      return;
+    }
+    const unavailable = buildUnavailableArray(bookings, startDate, endDate);
+    if (unavailable.includes(startDate.toDateString()) || unavailable.includes(endDate.toDateString())) {
       alert("unavailable");
       return;
     }
-    if(endDate<startDate){
-      alert("invalid Date range")
-      return
+    if (endDate < startDate) {
+      alert("invalid Date range");
+      return;
     }
-    alert("creating reservation")
+    alert("creating reservation");
     dispatch(
       createBookingThunk({
         startDate: startDate.toDateString(),
@@ -114,10 +97,27 @@ if(endDate-startDate<1){
         spotId: spot.id,
       })
     ).catch((e) => e);
-
+  
     setStartDate(new Date());
     setEndDate(new Date());
-    history.push("/currentBookings")
+    history.push("/currentBookings");
+  };
+  
+ const buildUnavailableArray = (bookings, startDate, endDate) => {
+    const unavailable = [];
+    bookings.forEach((booking) => {
+      const start = new Date(booking.startDate);
+      const end = new Date(booking.endDate);
+      while (start <= end) {
+        unavailable.push(start.toDateString());
+        start.setDate(start.getDate() + 1);
+      }
+    });
+    return unavailable;
+  };
+  const tileDisabled = ({ activeStartDate, date, view }) => {
+    let check = buildUnavailableArray(bookings, startDate, endDate);
+    return check.includes(date.toDateString());
   };
 
   return (
@@ -160,15 +160,17 @@ if(endDate-startDate<1){
       <div className={ `calendarContainer ${divClass1}`} ref={calendarRef}>
 
       <Calendar
-      activeStartDate={new Date()}
-      inputRef={calendarRef}
+      activeStartDate={startDate}
       tileDisabled={tileDisabled}
             // selectRange={true}
             showDoubleView={true}
+            nextLabel={null}
+            prevLabel={null}
+            next2Label={null}
+            prev2Label={null}
             onChange={(e) => {
-              
-              // console.log("calendar Changing","e is currently",e)
               selectDate==='start' ? setStartDate(new Date(e)):setEndDate(new Date(e));
+              
             }}
             value={[startDate,endDate]}>
             </Calendar>

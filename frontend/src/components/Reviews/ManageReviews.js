@@ -26,7 +26,7 @@ const ManageReviews = ({reviews,}) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
       {!Object.values(reviews).length ? (
-        <h1>visit a spot to post a Reveiw</h1>
+        <h1>visit a spot to post a Review</h1>
       ) : (
         <h1>Manage Reviews</h1>
       )}

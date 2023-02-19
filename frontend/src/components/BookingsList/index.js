@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { deleteBookingThunk } from "../../store/bookings";
 import { currentUserBookings } from "../../store/bookings";
-import  UpdateBookingModal  from "../UpdateBookingModal";
+import  UpdateBookingModal  from "../UpdateBookingModal/testing";
 import DeleteBookingModal from "../DeleteBookingModal";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './index.css'

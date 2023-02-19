@@ -50,8 +50,9 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   }
 };
 export const updateSpotReview = (review) => async (dispatch) => {
-    let {spotId,userId,id,newReview,stars} = review
-    const response = await csrfFetch(`/api/reviews/${id}`,{
+  let {spotId,userId,id,newReview,stars} = review
+  console.log("inside update review",review)
+    const response = await csrfFetch(`/api/reviews/${parseInt(id)}`,{
         method:"PUT",
         body: JSON.stringify({
             review:newReview,
@@ -99,9 +100,19 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case UPDATE:
         let stateUPDATE={...state}
         console.log("action/.payload",action.payload)
-        stateUPDATE.userReviews[action.payload.id]={...action.payload}
+        delete stateUPDATE.spotReviews[action.payload.id]
+        delete stateUPDATE.userReviews[action.payload.id]
         stateUPDATE.spotReviews[action.payload.id]={...action.payload}
-      return stateUPDATE;
+        stateUPDATE.userReviews[action.payload.id]={...action.payload}
+        stateUPDATE.userReviews[action.payload.id].review=stateUPDATE.spotReviews[action.payload.id].review
+        console.log("-----------------",stateUPDATE.userReviews)
+        console.log("-----------------",stateUPDATE.spotReviews)
+        
+      return JSON.parse(JSON.stringify(stateUPDATE))
+
+
+
+
     case DELETE:
         let stateDELETE = {...state}
         console.log("inside Delete",state.spotReviews)
@@ -111,8 +122,11 @@ const initialState = { spotReviews: {}, userReviews: {} };
       return stateDELETE;
     case UserReviews:
       let stateReviews = { ...state};
-      action.payload.Reviews.map(review=>stateReviews.userReviews[review.id]=review)
+      action.payload.Reviews.forEach(review=>stateReviews.userReviews[review.id]=review)
+      console.log("stateReviews",stateReviews)
+      console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",action.payload.Reviews)
       return stateReviews;
+
     default:
       return state;
   }

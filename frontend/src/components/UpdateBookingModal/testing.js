@@ -7,9 +7,11 @@ import {
   currentUserBookings,
 } from "../../store/bookings";
 import "../cssStuffs/modals.css";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
-  const [startDate, setStartDate] = useState(new Date (oldBooking.startDate));
+  const [startDate, setStartDate] = useState(new Date(oldBooking.startDate));
   const [endDate, setEndDate] = useState(new Date(oldBooking.endDate));
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
@@ -29,7 +31,7 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   }, [startDate, endDate, oldBooking.spotId, dispatch]);
   console.log("-------BOOKINGS---------", bookings);
 
- function updateBooking() {
+  function updateBooking() {
     let newBooking = { ...oldBooking, startDate, endDate };
     console.log("-------NEWBOOKING---------", newBooking);
     dispatch(UpdateBookingThunk(newBooking)).catch(async (res) => {
@@ -40,13 +42,13 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
 
     closeModal();
   }
+
   const checkAvailability = () => {
     console.log("the bookings while checkavailability runs",bookings)
-if(endDate-startDate<=1){
-  alert("minimum two days")
- return}
-    // console.log("checking availability");
-    // console.log("bookings bookings bookings ", bookings);
+    if(endDate-startDate<=1){
+      alert("minimum two days")
+      return
+    }
     let unavailable = [];
     bookings.forEach((booking) => {
       let start = new Date(booking.startDate);
@@ -58,11 +60,10 @@ if(endDate-startDate<=1){
       }
     });
     const startDateMatch = unavailable.find(
-      (date) => date.toString() === new Date(startDate).toString()
-      
+      (date) => date.toString() === startDate.toString()
     );
     const endDateMatch = unavailable.find(
-      (date) => date.toString() === new Date(endDate).toString()
+      (date) => date.toString() === endDate.toString()
     );
     if (startDateMatch || endDateMatch) {
       alert("a booking already exists during that time period, please try again");
@@ -74,13 +75,35 @@ if(endDate-startDate<=1){
     }
     if(startDate<=new Date()){
       alert("invalid Start Date")
-     return false
+      return false
     }
     return true
   };
 
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  }
 
- 
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  }
+  const buildUnavailableArray = (bookings, startDate, endDate) => {
+    const unavailable = [];
+    bookings.forEach((booking) => {
+      const start = new Date(booking.startDate);
+      const end = new Date(booking.endDate);
+      while (start <= end) {
+        unavailable.push(start.toDateString());
+        start.setDate(start.getDate() + 1);
+      }
+    });
+    return unavailable;
+  };
+  const tileDisabled = ({ activeStartDate, date, view }) => {
+    let check = buildUnavailableArray(bookings, startDate, endDate);
+    return check.includes(date.toDateString());
+  };
+
   return (
     <div className="modal">
       <h1>Update Booking</h1>
@@ -88,51 +111,40 @@ if(endDate-startDate<=1){
         className="Form"
         onSubmit={(e) => {
           e.preventDefault();
-
+  
           if (checkAvailability() === true) {
             return updateBooking();
           } else {
             alert(
-              "unable to create booking, please try again with different dates"
+              "unable to create booking, please try again"
             );
           }
-        }}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <p className="pForm">Start Date</p>
-        <label style={{ height: "4em" }}>
-          <input
-            min={new Date()}
-            id={"startDate"}
+        }}
+      >
+        <div>
+          <label htmlFor="startDate">Start Date</label>
+          <Calendar
+            name="startDate"
             value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className={"formInput"}
-            type="date"
-         placeholder="MM/DD/YYYY"
-        
-     
+            onChange={handleStartDateChange}
+            minDate={new Date()}
+            tileDisabled={tileDisabled}
           />
-        </label>
-        <p className="pForm">End Date</p>
-        <label style={{ height: "4em" }}>
-          <input
-            id={"endDate"}
+        </div>
+        <div>
+          <label htmlFor="endDate">End Date</label>
+          <Calendar
+            name="endDate"
             value={endDate}
-            min={startDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            type="date"
-            className={"formInput"}
+            onChange={handleEndDateChange}
+            minDate={startDate}
+            tileDisabled={tileDisabled}
           />
-        </label>
-        <button  className={"FormButton"}>
-          Update
-        </button>
+        </div>
+        <button type="submit">Update Booking</button>
       </form>
     </div>
   );
-};
-
-export default UpdateBookingModal;
+      }
+      
+      export default UpdateBookingModal;
