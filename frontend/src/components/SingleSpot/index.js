@@ -15,24 +15,15 @@ import Reviews from "../Reviews";
 // import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 // import DeleteSpotModal from "../DeleteSpotModal";
 // import UpdateSpotModal from "../UpdateSpotModal";
-export default function SingleSpot() {
-  let params = useParams();
-  let spotId =parseInt(params.spotId);
-  let Spot = useSelector((state) => state.spots.SingleSpot);
+export default function SingleSpot({Spot, bookings, reviews, user,state}) {
+ 
  const history = useHistory()
-  // let SpotList = useSelector((state) => state.spots.AllSpots);
-  let currentUser = useSelector((state)=>state.session.user)
-  // const [, setShowMenu] = useState(false);
-const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
+let spotId = parseInt(Spot.id)
+
   console.log("spotId", spotId);
   let dispatch = useDispatch();
-  useEffect(() => {
-    console.log("inside useEffect single Spot");
-    const GetSpot = async () => {
-      dispatch(thunkOneSpot(spotId));
-    };
-     GetSpot();
-  }, [dispatch, spotId,ReRenderSingleSpot]);
+ 
+
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
@@ -351,7 +342,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
           </div>
         </div>
           <div className="subScroll">
-            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reveiws")}
+            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews Spot={Spot}></Reviews>:(currentUser ?  <Reviews Spot={Spot}/>: "Please Log in to view Reveiws")}
           </div>
       </>
     )

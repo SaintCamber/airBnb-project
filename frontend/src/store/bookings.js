@@ -47,18 +47,39 @@ export const createBookingThunk = (Book) => async (dispatch) => {
   }
   
 };
-export const UpdateBookingThunk=(booking)=>async dispatch=>{
-  console.log("inside the update booking thunk")
-  console.log("the booking is",booking)
- let response = csrfFetch(`/api/bookings/${booking.id}`,{
-  method:"put",
-  body:JSON.stringify({ startDate: booking.startDate, endDate:booking.endDate })
- })
- if (response.ok){
-  let data = await response.json()
-  dispatch(updateBooking(data))
- }
-}
+
+
+export const UpdateBookingThunk = (booking) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+      method: "put",
+      body: JSON.stringify({
+        startDate: booking.startDate,
+        endDate: booking.endDate,
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(updateBooking(data));
+      return data;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+// export const UpdateBookingThunk=(booking)=>async dispatch=>{
+//   console.log("inside the update booking thunk")
+//   console.log("the booking is",booking)
+//  let response = await csrfFetch(`/api/bookings/${booking.id}`,{
+//   method:"put",
+//   body:JSON.stringify({ startDate: booking.startDate, endDate:booking.endDate })
+//  })
+//  if (response.ok){
+//   let data = await response.json()
+//   dispatch(updateBooking(data))
+//  }
+// }
 
 export const deleteBookingThunk = (bookingId) => async (dispatch) => {
   console.log("delete booking thunk called");

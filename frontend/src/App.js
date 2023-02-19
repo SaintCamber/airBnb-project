@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import UpdatePage from "./components/UpdatePage"
 import {useSelector} from 'react-redux'
+import HOCsingle from "./components/Reviews/HOCsingle";
 // import { useLocation } from "react-router-dom";
 import BookingsList from "./components/BookingsList";
 import PageNotFound from "./components/PageNotFound";
@@ -29,14 +30,16 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const Spots = useSelector(state=>state.spots.AllSpots)
   const Singleton = useSelector(state=>state.spots.SingleSpot)
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     dispatch(getCurrentUsersReviews())
-  }, [dispatch]);
+  }, [Reviews,dispatch]);
   
   
   const user = useSelector(state=>state.session.user)
-  const userReviews =useSelector(state=>state.Reviews.userReviews)
+  const Reviews =useSelector(state=>state.Reviews)
 
   return (
     
@@ -48,7 +51,7 @@ function App() {
             {Spots ? <SpotsList />:<h1>unable to retrieve spots,please try again later</h1>}
           </Route>
           <Route path="/spots/:spotId">
-            {Singleton? <SingleSpot  />:<h1>unable to retrieve spot details, please try again later</h1>}
+        <HOCsingle AllSpots={Spots} />
           </Route>
 
 
@@ -60,7 +63,7 @@ function App() {
           </Route>
           <Suspense>
           <Route exact path="/user/reviews">
-            <ManageReviews reviews={userReviews} currentUser={user}/>
+            <ManageReviews reviews={Reviews} currentUser={user}/>
           </Route>
 
           </Suspense>

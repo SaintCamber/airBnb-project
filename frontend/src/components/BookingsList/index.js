@@ -14,12 +14,12 @@ import { faBus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const BookingsList = (userId) => {
+const BookingsList = () => {
   let dispatch = useDispatch();
   let things = useSelector((state) =>
-    state.bookings.userBookings
+    state.bookings?.userBookings
   );
-  let [userBookings, setUserBookings] = useState({...things});
+  let [userBookings, setUserBookings] = useState({});
   const [showMenu,setShowMenu] = useState(false)
   const closeMenu = () => setShowMenu(false);
   let history = useHistory();
@@ -27,7 +27,7 @@ const BookingsList = (userId) => {
   
   useEffect(() => {
     dispatch(currentUserBookings());
-  }, [dispatch,userBookings]);
+  }, [dispatch]);
   return (
     <>
     <h1>Manage Bookings</h1>
@@ -35,7 +35,7 @@ const BookingsList = (userId) => {
         {Object.values(things).map((booking) => (
           <div className='bookingTile'>
 
-            <span style={{ marignRight: "20px" }}>{booking.spot.address}</span>
+            <span style={{ marginRight: "20px" }}>{booking.spot.address}</span>
             <span>
               From{booking.startDate.split("T")[0]} Until{booking.endDate.split("T")[0]}
             </span>

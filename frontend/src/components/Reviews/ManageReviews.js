@@ -11,76 +11,17 @@ import { getCurrentUsersReviews } from "../../store/Reviews";
 import "../cssStuffs/modals.css";
 import "./index.css";
 
-const ManageReviews = ({reviews,}) => {
-  let { userReviews, currentUser } = useUser();
-  let [ReRenderSingleSpot, setReRenderSingleSpot] = useState({});
+const ManageReviews = ({Reviews,currentUser}) => {
   // let {closeModal} =useModal()
-  const [, updateState] = useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
   let [showMenu, setShowMenu] = useState(false);
   let dispatch = useDispatch();
   const closeMenu = () => setShowMenu(false);
-  useEffect(() => {
-    dispatch(getCurrentUsersReviews());
-  }, [dispatch, currentUser,reviews,ReRenderSingleSpot]);
-  return (
-    <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {!Object.values(reviews).length ? (
-        <h1>visit a spot to post a Reveiw</h1>
-      ) : (
-        <h1>Manage Reviews</h1>
-      )}
-      <div className="reviewContainer">
-        {Object.values(reviews).map((review) => {
-          return (
-            <div className="reviewTile">
-              <div className="reviewBox">
-                <div className="reviewStars">
-                  <FontAwesomeIcon icon={faStar} />
-                  <div style={{ marginRight: "7vw" }}>{review.stars}</div>
-                  <div>
-                    {review.User.firstName} {review.User.lastName}
-                  </div>
-                </div>
-                <div>{review.createdAt.split("T")[0]}</div>
+  const {userReviews} = Reviews;
+  console.log(userReviews)
 
-                <div className="TextDiv"> {review.review}</div>
-                  <OpenModalMenuItem
-                    className="modalButton"
-                    itemText={<button>Edit Review</button>}
-                    onItemClick={closeMenu}
-                    modalComponent={
-                      <UpdateReviewModal
-                        ReRenderSingleSpot={ReRenderSingleSpot}
-                        setReRenderSingleSpot={setReRenderSingleSpot}
-                        review={review}
-                        spot={review.Spot}
-                        update={forceUpdate}
-                      />
-                    }
-                  />
-                
-                  <OpenModalMenuItem
-                    className="modalButton"
-                    itemText={<button>Delete</button>}
-                    onItemClick={closeMenu}
-                    modalComponent={
-                      <DeleteReviewModal
-                        ReRenderSingleSpot={ReRenderSingleSpot}
-                        setReRenderSingleSpot={setReRenderSingleSpot}
-                        Review={review}
-                        update={forceUpdate}
-                      />
-                    }
-                  />
-                
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
 
-export default ManageReviews;
+
+return (
+  {userReviews.map((review) => {
+    <ReviewTile review={review}/>})}
+)}

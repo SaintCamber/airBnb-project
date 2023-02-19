@@ -4,17 +4,15 @@ import { useModal } from "../../context/Modal";
 import { deleteSpotReview } from "../../store/Reviews";
 
 const DeleteReviewModal = ({
-  Review,
-  ReRenderSingleSpot,
-  setReRenderSingleSpot}
+Review
 ) => {
 
   const { closeModal } = useModal();
   let dispatch = useDispatch();
   async function handleClick() {
     await dispatch(deleteSpotReview(Review.id))
-      .then(closeModal)
-      .then(setReRenderSingleSpot({}));
+      await closeModal();
+      
   }
 
   return (

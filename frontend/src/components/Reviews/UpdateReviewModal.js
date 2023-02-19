@@ -12,11 +12,9 @@ async function handleSubmit(e){
     e.preventDefault(e)
     let actionReview = {...review,review:newReview,stars:stars}
     console.log("the action Review is:",actionReview)
-    await dispatch(updateSpotReview(actionReview)).then(()=>{
-        setStars(3)
-        setNewReview('')
-    }).then(closeModal).then(setReRenderSingleSpot({}))}
-
+   let actions = await Promise.all([dispatch(updateSpotReview(actionReview)),setStars(3),setNewReview(''),closeModal(),setReRenderSingleSpot({})])
+  return actions
+  }
 
 
     return (

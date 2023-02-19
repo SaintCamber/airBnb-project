@@ -41,44 +41,50 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
     closeModal();
   }
   const checkAvailability = () => {
-    console.log("the bookings while checkavailability runs",bookings)
-if(endDate-startDate<=1){
-  alert("minimum two days")
- return}
-    // console.log("checking availability");
-    // console.log("bookings bookings bookings ", bookings);
-    let unavailable = [];
-    bookings.forEach((booking) => {
-      let start = new Date(booking.startDate);
-      let end = new Date(booking.endDate);
-      while (start <= end) {
-        unavailable.push(start);
-        start.setDate(start.getDate()+1);
-        console.log("unavailable",unavailable)
-      }
-    });
-    const startDateMatch = unavailable.find(
-      (date) => date.toString() === new Date(startDate).toString()
-      
-    );
-    const endDateMatch = unavailable.find(
-      (date) => date.toString() === new Date(endDate).toString()
-    );
-    if (startDateMatch || endDateMatch) {
-      alert("a booking already exists during that time period, please try again");
+    if(endDate-startDate<=1){
+      alert("minimum two days")
       return false;
     }
+  
+    const unavailableDates = bookings.reduce((unavailable, booking) => {
+      const bookedDates = [];
+      let start = new Date(booking.startDate);
+      const end = new Date(booking.endDate);
+      while (start <= end) {
+        bookedDates.push(new Date(start));
+        start.setDate(start.getDate()+1);
+      }
+      return [...unavailable, ...bookedDates];
+    }, []);
+  
+    const datesInRange = [];
+    let start = new Date(startDate);
+    const end = new Date(endDate);
+    while (start <= end) {
+      datesInRange.push(new Date(start));
+      start.setDate(start.getDate()+1);
+    }
+  
+    const overlappingDates = datesInRange.filter(date => unavailableDates.some(unavailableDate => unavailableDate.toString() === date.toString()));
+  
+    if (overlappingDates.length > 0) {
+      alert("A booking already exists during that time period, please try again");
+      return false;
+    }
+    
     if(endDate<=startDate){
-      alert("invalid Date range")
-      return false
+      alert("Invalid date range");
+      return false;
     }
+    
     if(startDate<=new Date()){
-      alert("invalid Start Date")
-     return false
+      alert("Invalid start date");
+      return false;
     }
-    return true
+    
+    return true;
   };
-
+  
 
   // const disableButton = () => {
   //   let start = new Date(startDate);

@@ -55,7 +55,7 @@ const Reviews = ({
       <div className="reviewContainer">
         {Object.values(singleSpotReviews).map((review) => {
           return (
-            <div className="reviewTile">
+            <div key={review.id}className="reviewTile">
               <div className="reviewBox">
                 <div className="reviewStars">
                   <FontAwesomeIcon icon={faStar} />
