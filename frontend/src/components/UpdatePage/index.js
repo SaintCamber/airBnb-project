@@ -73,12 +73,13 @@ export default function UpdatePage() {
                 className="modals"
                 onClick={(e) => {
                   e.stopPropagation();
-                }}>
+                }}><div style={{display:"flex",flexDirection:"column"}}>
                 <div style={{ display: "flex", justifyContent: "flex-start" }}>
                   <h5 style={{ margin: 0, padding: 0 }}>
-                    {spot.price}$ per day
+                    ${spot.price} night
                   </h5>
                 </div>
+                <div style={{display:"flex",flexDirection:"row"}}>
                 <OpenModalMenuItem
                   onClick={(e) => {
                     e.stopPropagation();
@@ -106,7 +107,7 @@ export default function UpdatePage() {
                       setter={setOwnedState}
                     />
                   }
-                />
+                /></div></div>
               </div>
             </div>
           </div>
