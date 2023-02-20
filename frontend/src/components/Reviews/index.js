@@ -31,7 +31,7 @@ const Reviews = ({
   }, [dispatch, SingleSpotReviews]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-          <h2><FontAwesomeIcon icon={faStar} />&nbsp;&nbsp;{ spot?.numReviews>0 ? (isNaN(spot.avgStarRating) ? "new":Number(spot?.avgStarRating).toFixed(2)):"new"}&nbsp;&nbsp;|&nbsp;&nbsp;{spot.numReviews===1 ? (`${spot.numReviews} Review`):(spot.numReviews>0 ? (`${spot.numReviews} Reviews`):"No Reviews Yet")}</h2>
+         <p><FontAwesomeIcon icon={faStar}/>{ spot?.numReviews>0 ? (isNaN(spot.avgStarRating) ? "new":Number(spot?.avgStarRating).toFixed(2)):""}{!spot.numReviews ? "":<span style={{marginLeft:"5px",marginRight:"5px"}}>&#183;</span>}{spot.numReviews > 1 ?`${spot.numReviews} Reviews`:(spot.numReviews>0? `${spot.numReviews} Review`:"new")}</p>
 
       {SingleSpotReviews && Object.values(SingleSpotReviews)?.length ? (
         <h2>User Reviews</h2>

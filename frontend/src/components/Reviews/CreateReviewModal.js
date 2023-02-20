@@ -21,12 +21,12 @@ const CreateReviewModal = ({
       .then(() => {
         setStars(3);
         setReview("");
-      })
-      .then(closeModal)
-      .then(setReRenderSingleSpot({})).catch(async (res)=>{
+      }).catch(async (res)=>{
         let data = await res.json()
         if(data&&data.errors) setErrors(data.errors)
       })
+      await closeModal()
+      await setReRenderSingleSpot({});
   }
 
   return (
