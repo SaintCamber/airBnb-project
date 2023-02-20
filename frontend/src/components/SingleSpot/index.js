@@ -351,7 +351,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
             </div>
             <div className="ScrollDiv"><div className='coverContainer'>
             <span className='cover'><span className="placeHolderRed">Infini</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
-                <div onClick={()=>(history.push('/learn'))} className="learn">learn more</div>
+                <div onClick={alert('feature coming soon, please try again later!')} className="learn">learn more</div>
             </div>
             </div>
             <div className="ScrollDiv"><p>
