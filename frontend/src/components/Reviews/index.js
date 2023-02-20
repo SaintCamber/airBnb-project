@@ -40,7 +40,7 @@ const Reviews = ({
       {(currentUser && spot)&&(currentUser.id!==spot.ownerId)&&(!Object.values(SingleSpotReviews).find(review=>review.userId===currentUser.id)) ? (
         <OpenModalMenuItem
           className="modalButton"
-          itemText={<button>Add A Review</button>}
+          itemText={<button className="FormButton">Add A Review</button>}
           onItemClick={closeMenu}
           modalComponent={
             <CreateReviewModal
