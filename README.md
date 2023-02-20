@@ -14,7 +14,9 @@ npm install
 npx dotenv sequelize db:migrate && npx dotenv sequelize db:seed:all
 
 finally enter npm start to launch the site.
-[airbnb-dbdiagram]: ./airbnb_dbdiagram.png
+
+## Splash Page
+[Splash]:(https://github.com/SaintCamber/airBnb-project/blob/main/splashpage.png)
 
 ## Database Schema Design
 
