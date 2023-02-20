@@ -36,7 +36,8 @@ const Reviews = ({
       ) : (
         <h2>be the first to add a Review!</h2>
       )}
-      {(SingleSpotReviews && Object.values(SingleSpotReviews)?.length && currentUser && spot && currentUser.id !== spot.ownerId && !Object.values(SingleSpotReviews).some(review => review.User.id === currentUser.id)) ? (
+      
+      {(currentUser && spot)&&(currentUser.id!==spot.ownerId)&&(!Object.values(SingleSpotReviews).find(review=>review.userId===currentUser.id)) ? (
         <OpenModalMenuItem
           className="modalButton"
           itemText={<button>Add A Review</button>}
