@@ -252,7 +252,6 @@ const validateQueryParameters = (req, res, next) => {
     });
   } else {
     req.queryObj = queryObj
-    console.log(queryObj)
     next();
   }
 };

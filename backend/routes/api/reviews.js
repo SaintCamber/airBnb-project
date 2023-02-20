@@ -16,7 +16,7 @@ router.get('/current',requireAuth,async(req,res)=>{
     for (let i = 0 ;i<Reviews.length;i++){
         let review = Reviews[i]
         let spot = await review.getSpot()
-        // console.log(spot)
+        // //console.log(spot)
         let SpotImages =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
         spot = spot.toJSON()
         let user = await review.getUser({attributes:{exclude:["username"]}})

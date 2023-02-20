@@ -48,7 +48,6 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
       })
      
         let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
-        //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
         spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
         if(SpotImage[0]!==undefined){
@@ -81,7 +80,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
       })
      
         let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
-        //   console.log(reviews[0].toJSON().avgRating)
         spot = spot.toJSON();
         if(SpotImage.length){
           spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
