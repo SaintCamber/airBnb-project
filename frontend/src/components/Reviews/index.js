@@ -74,12 +74,12 @@ const Reviews = ({
                   </div>
   
                   <div className="TextDiv"> {review.review}</div>
-                  {currentUser &&
+                  <div style={{display:"flex",flexDirection:'row',justifyContent:"space-around"}}>{currentUser &&
                     review.User &&
                     currentUser.id === review.User.id ? (
                     <OpenModalMenuItem
                       className="modalButton"
-                      itemText={<button>Edit Review</button>}
+                      itemText={<button className="modalButton">Edit Review</button>}
                       onItemClick={closeMenu}
                       modalComponent={
                         <UpdateReviewModal
@@ -98,7 +98,7 @@ const Reviews = ({
                     currentUser.id === review.User.id ? (
                     <OpenModalMenuItem
                       className="modalButton"
-                      itemText={<button>Delete</button>}
+                      itemText={<button className="modalButton">Delete</button>}
                       onItemClick={closeMenu}
                       modalComponent={
                         <DeleteReviewModal
@@ -110,7 +110,7 @@ const Reviews = ({
                     />
                   ) : (
                     ""
-                  )}
+                  )}</div>
                 </div>
               </div>
             );

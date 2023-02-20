@@ -51,10 +51,10 @@ const ManageReviews = ({reviews}) => {
                 <div>{review?.createdAt?.split("T")[0]}</div>
   
                 <div className="TextDiv"> {review?.review}</div>
-                {review && (
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>{review && (
                   <OpenModalMenuItem
                     className="modalButton"
-                    itemText={<button>Edit Review</button>}
+                    itemText={<button className="modalButton">Edit Review</button>}
                     onItemClick={closeMenu}
                     modalComponent={
                       <UpdateReviewModal
@@ -70,7 +70,7 @@ const ManageReviews = ({reviews}) => {
                 {review && (
                   <OpenModalMenuItem
                     className="modalButton"
-                    itemText={<button>Delete</button>}
+                    itemText={<button className="modalButton">Delete</button>}
                     onItemClick={closeMenu}
                     modalComponent={
                       <DeleteReviewModal
@@ -80,7 +80,7 @@ const ManageReviews = ({reviews}) => {
                       />
                     }
                   />
-                )}
+                )}</div>
               </div>
             </div>
           );
