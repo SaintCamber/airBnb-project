@@ -72,7 +72,7 @@ const Reviews = ({
                   </div>
                   <div>
                     {review.createdAt &&
-                      review.createdAt.split("T")[0]}
+                      (new Date(review.createdAt).toLocaleString('default', { month: 'long' }))} { (new Date(review.createdAt).toLocaleString('default', { year: 'numeric' })) }
                   </div>
   
                   <div className="TextDiv"> {review.review}</div>

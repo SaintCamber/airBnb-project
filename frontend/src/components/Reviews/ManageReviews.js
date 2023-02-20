@@ -48,7 +48,8 @@ const ManageReviews = ({reviews}) => {
                     {review?.User?.firstName} {review?.User?.lastName}
                   </div>
                 </div>
-                <div>{review?.createdAt?.split("T")[0]}</div>
+                <div> {review.createdAt &&
+                      (new Date(review.createdAt).toLocaleString('default', { month: 'long' }))} { (new Date(review.createdAt).toLocaleString('default', { year: 'numeric' })) }</div>
   
                 <div className="TextDiv"> {review?.review}</div>
                 <div style={{display:"flex",flexDirection:'row',justifyContent:"space-around"}}>{review && (
