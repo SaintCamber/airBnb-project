@@ -1,7 +1,20 @@
 # AirBnB Clone
-#Technologies used
--express-backend api
+
+## Technologies used
+-express-backend
+-sequelize- database
+-postgress- production database
 -react/redux - frontend elements
+
+
+### instaling locally
+in order to create an instance of the app all one has to do is clone the github rep and then using npm install the dependencies as well as migrate and seed a database file this would look something like -
+git clone <repo> .
+npm install
+npx dotenv sequelize db:migrate && npx dotenv sequelize db:seed:all
+
+finally enter npm start to launch the site.
+
 ## Database Schema Design
 
 ![airbnb-dbdiagram]
