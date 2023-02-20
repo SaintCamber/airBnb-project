@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { thunkOneSpot } from "../../store/Spots";
 import { useEffect ,useState} from "react";
-import { useParams ,useHistory, NavLink} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpFromBracket,
-  faSpoon,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
@@ -21,7 +20,6 @@ export default function SingleSpot() {
   let spotId =parseInt(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
   let SingleSpotReviews = useSelector((state) => state.Reviews.spotReviews);
- const history = useHistory()
   // let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
   // const [, setShowMenu] = useState(false);
@@ -351,7 +349,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
             </div>
             <div className="ScrollDiv"><div className='coverContainer'>
             <span className='cover'><span className="placeHolderRed">Infini</span>Cover</span><span className='bookingProt'>Every booking includes free protection from Host cancellations, listing inaccuracies, and other issues like trouble checking in.</span>
-                <div onClick={alert('feature coming soon, please try again later!')} className="learn">learn more</div>
+                <div onClick={(e)=>{e.preventDefault();alert('feature coming soon, please try again later!')}} className="learn">learn more</div>
             </div>
             </div>
             <div className="ScrollDiv"><p>
