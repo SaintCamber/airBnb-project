@@ -31,6 +31,8 @@ const Reviews = ({
   }, [dispatch, SingleSpotReviews]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
+          <h2><FontAwesomeIcon icon={faStar} />&nbsp;&nbsp;{ spot?.numReviews>0 ? (isNaN(spot.avgStarRating) ? "new":Number(spot?.avgStarRating).toFixed(2)):"new"}</h2>
+
       {SingleSpotReviews && Object.values(SingleSpotReviews)?.length ? (
         <h2>User Reviews</h2>
       ) : (
