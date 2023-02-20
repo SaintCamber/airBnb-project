@@ -9,7 +9,7 @@
 
 ### instaling locally
 in order to create an instance of the app all one has to do is clone the github rep and then using npm install the dependencies as well as migrate and seed a database file this would look something like -
-git clone <repo> .
+git clone git@github.com:SaintCamber/airBnb-project.git .
 npm install
 npx dotenv sequelize db:migrate && npx dotenv sequelize db:seed:all
 
