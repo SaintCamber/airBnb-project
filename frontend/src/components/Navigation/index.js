@@ -34,7 +34,7 @@ function Navigation({ isLoaded }){
     </div>
 
      {/* <DateSelector></DateSelector> */}
-    <div onClick={()=>{history.push('/home')}} id='homeLogo'><FontAwesomeIcon icon="fa-solid fa-infinity" /> Infinibnb</div>
+    <div onClick={()=>{history.push('/')}} id='homeLogo'><FontAwesomeIcon icon="fa-solid fa-infinity" /> Infinibnb</div>
     </div>
 
   );
