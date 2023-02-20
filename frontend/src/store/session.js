@@ -116,6 +116,7 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = null;
       newState.userOwnedSpots = {}
+      newState.userReviews = {}
       return newState;
       case OWNED:
         newState = Object.assign({},state)
