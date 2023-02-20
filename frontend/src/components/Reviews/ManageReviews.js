@@ -51,7 +51,7 @@ const ManageReviews = ({reviews}) => {
                 <div>{review?.createdAt?.split("T")[0]}</div>
   
                 <div className="TextDiv"> {review?.review}</div>
-                <div style={{ display: "flex", justifyContent: "flex-start" }}>{review && (
+                <div style={{display:"flex",flexDirection:'row',justifyContent:"space-around"}}>{review && (
                   <OpenModalMenuItem
                     className="modalButton"
                     itemText={<button className="modalButton">Edit Review</button>}

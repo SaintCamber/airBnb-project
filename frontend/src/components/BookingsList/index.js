@@ -39,10 +39,10 @@ const BookingsList = (userId) => {
             <span>
               From{booking.startDate.split("T")[0]} Until{booking.endDate.split("T")[0]}
             </span>
-            {new Date(booking.startDate) > new Date() ? (
+            <div style={{display:"flex",flexDirection:'row'}}>{new Date(booking.startDate) > new Date() ? (
               <OpenModalMenuItem
               className="modalButton"
-              itemText={<button>Cancel</button>}
+              itemText={<button className="modalButton">Cancel</button>}
               onItemClick={closeMenu}
               modalComponent={
                 <DeleteBookingModal
@@ -55,12 +55,12 @@ const BookingsList = (userId) => {
               }
             />
             ) : (
-              <div>unable to cancel past bookings</div>
+              ""
             )}
             {new Date(booking.startDate) > new Date() ? (
               <OpenModalMenuItem
               className="modalButton"
-              itemText={<button>Update</button>}
+              itemText={<button className="modalButton">Update</button>}
               onItemClick={closeMenu}
               modalComponent={
                 <UpdateBookingModal
@@ -74,8 +74,8 @@ const BookingsList = (userId) => {
               }
             />
             ) : (
-              <div>unable to update past bookings</div>
-            )}
+              ""
+            )}</div>
 
             
           </div>

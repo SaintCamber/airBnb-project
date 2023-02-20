@@ -129,3 +129,18 @@ textarea {
 .Demo:hover {
     color:blue
 }
+
+.modalButton{
+    background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%);
+     padding:2px;
+     border-radius: 15px;
+     width:10vw;
+     max-width: 100%;
+     color:white
+    }
+ 
+    .modalButton:hover{
+     color:blue;
+     box-shadow: -5px 5px 5px -1px #F48670;
+    }
+ 
