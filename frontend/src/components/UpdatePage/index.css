@@ -57,7 +57,8 @@ margin:0px 2px;
     border-radius: 15px;
     width:10vw;
     max-width: 100%;
-    color:white
+    color:white;
+    text-align: center;
    }
 
    .modalButton:hover{
