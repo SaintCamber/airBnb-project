@@ -19,13 +19,13 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   //console.log("StartDate",startDate,"endDate",endDate)
 
   const dispatch = useDispatch();
-  const spotBookings = useSelector((state) => state.bookings.CurBookings);
+  const spotBookings = useSelector((state) => state.bookings?.CurBookings);
   let bookings = Object.values(spotBookings);
-  let destroyOldBooking = bookings.find(
+  let destroyOldBooking = bookings?.find(
     (booking) => booking.id === oldBooking.id
   );
   //console.log("thr booking to destroy", destroyOldBooking);
-  bookings = bookings.filter((booking) => booking.id !== destroyOldBooking.id);
+  bookings = bookings?.filter((booking) => booking?.id !== destroyOldBooking?.id);
   useEffect(() => {
     dispatch(CheckBookingsThunk(oldBooking.spotId));
   }, [startDate, endDate, oldBooking.spotId, dispatch]);
@@ -51,8 +51,8 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
     }
     let unavailable = [];
     bookings.forEach((booking) => {
-      let start = new Date(booking.startDate);
-      let end = new Date(booking.endDate);
+      let start = new Date(booking?.startDate);
+      let end = new Date(booking?.endDate);
       while (start <= end) {
         unavailable.push(start);
         start.setDate(start.getDate()+1);
@@ -89,9 +89,9 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   }
   const buildUnavailableArray = (bookings, startDate, endDate) => {
     const unavailable = [];
-    bookings.forEach((booking) => {
-      const start = new Date(booking.startDate);
-      const end = new Date(booking.endDate);
+    bookings?.forEach((booking) => {
+      const start = new Date(booking?.startDate);
+      const end = new Date(booking?.endDate);
       while (start <= end) {
         unavailable.push(start.toDateString());
         start.setDate(start.getDate() + 1);

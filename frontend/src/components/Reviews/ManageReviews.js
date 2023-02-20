@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLayoutEffect } from "react";
 // import { useModal } from "../../context/Modal";
 import { useUser } from "../../context/userContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +22,7 @@ const ManageReviews = ({reviews}) => {
   let [showMenu, setShowMenu] = useState(false);
   let dispatch = useDispatch();
   const closeMenu = () => setShowMenu(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getCurrentUsersReviews());
   }, [dispatch, currentUser,reviews,ReRenderSingleSpot]);
   const updatedReview = useSelector(state => state.userReviews);

@@ -111,7 +111,7 @@ const BookingsCard = ({ spot,currentUser}) => {
     return unavailable;
   };
   const tileDisabled = ({ activeStartDate, date, view }) => {
-    let check = buildUnavailableArray(bookings, startDate, endDate);
+        let check = buildUnavailableArray(bookings, startDate, endDate);
     return check.includes(date.toDateString());
   };
 
