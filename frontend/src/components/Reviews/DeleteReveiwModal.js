@@ -27,10 +27,10 @@ const DeleteReviewModal = ({
             handleClick();
           }}>
           <h2>Are you certain you'd like to delete this review?</h2>
-          <button type="submit" className="formButton">
+          <button type="submit" className="FormButton">
             yes
           </button>
-          <button className="formButton cancel" onClick={closeModal}>
+          <button className="FormButton cancel" onClick={closeModal}>
             cancel
           </button>
         </form>
