@@ -9,7 +9,6 @@ import "./index.css";
 import "../cssStuffs/calendar.css";
 
 const BookingsCard = ({ spot,currentUser}) => {
-  console.log("inBookingsCard");
   let [startDate, setStartDate] = useState(new Date());
   let [endDate, setEndDate] = useState(new Date());
   let [currentBookings, setCurrentBookings] = useState({});
@@ -28,18 +27,14 @@ const BookingsCard = ({ spot,currentUser}) => {
   const bookings = useSelector((state) =>
     Object.values(state.bookings.CurBookings)
   );
-  console.log("bookings currently set to ", bookings);
 
   
   useEffect(() => {
     dispatch(CheckBookingsThunk(spot.id)).catch((e)=>null);
-    console.log("checkBookings fired");
   }, [dispatch, spot.id]);
 
   useEffect(() => {
     const handleWindowClick = (event) => {
-      // console.log(event.target)
-      // console.log('matches?: ',event.target.matches('react-calendar'))
       // Check if the clicked element is not the calendar or either of the button elements
       if (
         !calendarRef.current.contains(event.target) &&

@@ -46,7 +46,7 @@ function resetForm(){
         .then(resetForm)
         .catch(async (res) => {
           const data = await res.json();
-          console.log("datadtatrdard",data)
+          //console.log("datadtatrdard",data)
           if (data && data.errors) setErrors(data.errors)
           
         })

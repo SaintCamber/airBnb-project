@@ -23,7 +23,7 @@ const BookingsList = (userId) => {
   const [showMenu,setShowMenu] = useState(false)
   const closeMenu = () => setShowMenu(false);
   let history = useHistory();
-  console.log("inside current bookings");
+  //console.log("inside current bookings");
   
   useEffect(() => {
     dispatch(currentUserBookings());

@@ -34,7 +34,7 @@ const UpdateReviewModal = ({review,ReRenderSingleSpot,setReRenderSingleSpot,upda
     //   async function handleSubmit(e){
     // e.preventDefault(e)
     // let actionReview = {id:review.id,review:Review,stars:stars}
-    // console.log("the action Review is:",actionReview)
+    // //console.log("the action Review is:",actionReview)
     // await dispatch(updateSpotReview(actionReview)).then(()=>{
     //     setStars(3)
     //     setReview('')

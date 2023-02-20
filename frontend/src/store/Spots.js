@@ -25,8 +25,8 @@ export function AllSpots(Spots) {
 //getOneSpot action creator
 //
 export function getOneSpot(spot) {
-  console.log("inside getOneSpot action creator");
-  console.log("spot", spot);
+  //console.log("inside getOneSpot action creator");
+  //console.log("spot", spot);
   return { type: SINGLE, payload: spot };
 }
 const deleteSpot = (spotId) => {
@@ -54,12 +54,12 @@ const ownedSpots = (spots) => {
 // dispatch the getOneSpot action creator with the data
 //to add a spot i have to hit the /api/spots end point with a post request the body of which needs to be a pojo containing a valid spot
 export const populateAllSpots = () => async (dispatch) => {
-  console.log("inside popallspots");
+  //console.log("inside popallspots");
   let response = await csrfFetch("/api/spots");
-  console.log("response here", response);
+  //console.log("response here", response);
   if (response.ok) {
     let data = await response.json();
-    console.log("data here", data);
+    //console.log("data here", data);
     dispatch(AllSpots(data));
     return data;
   }
@@ -74,11 +74,11 @@ export const populateAllSpots = () => async (dispatch) => {
 // return the data
 
 export const thunkOneSpot = (spotId) => async (dispatch) => {
-  console.log("inside thunkOneSpot");
+  //console.log("inside thunkOneSpot");
   let response = await csrfFetch(`/api/spots/${spotId}`);
   let data = await response.json();
   if (response.ok) {
-    console.log("single spot data", data);
+    //console.log("single spot data", data);
     dispatch(getOneSpot(data));
     return data;
   }
@@ -110,7 +110,7 @@ export const createSpot = (Spot, images) => async (dispatch) => {
       const url = images[i];
       const preview = i === 0; // set the first image as the preview
       const body = JSON.stringify({ url, preview });
-      console.log("promise body ", body);
+      //console.log("promise body ", body);
       const promise = csrfFetch(`/api/spots/${Data.id}/images`, {
         method: "POST",
         body,
@@ -156,7 +156,7 @@ export const UpdateSpot = (spot) => async (dispatch) => {
     id,
   } = spot;
   let oldSpotData = { ...spot };
-  console.log("SPSOT ID", id);
+  //console.log("SPSOT ID", id);
   let response = await csrfFetch(`/api/spots/${id}`, {
     method: "PUT",
     body: JSON.stringify({
@@ -172,14 +172,14 @@ export const UpdateSpot = (spot) => async (dispatch) => {
     }),
   });
   if (response.ok) {
-    console.log("UPDATE RESPONSE OK");
+    //console.log("UPDATE RESPONSE OK");
     let data = await response.json();
     let keys = Object.keys(data);
     let vals = Object.values(data);
     for (let i = 0; i < keys.length; i++) {
       oldSpotData[keys[i]] = vals[i];
     }
-    console.log("oldSpotData", oldSpotData);
+    //console.log("oldSpotData", oldSpotData);
     dispatch(Update(oldSpotData));
     return response
   }
@@ -189,8 +189,8 @@ const initialState = { AllSpots: {}, SingleSpot: {} ,newestSpot:{}};
 
 export default function SpotsReducer(state = initialState, action) {
   let newState;
-  console.log("inside reducer");
-  console.log("action", action);
+  //console.log("inside reducer");
+  //console.log("action", action);
   switch (action.type) {
     case CREATE_SPOT:
       newState = { ...state };
@@ -200,7 +200,7 @@ export default function SpotsReducer(state = initialState, action) {
       newState.newestSpot= {...action.spot}
       return newState;
     case UPDATE_SPOT:
-      // console.log("update action",action)
+      // //console.log("update action",action)
       let SpotsList = { ...state.AllSpots };
       delete SpotsList[action.spot.id];
       SpotsList[action.spot.id] = action.spot;
@@ -211,7 +211,7 @@ export default function SpotsReducer(state = initialState, action) {
       return newStateOfAllSpots;
     case READ_All_SPOTS:
       let allSpots = {};
-      console.log("action.spots", action.Spots);
+      //console.log("action.spots", action.Spots);
       action.Spots.forEach((spot) => (allSpots[spot.id] = { ...spot }));
       newState = { ...state };
       newState.AllSpots = { ...allSpots };

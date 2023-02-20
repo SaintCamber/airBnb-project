@@ -15,8 +15,8 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   const [endDate, setEndDate] = useState(new Date(oldBooking.endDate));
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  console.log("-------OLDBOOKING---------", oldBooking);
-  console.log("StartDate",startDate,"endDate",endDate)
+  //console.log("-------OLDBOOKING---------", oldBooking);
+  //console.log("StartDate",startDate,"endDate",endDate)
 
   const dispatch = useDispatch();
   const spotBookings = useSelector((state) => state.bookings.CurBookings);
@@ -24,16 +24,16 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   let destroyOldBooking = bookings.find(
     (booking) => booking.id === oldBooking.id
   );
-  console.log("thr booking to destroy", destroyOldBooking);
+  //console.log("thr booking to destroy", destroyOldBooking);
   bookings = bookings.filter((booking) => booking.id !== destroyOldBooking.id);
   useEffect(() => {
     dispatch(CheckBookingsThunk(oldBooking.spotId));
   }, [startDate, endDate, oldBooking.spotId, dispatch]);
-  console.log("-------BOOKINGS---------", bookings);
+  //console.log("-------BOOKINGS---------", bookings);
 
   function updateBooking() {
     let newBooking = { ...oldBooking, startDate, endDate };
-    console.log("-------NEWBOOKING---------", newBooking);
+    //console.log("-------NEWBOOKING---------", newBooking);
     dispatch(UpdateBookingThunk(newBooking)).catch(async (res) => {
       const data = await res.json();
       if (data && data.errors) setErrors(data.errors);
@@ -44,7 +44,7 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
   }
 
   const checkAvailability = () => {
-    console.log("the bookings while checkavailability runs",bookings)
+    //console.log("the bookings while checkavailability runs",bookings)
     if(endDate-startDate<=1){
       alert("minimum two days")
       return
@@ -56,7 +56,7 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
       while (start <= end) {
         unavailable.push(start);
         start.setDate(start.getDate()+1);
-        console.log("unavailable",unavailable)
+        //console.log("unavailable",unavailable)
       }
     });
     const startDateMatch = unavailable.find(

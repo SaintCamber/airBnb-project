@@ -50,7 +50,7 @@ setValidationErrors(errors)
   //   if (e.target.id !== labelId) {
   //     setLabelId(parseInt(e.target.id));
   //   }
-  //   console.log(labelId, e.target.id);
+  //   //console.log(labelId, e.target.id);
   // }
   // let classOne = labelId === 1 ? "InputTitle -active" : "InputTitle";
 
@@ -71,7 +71,7 @@ setValidationErrors(errors)
   // };
 
   const handleSubmit = async (e) => {
-    console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
+    //console.log("IMAGES IMAGES IMAGES IMAGES", imageList);
     e.preventDefault();
   //   let errors = []
   //   if(name.length<3&&name.length){errors.push("name must be longer than 3 characters")}

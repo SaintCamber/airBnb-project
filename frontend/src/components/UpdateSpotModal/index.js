@@ -26,7 +26,7 @@ function UpdateSpotModal({ spot, oldState, setter }) {
         setLabelId(parseInt(e.target.id))
         
       }
-      console.log(labelId,e.target.id)
+      //console.log(labelId,e.target.id)
     }
 let classOne=labelId===1 ? "InputTitle -active":"InputTitle"
 
@@ -54,7 +54,7 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
     newSpot["description"] = description;
     newSpot["price"] = price;
     // newSpot["id"] = spot.id;
-    console.log("the updated spot is now ", newSpot);
+    //console.log("the updated spot is now ", newSpot);
     return dispatch(UpdateSpot(newSpot))
     .catch(async (res) => {
       const data = await res.json();

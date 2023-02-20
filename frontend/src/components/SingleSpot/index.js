@@ -26,27 +26,27 @@ export default function SingleSpot() {
   let currentUser = useSelector((state)=>state.session.user)
   // const [, setShowMenu] = useState(false);
 const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
-  console.log("spotId", spotId);
+  //console.log("spotId", spotId);
   let dispatch = useDispatch();
   useEffect(() => {
-    console.log("inside useEffect single Spot");
+    //console.log("inside useEffect single Spot");
     const GetSpot = async () => {
       dispatch(thunkOneSpot(spotId));
     };
      GetSpot();
   }, [dispatch, spotId,ReRenderSingleSpot]);
-  console.log("Spot", Spot);
-  console.log("testImages", Spot.SpotImages);
+  //console.log("Spot", Spot);
+  //console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
     url: "https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg",
   };
-  console.log(allImages)
+  //console.log(allImages)
   const images = Spot?.SpotImages?.length
     ? Spot.SpotImages.find((img) => img.preview)
     : {
         url: "https://www.mountaineers.org/activities/routes-places/sam-hill/@@images/a5d9a97f-f12e-4091-a372-ab551fde8a58.jpeg",
       };
-  console.log("image", images);
+  //console.log("image", images);
   // const closeMenu = () => setShowMenu(false);
 
   return (

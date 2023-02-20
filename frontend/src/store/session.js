@@ -94,7 +94,7 @@ export const populateOwnedSpots = () =>async (dispatch)=>{
   let currentUsersSpots = await csrfFetch('/api/spots/current')
   if(currentUsersSpots.ok){
     let data = await currentUsersSpots.json()
-    console.log("current users spots",data)
+    //console.log("current users spots",data)
     dispatch(ownedSpots(data))
   }
   return currentUsersSpots

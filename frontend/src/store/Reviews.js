@@ -39,7 +39,7 @@ export const createNewSpotReview =
     })})
     if(response.ok){
      const data = await response.json()
-     console.log(data,'-----------------',data.id,'-----------------')
+     //console.log(data,'-----------------',data.id,'-----------------')
     dispatch(CreateReview(data))}
   };
 
@@ -48,13 +48,13 @@ export const getSpotReviews = (spotId) => async (dispatch) => {
   if (response.ok) {
     let data = await response.json();
     dispatch(ReadSpotReviews(data));
-    console.log("READ REVIEWS",data)
+    //console.log("READ REVIEWS",data)
     return data;
   }
 };
 export const updateSpotReview = (review) => async (dispatch) => {
   let {spotId,userId,id,newReview,stars} = review
-  console.log("inside update review",review)
+  //console.log("inside update review",review)
     const response = await csrfFetch(`/api/reviews/${parseInt(id)}`,{
         method:"PUT",
         body: JSON.stringify({
@@ -123,7 +123,7 @@ const initialState = { spotReviews: {}, userReviews: {} };
  const ReviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
-      console.log(action.payload,"-----------------")
+      //console.log(action.payload,"-----------------")
       let stateCREATE = {
         ...state,spotReviews: { ...state.spotReviews },userReviews: { ...state.userReviews }
       };
@@ -137,14 +137,14 @@ const initialState = { spotReviews: {}, userReviews: {} };
       return stateREAD;
     case UPDATE_REVIEW:
         let stateUPDATE={...state}
-        // console.log("action/.payload",action.payload)
+        // //console.log("action/.payload",action.payload)
         delete stateUPDATE.spotReviews[action.review.id]
         delete stateUPDATE.userReviews[action.review.id]
         stateUPDATE.spotReviews[action.review.id]={...action.review}
         stateUPDATE.userReviews[action.review.id]={...action.review}
         stateUPDATE.userReviews[action.review.id].review=stateUPDATE.spotReviews[action.review.id].review
-        // console.log("-----------------",stateUPDATE.userReviews)
-        // console.log("-----------------",stateUPDATE.spotReviews)
+        // //console.log("-----------------",stateUPDATE.userReviews)
+        // //console.log("-----------------",stateUPDATE.spotReviews)
         
       return JSON.parse(JSON.stringify(stateUPDATE))
 
@@ -153,7 +153,7 @@ const initialState = { spotReviews: {}, userReviews: {} };
 
     case DELETE:
         let stateDELETE = {...state}
-        console.log("inside Delete",state.spotReviews)
+        //console.log("inside Delete",state.spotReviews)
         delete stateDELETE.spotReviews[Number(action.payload)]
         delete stateDELETE.userReviews[Number(action.payload)]
 
@@ -161,8 +161,8 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case UserReviews:
       let stateReviews = { ...state};
       action.payload.Reviews.forEach(review=>stateReviews.userReviews[review.id]=review)
-      // console.log("stateReviews",stateReviews)
-      // console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",action.payload.Reviews)
+      // //console.log("stateReviews",stateReviews)
+      // //console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",action.payload.Reviews)
       return stateReviews;
 
     default:
