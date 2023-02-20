@@ -76,7 +76,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
                     marginLeft:"5px",
                     display:"inline-flex",
                   }}>
-                  {Spot.numReviews===1 ? (`${Spot.numReviews} Review`):(Spot.numReviews>0 ? (`Reviews:${Spot.NumReviews}`):"new")}
+                  {Spot.numReviews===1 ? (`${Spot.numReviews} Review`):(Spot.numReviews>0 ? (`${Spot.numReviews} Reviews`):"new")}
                 </p>
               </>
               <p

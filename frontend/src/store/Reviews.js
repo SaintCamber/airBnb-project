@@ -29,7 +29,7 @@ const currentUserReviews = (payload) => {
 export const createNewSpotReview =
   (newReview) =>
   async (dispatch) => {
-    let response = csrfFetch(`/api/spots/${newReview.spotId}/reviews`,
+    let response = await csrfFetch(`/api/spots/${newReview.spotId}/reviews`,
     {method:"Post",
     body: JSON.stringify({
         review:newReview.review,
@@ -37,7 +37,10 @@ export const createNewSpotReview =
         userId:newReview.userId,
         spotId:newReview.spotId
     })})
-   await dispatch(CreateReview(newReview))
+    if(response.ok){
+     const data = await response.json()
+     console.log(data,'-----------------',data.id,'-----------------')
+    dispatch(CreateReview(data))}
   };
 
 export const getSpotReviews = (spotId) => async (dispatch) => {
@@ -120,10 +123,12 @@ const initialState = { spotReviews: {}, userReviews: {} };
  const ReviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE:
+      console.log(action.payload,"-----------------")
       let stateCREATE = {
-        ...state,
-        userReviews: { [action.payload.id]: { ...action.payload } },
+        ...state,spotReviews: { ...state.spotReviews },userReviews: { ...state.userReviews }
       };
+      stateCREATE.userReviews[action.payload.id] = action.payload;
+      
       return stateCREATE;
     case READ:
       let stateREAD = { ...state};
@@ -149,10 +154,10 @@ const initialState = { spotReviews: {}, userReviews: {} };
     case DELETE:
         let stateDELETE = {...state}
         console.log("inside Delete",state.spotReviews)
-        stateDELETE.spotReviews = {...Object.values(stateDELETE.spotReviews).filter(review=>review.id!==action.payload)}
-        stateDELETE.userReviews ={...Object.values(stateDELETE.userReviews).filter(review=>review.id!==action.payload)}
+        delete stateDELETE.spotReviews[Number(action.payload)]
+        delete stateDELETE.userReviews[Number(action.payload)]
 
-      return stateDELETE;
+      return JSON.parse(JSON.stringify(stateDELETE))
     case UserReviews:
       let stateReviews = { ...state};
       action.payload.Reviews.forEach(review=>stateReviews.userReviews[review.id]=review)

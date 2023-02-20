@@ -39,7 +39,7 @@ const ManageReviews = ({reviews}) => {
       <div className="reviewContainer">
         {Object.values(reviews)?.map((review) => {
           return (
-            <div className="reviewTile" key={review.id}>
+            <div className="reviewTile" key={parseInt(review.id)}>
               <div className="reviewBox">
                 <div className="reviewStars">
                   <FontAwesomeIcon icon={faStar} />
