@@ -15,7 +15,7 @@ const Reviews = ({
   spot,
   setReRenderSingleSpot,
   ReRenderSingleSpot,
-  singleSpotReviews,
+  SingleSpotReviews,
 }) => {
   const { closeMenu } = useModal();
   const currentUser = useSelector((state) => state.session.user);
@@ -28,15 +28,15 @@ const Reviews = ({
   }, [dispatch, userReviews]);
   useEffect(() => {
     dispatch(getCurrentUsersReviews());
-  }, [dispatch, singleSpotReviews]);
+  }, [dispatch, SingleSpotReviews]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {singleSpotReviews && Object.values(singleSpotReviews)?.length ? (
+      {SingleSpotReviews && Object.values(SingleSpotReviews)?.length ? (
         <h2>User Reviews</h2>
       ) : (
         <h2>be the first to add a Review!</h2>
       )}
-      {spot && currentUser && spot.ownerId && currentUser.id !== spot.ownerId ? (
+      {(SingleSpotReviews && Object.values(SingleSpotReviews)?.length && currentUser && spot && currentUser.id !== spot.ownerId && !Object.values(SingleSpotReviews).some(review => review.User.id === currentUser.id)) ? (
         <OpenModalMenuItem
           className="modalButton"
           itemText={<button>Add A Review</button>}
@@ -54,8 +54,8 @@ const Reviews = ({
         ""
       )}
       <div className="reviewContainer">
-        {singleSpotReviews &&
-          Object.values(singleSpotReviews)?.map((review) => {
+        {SingleSpotReviews &&
+          Object.values(SingleSpotReviews).map((review) => {
             return (
               <div key={review.id} className="reviewTile">
                 <div className="reviewBox">

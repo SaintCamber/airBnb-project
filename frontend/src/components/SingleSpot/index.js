@@ -5,6 +5,7 @@ import { useParams ,useHistory, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpFromBracket,
+  faSpoon,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
@@ -19,11 +20,10 @@ export default function SingleSpot() {
   let params = useParams();
   let spotId =parseInt(params.spotId);
   let Spot = useSelector((state) => state.spots.SingleSpot);
+  let SingleSpotReviews = useSelector((state) => state.Reviews.spotReviews);
  const history = useHistory()
   // let SpotList = useSelector((state) => state.spots.AllSpots);
   let currentUser = useSelector((state)=>state.session.user)
-  const singleSpotReviews = useSelector((state) => state.Reviews.spotReviews);
-
   // const [, setShowMenu] = useState(false);
 const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
   console.log("spotId", spotId);
@@ -35,11 +35,6 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
     };
      GetSpot();
   }, [dispatch, spotId,ReRenderSingleSpot]);
-  const updatedReview = useSelector(state => state.userReviews);
-
-  useEffect(() => {
-    setReRenderSingleSpot(prevState => ({ ...prevState }));
-  }, [updatedReview]);
   console.log("Spot", Spot);
   console.log("testImages", Spot.SpotImages);
   const allImages = Spot?.SpotImages?.length? [...Spot.SpotImages]: {
@@ -84,36 +79,48 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
                   {Spot.numReviews===1 ? (`${Spot.numReviews} Review`):(Spot.numReviews>0 ? (`Reviews:${Spot.NumReviews}`):"new")}
                 </p>
               </>
-              <NavLink
+              <p
                 to="/maps"
                 style={{
+                  display:"inline-flex",
+                  margin:0,
+                  textDecoration:"underline",
+                  marginRight:"2px",
                   color: "black",
                   fontFamily: "helvetica",
                   fontSize: "9px",
                   marginLeft:"5px"
                 }}>
                 {Spot.city}
-              </NavLink>
+              </p>
               ,
-              <NavLink
+              <p
                 to="/maps"
                 style={{
+                  display:"inline-flex",
+                  margin:0,
+                  textDecoration:"underline",
+                  marginRight:"2px",
                   color: "black",
                   fontFamily: "helvetica",
                   fontSize: "9px",
                 }}>
-                {Spot.state}
-              </NavLink>
+                &nbsp;{Spot.state}
+              </p>
               ,
-              <NavLink
+              <p
                 to="/maps"
                 style={{
+                  display:"inline-flex",
+                  margin:0,
+                  textDecoration:"underline",
+                  marginRight:"2px",
                   color: "black",
                   fontFamily: "helvetica",
                   fontSize: "9px",
                 }}>
-                {Spot.country}
-              </NavLink>
+                &nbsp;{Spot.country}
+              </p>
             </div>
             <div
               style={{
@@ -358,7 +365,7 @@ const [ReRenderSingleSpot,setReRenderSingleSpot]=useState({})
           </div>
         </div>
           <div className="subScroll">
-            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot}  singleSpotReviews={singleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} singleSpotReviews={singleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reveiws")}
+            {currentUser &&currentUser.id!==Spot.ownerId ? <Reviews spot={Spot} SingleSpotReviews={SingleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>:(currentUser ?  <Reviews spot={Spot} SingleSpotReviews={SingleSpotReviews} ReRenderSingleSpot={ReRenderSingleSpot} setReRenderSingleSpot={setReRenderSingleSpot}></Reviews>: "Please Log in to view Reviews")}
           </div>
       </>
     )
