@@ -36,7 +36,7 @@ const Reviews = ({
       {SingleSpotReviews && Object.values(SingleSpotReviews)?.length ? (
         <h2>User Reviews</h2>
       ) : (
-        <h2>be the first to add a Review!</h2>
+        (currentUser.id!==spot.ownerId?<h2>be the first to add a Review!</h2>:<h2>user Reviews </h2>)
       )}
       
       {(currentUser && spot)&&(currentUser.id!==spot.ownerId)&&(!Object.values(SingleSpotReviews).find(review=>review.userId===currentUser.id)) ? (
