@@ -1,5 +1,7 @@
 # AirBnB Clone
-
+#Technologies used
+-express-backend api
+-react/redux - frontend elements
 ## Database Schema Design
 
 ![airbnb-dbdiagram]
