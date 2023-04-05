@@ -7,6 +7,69 @@
 -react/redux - frontend elements
 
 
+##technical challenges 
+As a web developer, creating a full-stack app was a daunting but exciting challenge. I knew that it would require working with multiple technologies, including HTML, CSS, JavaScript, and a back-end language, but I was eager to take it on.
+
+While there were many challenges along the way, one component stood out as the most difficult: the calendar and booking card. Getting it to move and look like the original design was a CSS trial by fire, and it required a lot of attention to detail to make it work correctly. The calendar itself presented some unique challenges that I had not encountered before, which was both frustrating and valuable to my experience as a web developer.
+
+I had to think creatively to find a way to disable dates dynamically based on current reservations, which required me to dive deeper into the logic of the application. It was a difficult challenge, but I was determined to overcome it. Through perseverance and trial and error, I was eventually able to create the calendar and booking card component, which was a significant achievement for me.
+
+Overall, the process of creating my first full-stack app was a challenging but rewarding experience. It allowed me to stretch my skills and knowledge as a web developer and taught me valuable lessons about problem-solving, creativity, and perseverance. I am proud of what I was able to accomplish, and I look forward to taking on more challenging projects in the future.
+
+```
+const checkAvailability = (e) => {
+    e.preventDefault();
+    if (spot.ownerId === currentUser.id) {
+      alert("you aren't able to reserve a spot you own");
+      return;
+    }
+    if (endDate - startDate < 1) {
+      alert("minimum two days");
+      return;
+    }
+    const unavailable = buildUnavailableArray(bookings, startDate, endDate);
+    if (unavailable.includes(startDate.toDateString()) || unavailable.includes(endDate.toDateString())) {
+      alert("unavailable");
+      return;
+    }
+    if (endDate < startDate) {
+      alert("invalid Date range");
+      return;
+    }
+    alert("creating reservation");
+    dispatch(
+      createBookingThunk({
+        startDate: startDate.toDateString(),
+        endDate: endDate.toDateString(),
+        spotId: spot.id,
+      })
+    ).catch((e) => e);
+  
+    setStartDate(new Date());
+    setEndDate(new Date());
+    history.push("/currentBookings");
+  };
+  
+ const buildUnavailableArray = (bookings, startDate, endDate) => {
+    const unavailable = [];
+    bookings.forEach((booking) => {
+      const start = new Date(booking.startDate);
+      const end = new Date(booking.endDate);
+      while (start <= end) {
+        unavailable.push(start.toDateString());
+        start.setDate(start.getDate() + 1);
+      }
+    });
+    return unavailable;
+  };
+  const tileDisabled = ({ activeStartDate, date, view }) => {
+        let check = buildUnavailableArray(bookings, startDate, endDate);
+    return check.includes(date.toDateString());
+  };
+
+```
+
+
 ### instaling locally
 in order to create an instance of the app all one has to do is clone the github rep and then using npm install the dependencies as well as migrate and seed a database file this would look something like -
 git clone git@github.com:SaintCamber/airBnb-project.git .
