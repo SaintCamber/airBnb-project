@@ -1,4 +1,7 @@
-# AirBnB Clone
+# infinibnb
+https://airbnb-project-aka6.onrender.com/
+
+<img width="960" alt="splashpage" src="https://user-images.githubusercontent.com/105817556/230186421-1d101617-b71a-43db-a573-7889b674517c.png">
 
 ## Technologies used
 -express-backend
