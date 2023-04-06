@@ -1,0 +1,5 @@
+const urls = ['https://capstonestorage.s3.us-east-005.backblazeb2.com/realestateimages/DALL%C2%B7E+2023-04-06+07.38.01+-+real+estate+photos+of+a+luxury+house.png','https://capstonestorage.s3.us-east-005.backblazeb2.com/realestateimages/DALL%C2%B7E+2023-04-06+07.38.05+-+real+estate+photos+of+a+luxury+house.png','https://f005.backblazeb2.com/file/capstonestorage/realestateimages/DALL%C2%B7E+2023-04-06+07.38.09+-+real+estate+photos+of+a+luxury+house.png','https://capstonestorage.s3.us-east-005.backblazeb2.com/realestateimages/DALL%C2%B7E+2023-04-06+07.38.11+-+real+estate+photos+of+a+luxury+house.png','https://f005.backblazeb2.com/file/capstonestorage/realestateimages/DALL%C2%B7E+2023-04-06+07.38.32+-+real+estate+photos+of+a+luxury+house.png','https://f005.backblazeb2.com/file/capstonestorage/realestateimages/DALL%C2%B7E+2023-04-06+07.39.20.png','https://f005.backblazeb2.com/file/capstonestorage/realestateimages/DALL%C2%B7E+2023-04-06+07.39.17.png'];
+
+module.exports=()=>({
+    url: urls[Math.floor(Math.random() * urls.length)]
+})
