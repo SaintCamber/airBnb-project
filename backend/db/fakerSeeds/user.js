@@ -1,5 +1,5 @@
-const faker = require('../../node_modules/faker');
-const bcrypt = require('../../node_modules/bcryptjs');
+const faker = require('faker');
+const bcrypt = require('bcryptjs');
 
 module.exports = () => ({
   firstName: faker.name.firstName(),

@@ -1,5 +1,5 @@
-const bcrypt = require('../../node_modules/bcryptjs');
-const faker = require('../../node_modules/faker');
+const bcrypt = require('bcryptjs');
+const faker = require('faker');
 const User = require('./user.js');
 
 

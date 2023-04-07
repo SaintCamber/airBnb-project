@@ -1,4 +1,4 @@
-const faker=require('../../node_modules/faker')
+const faker=require('faker')
         
         module.exports = ()=>({ownerId: Math.floor(Math.random() * 100) + 1,
         address: faker.address.streetAddress(),
