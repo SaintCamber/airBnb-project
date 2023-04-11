@@ -41,6 +41,10 @@ cursor: pointer;
 
 }
 
+.SpotTile:hover{
+    box-shadow: 2 2
+}
+
 .imgBox{width: 100%;
     height: 60%;
     min-height:250px}
