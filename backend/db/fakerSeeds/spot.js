@@ -8,5 +8,5 @@ const faker=require('faker')
         lat: faker.address.latitude(),
         lng: faker.address.longitude(),
         name: faker.company.companyName(),
-        description: faker.lorem.paragraph(),
+        description: faker.lorem.paragraphs(paragraphCount=1),
         price: Math.floor(Math.random() * 10000),})

@@ -9,6 +9,8 @@ module.exports = {
       options.schema = process.env.SCHEMA;
     }
     options.tableName = "reviews";
+    return queryInterface.bulkInsert(options,reviews)
+
   },
 
   async down (queryInterface, Sequelize) {
