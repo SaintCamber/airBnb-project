@@ -8,7 +8,7 @@ module.exports = {
     if(process.env.NODE_ENV === 'production'){
       options.schema = process.env.SCHEMA;
     }
-    options.tableName = "reviews";
+    options.tableName = "Reviews";
     return queryInterface.bulkInsert(options,reviews)
 
   },
