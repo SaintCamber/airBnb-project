@@ -3,7 +3,10 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './dateSelector.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
+// begin adding search feature to the date selecor bar
+// the user will enter a location, a date, and the number of guests
+// the user will then be redirected to the search results page
+// the search results page will display all the listings that match the search criteria
 export default function DateSelector() {
 
 
