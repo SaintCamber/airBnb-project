@@ -1,15 +1,15 @@
 'use strict';
 const spots = require('../fakerSeeds/createSpots.js');
+let options = {};
+if(process.env.NODE_ENV === 'production'){
+  options.schema = process.env.SCHEMA;
+}
+options.tableName = 'Spots';
 
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    let options = {};
-    if(process.env.NODE_ENV === 'production'){
-      options.schema = process.env.SCHEMA;
-    }
-    options.tableName = 'Spots';
     return queryInterface.bulkInsert(options, spots, {});
   },
 

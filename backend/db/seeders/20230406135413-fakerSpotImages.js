@@ -1,15 +1,16 @@
 'use strict';
-const spotImages = require('../fakerSeeds/createSpotImages.js');
-/** @type {import('sequelize-cli').Migration} */
-module.exports = {
-  async up (queryInterface, Sequelize) {
-
-    let options = {};
+const Images = require('../fakerSeeds/createSpotImages.js');
+let options = {};
     if(process.env.NODE_ENV === 'production'){
       options.schema = process.env.SCHEMA;
     }
     options.tableName = "SpotImages";
-    return queryInterface.bulkInsert('SpotImages', spotImages, {});
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+
+   
+    return queryInterface.bulkInsert('SpotImages', Images, {});
   },
 
   async down (queryInterface, Sequelize) {
