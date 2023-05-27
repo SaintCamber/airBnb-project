@@ -2,7 +2,7 @@ const fakeSpotImage = require('./spotImage.js');
 
 let spotImages = []
 
-for (let i = 0; i < 100 ; i++) {
+for (let i = 0; i < 104 ; i++) {
     for (let j = 0; j < 5; j++) {
         const newSpotImage = fakeSpotImage()
         newSpotImage.spotId = i + 1
