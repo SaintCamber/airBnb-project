@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   SpotImage.init({
     spotId:{ type: DataTypes.INTEGER,references:{model:"Spots",key:"id"},onDelete:"CASCADE",allowNull:false},
     url: DataTypes.STRING,
-    preview: {type:DataTypes.BOOLEAN,defaultValue:false}
+    preview: {type:DataTypes.BOOLEAN,defaultValue:false,allowNull:false}
   }, {
     sequelize,
     modelName: 'SpotImage',

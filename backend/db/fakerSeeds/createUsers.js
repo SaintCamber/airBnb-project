@@ -5,7 +5,7 @@ const User = require('./user.js');
 
 const users = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 97; i++) {
     const user = User();
   user.hashedPassword = bcrypt.hashSync(user.hashedPassword);
   users.push(user);
