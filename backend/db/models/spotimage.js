@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      SpotImage.belongsTo(models.Spot,{foreignKey:'spotId',onDelete:"CASCADE",hooks:true,as:"SpotImages"})
+      SpotImage.belongsTo(models.Spot,{foreignKey:'spotId',onDelete:"CASCADE",hooks:true,as:"spotimages"})
     }
   }
   SpotImage.init({
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'SpotImage',
+    tableName:"spotimages",
     scopes: {
       spotSearch: {
         attributes: { exclude: [ "createdAt", "updatedAt"] },
