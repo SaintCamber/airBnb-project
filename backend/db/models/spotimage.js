@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class SpotImage extends Model {
+  class spotimage extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     preview: {type:DataTypes.BOOLEAN,defaultValue:false,allowNull:false}
   }, {
     sequelize,
-    modelName: 'SpotImage',
-    tableName:"spotimages",
+    modelName: 'spotimage',
+    // tableName:"spotimages",
     scopes: {
       spotSearch: {
         attributes: { exclude: [ "createdAt", "updatedAt"] },
       },
   }});
-  return SpotImage;
+  return spotimage;
 };
