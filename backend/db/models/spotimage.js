@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       SpotImage.belongsTo(models.Spot,{foreignKey:'spotId',onDelete:"CASCADE",hooks:true,as:"spotimages"})
     }
   }
-  SpotImage.init({
+  spotimage.init({
     spotId:{ type: DataTypes.INTEGER,references:{model:"Spots",key:"id"},onDelete:"CASCADE",allowNull:false},
     url: DataTypes.STRING,
     preview: {type:DataTypes.BOOLEAN,defaultValue:false,allowNull:false}
