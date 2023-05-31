@@ -10,7 +10,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
 
 
-    return queryInterface.bulkInsert("spotimages", Images,options);
+    return queryInterface.bulkInsert(options, Images, {});
   },
 
   async down(queryInterface, Sequelize) {
