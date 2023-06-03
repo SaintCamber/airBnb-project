@@ -41,7 +41,8 @@ export default function DateSelector() {
       if (guests) {
          queryObj.guests = guests
       }
-      
+   }
+
 
     return (
 
