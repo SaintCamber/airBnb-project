@@ -6,11 +6,11 @@ const DELETE_SPOT = "remove-spot";
 const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
 const OWNED = "owned-spots";
-const SEARCH_SPOT = "search-spots";
+const SEARCH_SPOTS = "search-spots";
 
 export function SearchSpots(spots) {
   return {
-    type: SEARCH_SPOT,
+    type: SEARCH_SPOTS,
     spots,
   };
 }
@@ -202,7 +202,7 @@ export const UpdateSpot = (spot) => async (dispatch) => {
   }
 };
 
-const initialState = { AllSpots: {}, SingleSpot: {} ,newestSpot:{}};
+const initialState = { AllSpots: {}, SingleSpot: {} ,newestSpot:{}, searchedSpots:{}};
 
 export default function SpotsReducer(state = initialState, action) {
   let newState;
@@ -248,8 +248,9 @@ export default function SpotsReducer(state = initialState, action) {
       newState = { ...state };
       newState.searchedSpots = { ...action.spots };
       return newState;
-      
+
     default:
       return state;
-  }
-}
+  }}
+
+

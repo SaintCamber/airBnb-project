@@ -45,10 +45,14 @@ export default function DateSelector() {
 
     return (
 
-    <div className="bar" onClick={()=>{alert("feature coming soon!")}}>
-       <span className="dateButton">anywhere</span>
+    <div className="bar" >
+       <span className="dateButton">
+         <input className="dateInput" type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)}/>
+       </span>
        <div className="wrapper">
-       <span className="dateButton">any week</span>
+       <span className="dateButton">
+         <input className="dateInput" type="date" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+       </span>
 
        </div>
        <span className="dateButton">add Guests<div style={{borderRadius:"100%",backgroundColor:"#FF385C",width:"30px",height:"30px",justifyContent:"center",display:"flex",alignContent:"center",alignItems:'center',    marginLeft: "15px"}}>

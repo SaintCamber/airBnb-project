@@ -38,7 +38,7 @@ router.get("/search:location", validateQueryParameters,async (req, res, next) =>
   }
 
   foundSpots = await Spot.findAll({ ...pagination,...req.queryObj});
-
+});
 
 
 
