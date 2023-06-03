@@ -2,26 +2,46 @@ import React from 'react'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './dateSelector.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { getSpots } from '../../store/spots';
+
 
 // begin adding search feature to the date selecor bar
-// the user will enter a location, a date, and the number of guests
-// the user will then be redirected to the search results page
-// the search results page will display all the listings that match the search
-// criteria
-// the search results page will also display a map with all the listings
-// that match the search criteria
-// so the first step is to create the search bar
-// which the visuals for are already in place
-// the next step is to add the search functionality
-// this requires a backend route that will take the search criteria
-// and return the listings that match the search criteria
-// possibly the same route can also return the map data
-// the ressults will be stored in the redux store
-// the search results page will then display the results from the redux store
-// ok so before starting on this file I need to create the backend
-// route.....lets move to the backend for a bit and then come back here...
-export default function DateSelector() {
+// alright so the search will work like this:
+// 1. user types in a location and clicks the search button
+// 2. the location is geocoded to lat and long
+// 3. the lat and long are used to search the redux store for spots
+// 4. the spots are returned and displayed on the map
+// 5. the spots are also displayed in a list below the map
+// 6. the user can click on a spot in the list or on the map to view the spot
 
+export default function DateSelector() {
+   const dispatch = useDispatch()
+   const history = useHistory()
+   const [location, setLocation] = useState("")
+   const [startDate, setStartDate] = useState("")
+   const [endDate, setEndDate] = useState("")
+   const [guests, setGuests] = useState(1)
+   const [showGuests, setShowGuests] = useState(false)
+   
+   const handleSearch = async (e) => {
+      e.preventDefault()
+      const queryObj = {}
+      if (location) {
+         queryObj.location = location
+      }
+      if (startDate) {
+         queryObj.startDate = startDate
+      }
+      if (endDate) {
+         queryObj.endDate = endDate
+      }
+      if (guests) {
+         queryObj.guests = guests
+      }
+      
 
     return (
 

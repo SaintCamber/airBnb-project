@@ -6,6 +6,23 @@ const DELETE_SPOT = "remove-spot";
 const READ_All_SPOTS = "read-all-spots";
 const SINGLE = "single-spot";
 const OWNED = "owned-spots";
+const SEARCH_SPOT = "search-spots";
+
+export function SearchSpots(spots) {
+  return {
+    type: SEARCH_SPOT,
+    spots,
+  };
+}
+
+export function searchSpotsThunk(query) {
+  return async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/search/${query}`);
+    const data = await response.json();
+    dispatch(SearchSpots(data));
+  };
+}
+
 
 export function Update(spot) {
   return { type: UPDATE_SPOT, spot };
@@ -227,7 +244,11 @@ export default function SpotsReducer(state = initialState, action) {
       delete newState.AllSpots[action.spotId];
       newState.SingleSpot = {};
       return newState;
-
+    case SEARCH_SPOTS:
+      newState = { ...state };
+      newState.searchedSpots = { ...action.spots };
+      return newState;
+      
     default:
       return state;
   }
