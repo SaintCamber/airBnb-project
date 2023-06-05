@@ -18,27 +18,6 @@ function isObject1(o) {
   return !!o && o.constructor === Object
 }
 
-//adding the updates to the spot api here for ease of findingg them later.
-
-//search for spots by city, state and country, by dates available. or using lat
-//and long converted to city, state and country. using the google maps api.
-router.get("/search:location", validateQueryParameters,async (req, res, next) => {
-
-  const payLoad = [];
-  let pagination = {};
-  let allSpots;
-
-  let { page, size } = req.query;
-  page ? page = page:0
-  size ? size = size:0
-
-  if (parseInt(page) >= 1 && parseInt(size) >= 1) {
-    pagination.limit = size;
-    pagination.offset = size * (page - 1);
-  }
-
-  foundSpots = await Spot.findAll({ ...pagination,...req.queryObj});
-});
 
 
 
