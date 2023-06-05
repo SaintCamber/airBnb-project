@@ -14,8 +14,29 @@ const {
   
 } = require("../../utils/checks");
 const router = express.Router();
-function isObject1(o) {
-  return !!o && o.constructor === Object
-}
+
+router.get("/", async (req, res) => {
+  // return res.json({ message: "hello" });
+  const { startDate, endDate, location } = req.query;
+  console.log("startDate",startDate)
+  console.log("endDate",endDate)
+  console.log("location",location)
+
+
+  try {
+    const spots = await Spot.findAll({
+      where: {
+        city: location
+        
+      },
+    });
+    res.json({ spots });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 module.exports = router
