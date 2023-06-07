@@ -14,9 +14,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      spot: {
+      spotId: {
         type: Sequelize.INTEGER,
-        references:{model:"Spot",
+        references:{model:"Spots",
         key:"id"},
         onDelete:"CASCADE",
         foreignKey:{allowNull:false}

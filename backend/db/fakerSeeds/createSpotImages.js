@@ -5,7 +5,7 @@ let Images = []
 for (let i = 0; i < 100 ; i++) {
     for (let j = 0; j < 5; j++) {
         const newSpotImage = fakeSpotImage()
-        newSpotImage.spot = i + 1
+        newSpotImage.spotId = i + 1
         if (j === 1) newSpotImage.preview = true
         else newSpotImage.preview = false
         
