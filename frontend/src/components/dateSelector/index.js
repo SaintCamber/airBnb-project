@@ -47,7 +47,7 @@ export default function DateSelector() {
 
     <div className="bar" >
        <span className="dateButton">
-         <input className="dateInput" type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)}/>
+         <input className="dateInput" type="text" placeholder="anywhere" value={location} onChange={(e) => setLocation(e.target.value)}/>
        </span>
        <div className="wrapper">
        <span className="dateButton">

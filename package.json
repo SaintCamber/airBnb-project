@@ -28,6 +28,8 @@
     "reactcci": "^1.11.1"
   },
   "dependencies": {
-    "geocoder": "^0.1.0"
+    "d": "^1.0.1",
+    "geocoder": "^0.1.0",
+    "moment": "^2.29.4"
   }
 }

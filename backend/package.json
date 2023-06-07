@@ -31,7 +31,8 @@
     "pg": "^8.8.0",
     "sequelize": "^6.25.4",
     "sequelize-cli": "^6.5.2",
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "moment":"*"
   },
   "devDependencies": {
     "dotenv-cli": "^6.0.0",

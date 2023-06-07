@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
         
       },
     });
-    res.json({ spots });
+    res.json(spots[0].bookings );
 
   } catch (error) {
     console.error(error);

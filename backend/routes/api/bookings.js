@@ -5,6 +5,7 @@ const { User, Spot, spotImage,Review,reviewImage,Booking } = require("../../db/m
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const {validateDates} = require("../../utils/checks")
+const moment = require("moment")
 const router = express.Router();
 
 router.get('/current',requireAuth,async(req,res,next)=>{
@@ -132,4 +133,48 @@ statusCode:403})
 }
    
 })
+
+
+router.get("/search", async (req, res) => {
+   const { startDate, endDate, location } = req.query;
+
+   try {
+      const formattedStartDate = moment(startDate, "MM/DD/YYYY").format("YYYY-MM-DD");
+      const formattedEndDate = moment(endDate, "MM/DD/YYYY").format("YYYY-MM-DD");
+
+      const spots = await Spot.findAll({
+         where: {
+            city: location
+         },
+         include: [
+            {
+               model: Booking,
+               where: {
+                  [sequelize.Op.or]: [
+                     {
+                        startDate: {
+                           [sequelize.Op.gt]: formattedEndDate
+                        }
+                     },
+                     {
+                        endDate: {
+                           [sequelize.Op.lt]: formattedStartDate
+                        }
+                     }
+                  ]
+               },
+               required: false // Include spots even if there are no matching bookings
+            }
+         ],
+         having: sequelize.literal('COUNT(Bookings.id) = 0') // Filter spots that don't have any bookings
+      });
+
+      res.json({ spots });
+   } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
+   }
+});
+
+
 module.exports = router
