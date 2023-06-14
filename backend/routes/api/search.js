@@ -22,9 +22,9 @@ router.get("/", async (req, res) => {
   console.log("startDate",startDate)
   console.log("endDate",endDate)
   console.log("location",location)
-  const startDateCheck = new Date(startDate);
-  const endDateCheck = new Date(endDate);
-
+  const startDateCheck =startDate ? new Date(startDate) : new Date();
+  const endDateCheck = endDate ? new Date(endDate) : new Date(startDateCheck.getDate() + 3);
+ 
 
   try {
     const spots = await Spot.findAll({
@@ -58,6 +58,21 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// ok so i can searcg by city and get all the spots in that city 
+// i can also search by city and dates and get all the spots in that city that
+// are available for those dates. well actually it requres a start and end date
+// currently so how about adding a default end date of 3 days after the start
+// date and default start date of today. and then just dispaly all the spots in
+// that city that are available for those dates. if no spots are available then
+// display a message saying no spots are available? or maybe just display all
+// the spots in that city and then if the user wants to filter by dates they can
+// do that. so i need to add a default start and end date to the query params
+// and then if the user doesnt enter a start and end date then i can just use
+// those default dates.
+
+
+
 
 
 module.exports = router
