@@ -13,6 +13,7 @@ const {
   validateQueryParameters
   
 } = require("../../utils/checks");
+const e = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -21,6 +22,8 @@ router.get("/", async (req, res) => {
   console.log("startDate",startDate)
   console.log("endDate",endDate)
   console.log("location",location)
+  const startDateCheck = new Date(startDate);
+  const endDateCheck = new Date(endDate);
 
 
   try {
@@ -30,7 +33,25 @@ router.get("/", async (req, res) => {
         
       },
     });
-    res.json(spots);
+    if (spots.length === 0) {
+      return res.json({ message: "No available spots found" });}
+    // console.log("spots",spots) 
+      let results = []
+      for (let i = 0; i < spots.length; i++) {
+        const spot = spots[i];
+        const bookings = await Booking.findAll({
+          where: {
+            spotId: spot.id,
+            startDate: {
+              [sequelize.Op.between]: [startDateCheck, endDateCheck],
+            },
+          },
+        });
+        if (bookings.length === 0) {
+          results.push(spot)
+        }
+      }
+      return res.json({ results });
 
   } catch (error) {
     console.error(error);
