@@ -1,6 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import  LocationMenu  from './Menus/LocationMenu.js';
+import { useEffect } from 'react';
+import { useRef } from 'react';
+
+import "./index.css"
 
 
 // here lies the section component. it's gonna have all sorts of cool junk in it
@@ -52,26 +57,139 @@ import { useHistory } from 'react-router-dom';
 // div 
 
 
-export default function SelectorSection() {
-    const dispatch = useDispatch()
-    const history = useHistory()
-    const [curMenu, setCurMenu] = useState(0)
+// export default function SelectorSection({location, setLocation, checkIn, setCheckIn, checkOut, setCheckOut, guests, setGuests,curMenu, setCurMenu}) {
+//     const dispatch = useDispatch()
+//     const history = useHistory()
+//     const ulRef = useRef();
+//     const [showMenu, setShowMenu] = useState(false);
 
-    const pickAMenu = (e) => {
-        e.preventDefault()
-        setCurMenu(e.target.id)
+        
+ 
+//     useEffect(() => {
+//         if (!showMenu) return;
+    
+//         const closeMenu = (e) => {
+//           if (!ulRef.current || !ulRef.current.contains(e.target)) {
+//             setShowMenu(false);
+//           }
+//         };
+    
+//         document.addEventListener("click", closeMenu);
+    
+//         return () => document.removeEventListener("click", closeMenu);
+//       }, [showMenu]);
+
+//       const pickAMenu = (e) => {
+//         e.preventDefault();
+//         const id = e.target.id;
+//         const value = e.target.innerText;
+      
+//         if (!ulRef.current || !ulRef.current.contains(e.target)) {
+//           setShowMenu(false);
+//         }
+      
+//         setCurMenu(id);
+//         setLocation(value);
+//       };
+        
+      
+    // submitSearch should take in the selected values from the menus and then
+    // send them to the backend so first some states for the values and then
+    // some logic for sending them to the backend.
+    // ideally the states would be dynamically generated based on the number of
+    // buttons needed but for now they're just hardcoded in here.
+
+
+    // const submitSearch = async  (e) => {
+    //     e.preventDefault()
+    //   let spots = await dispatch(searchSpots(location, checkIn, checkOut, guests))
+    //    if (spots.length > 0) {
+    //     history.push(`/search/results`)
+    //      } else {
+    //             alert("No results found")
+    //         }
+    //     location = setLocation("")
+    //     checkIn = setCheckIn("")
+    //     checkOut = setCheckOut("")
+    //     guests = setGuests(0)
+
+    // }
+
+        
+    // }
+    // alright so the standard bar is clicked on and that opens up this
+    // component which has a new bar that looks something like <location checkin
+    // checkout guests> and then a search button. and then each of those opens a
+    // dropdown menu that has stuff in it. ok if the buttons are each a div then
+    // they should each contain a dropdown menu and the name of the button then
+    // onClick the menu becomes visible and the name of the button goes away. 
+    // and then the menu has a bunch of stuff in it. and the button name should
+    // change to whatever is selected in the menu. which means the button names
+    // should be held in state and then changed when something is selected in
+    // their respective menus. go ahead and disable the search button until all
+    // the menus have been selected? or maybe just disable it until the location
+    // has been selected since the backend automatically fills in the checkin
+    // and checkout dates if they're not selected. perhaps their should be a
+    // message to the user about that somewhere in the event that they were
+    // attempting to find all spots in a given location regardless of date.
+
+    // not getting around it each of these menus is gonna have to be a component
+    // blahhhhhhh ok so on to those then.
+
+    
+
+
+
+   export default function SelectorSection({location, setLocation, checkIn, setCheckIn, checkOut, setCheckOut, guests, setGuests,curMenu, setCurMenu}) {
+      const selectorSectionRef = useRef(null);
+        const [showMenu, setShowMenu] = useState(false);
+    
+      useEffect(() => {
+        function handleClickOutside(event) {
+          if (
+            !selectorSectionRef.current &&
+            !selectorSectionRef.current.contains(event.target)
+          ) {
+            setCurMenu(null);
+          }
+        }
+    
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, [selectorSectionRef]);
+    
+      function pickAMenu(event) {
+        const menu = event.currentTarget.id;
+        setCurMenu(menu);
+      }
+    
+      function submitSearch() {
+        // submit search logic
+      }
+
+      const visible = showMenu ? "visible" : "hidden";
+    
+      return (
+        <div className="selectorSection" ref={selectorSectionRef}>
+          <span className="selectorButtons">
+            <div className="selectorButton" id="location" onClick={pickAMenu}>
+              {`${location ? location : "Location"}`}
+              {curMenu === "location" && (
+                <LocationMenu className={`%{location}`+`${visible}` } location={location} setLocation={setLocation} />
+              )}
+            </div>
+          </span>
+          <button disabled={!location} onClick={submitSearch}>
+            Search
+          </button>
+        </div>
+      );
     }
 
-    return (
-        <div className="bar" >
-            <span className="theButtons">
-                <div id="1" className="button" onClick={pickAMenu}>Location</div>
-                <div id="2" className="button" onClick={pickAMenu}>Check in</div>
-                <div id="3" className="button" onClick={pickAMenu}>Check out</div>
-                <div id="4" className="button" onClick={pickAMenu}>Guests</div>
-            </span>
-        </div>
-    )
 
 
-}
+
+
+

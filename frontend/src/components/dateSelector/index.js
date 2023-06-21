@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import SelectorSection from './selectorSection/index.js';
 
 
 // right then the front end my old nemesis lets do this or whatever
@@ -28,6 +29,7 @@ export default function DateSelector() {
    const [endDate, setEndDate] = useState("")
    const [guests, setGuests] = useState(1)
    const [showGuests, setShowGuests] = useState(false)
+   const [curMenu, setCurMenu] = useState("")
    
    const handleSearch = async (e) => {
       e.preventDefault()
@@ -44,27 +46,37 @@ export default function DateSelector() {
       if (guests) {
          queryObj.guests = guests
       }
+      const query = Object.keys(queryObj).map(key => key + '=' + queryObj[key]).join('&')
+      history.push(`/search?${query}`)
+
    }
 
 
-    return (
+   return (
+      <div className="bar" >
+         <SelectorSection location={location} setLocation={setLocation} curMenu={curMenu} setCurMenu={setCurMenu} >  </SelectorSection>
 
-    <div className="bar" >
-       <span className="dateButton">
-         <input className="dateInput" type="text" placeholder="anywhere" value={location} onChange={(e) => setLocation(e.target.value)}/>
-       </span>
-       <div className="wrapper">
-       <span className="dateButton">
-         <input className="dateInput" type="date" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
-       </span>
+         </div>
+   )
+   }
 
-       </div>
-       <span className="dateButton">add Guests<div style={{borderRadius:"100%",backgroundColor:"#FF385C",width:"30px",height:"30px",justifyContent:"center",display:"flex",alignContent:"center",alignItems:'center',    marginLeft: "15px"}}>
-       <FontAwesomeIcon style={{color:"white"}}icon={faMagnifyingGlass}/> 
+   //  return (
 
-       </div></span>
-    </div>
+   //  <div className="bar" >
+   //     <span className="dateButton">
+   //       <input className="dateInput" type="text" placeholder="anywhere" value={location} onChange={(e) => setLocation(e.target.value)}/>
+   //     </span>
+   //     <div className="wrapper">
+   //     <span className="dateButton">
+   //       <input className="dateInput" type="date" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
+   //     </span>
+
+   //     </div>
+   //     <span className="dateButton">add Guests<div style={{borderRadius:"100%",backgroundColor:"#FF385C",width:"30px",height:"30px",justifyContent:"center",display:"flex",alignContent:"center",alignItems:'center',    marginLeft: "15px"}}>
+   //     <FontAwesomeIcon style={{color:"white"}}icon={faMagnifyingGlass}/> 
+
+   //     </div></span>
+   //  </div>
           
     
-    );
-  }
+   //  );
