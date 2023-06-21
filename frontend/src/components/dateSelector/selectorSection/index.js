@@ -1,11 +1,3 @@
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import  LocationMenu  from './Menus/LocationMenu.js';
-import { useEffect } from 'react';
-import { useRef } from 'react';
-
-import "./index.css"
 
 
 // here lies the section component. it's gonna have all sorts of cool junk in it
@@ -139,45 +131,49 @@ import "./index.css"
     
 
 
-
-   export default function SelectorSection({location, setLocation, checkIn, setCheckIn, checkOut, setCheckOut, guests, setGuests,curMenu, setCurMenu}) {
+    import React, { useState, useRef } from "react";
+    import LocationMenu from "./Menus/LocationMenu";
+    
+   export default function SelectorSection({
+      location,
+      setLocation,
+      checkIn,
+      setCheckIn,
+      checkOut,
+      setCheckOut,
+      guests,
+      setGuests,
+    }) {
       const selectorSectionRef = useRef(null);
-        const [showMenu, setShowMenu] = useState(false);
-    
-      useEffect(() => {
-        function handleClickOutside(event) {
-          if (
-            !selectorSectionRef.current &&
-            !selectorSectionRef.current.contains(event.target)
-          ) {
-            setCurMenu(null);
-          }
-        }
-    
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, [selectorSectionRef]);
+      const [curMenu, setCurMenu] = useState(null);
+      const [showMenu, setShowMenu] = useState(false);
     
       function pickAMenu(event) {
         const menu = event.currentTarget.id;
         setCurMenu(menu);
+        setShowMenu(true);
       }
     
       function submitSearch() {
         // submit search logic
       }
-
-      const visible = showMenu ? "visible" : "hidden";
+    
+      function closeMenu() {
+        setCurMenu(null);
+        setShowMenu(false);
+      }
     
       return (
         <div className="selectorSection" ref={selectorSectionRef}>
           <span className="selectorButtons">
             <div className="selectorButton" id="location" onClick={pickAMenu}>
               {`${location ? location : "Location"}`}
-              {curMenu === "location" && (
-                <LocationMenu className={`%{location}`+`${visible}` } location={location} setLocation={setLocation} />
+              {curMenu === "location" && showMenu && (
+                <LocationMenu
+                  location={location}
+                  setLocation={setLocation}
+                  closeMenu={closeMenu}
+                />
               )}
             </div>
           </span>
@@ -187,6 +183,7 @@ import "./index.css"
         </div>
       );
     }
+    
 
 
 

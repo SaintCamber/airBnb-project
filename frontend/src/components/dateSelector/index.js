@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SelectorSection from './selectorSection/index.js';
+import './dateSelector.css'
 
 
 // right then the front end my old nemesis lets do this or whatever
@@ -46,8 +47,7 @@ export default function DateSelector() {
       if (guests) {
          queryObj.guests = guests
       }
-      const query = Object.keys(queryObj).map(key => key + '=' + queryObj[key]).join('&')
-      history.push(`/search?${query}`)
+     
 
    }
 

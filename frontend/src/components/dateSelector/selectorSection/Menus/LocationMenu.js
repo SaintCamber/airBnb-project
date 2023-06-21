@@ -18,87 +18,77 @@
 // the selected continent and then setting the className of the button to
 // something like "selected" if the selected continent is the same as the
 // continent of the button. 
+import React, { useState, useRef, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import "./LocationMenu.css";
+import nAmerica from '../../../../images/nAmerica.png';
 
-import React from "react"
-import "./LocationMenu.css"
-import { useState } from "react"
-import { useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
+const LocationMenu = ({ location, setLocation, closeMenu }) => {
+  const history = useHistory();
+  const [chosenLocation, setChosenLocation] = useState("");
+  const locationMenuRef = useRef(null);
+  const [showMenu, setShowMenu] = useState(false);
 
+  const continents = [
+    { name: "Africa", image: "africa.png" },
+    { name: "Asia", image: "asia.png" },
+    { name: "Europe", image: "europe.png" },
+    { name: "North America", image: nAmerica },
+    { name: "South America", image: "south-america.png" },
+    { name: "Oceania", image: "oceania.png" },
+  ];
 
+  const pickLocation = (selectedContinent) => {
+    setChosenLocation(selectedContinent);
+    setLocation(selectedContinent);
+    setShowMenu(false);
+    history.push(`/search?location=continent:${selectedContinent}`);
+  };
 
+  const toggleMenu = () => {
+    setShowMenu((prevState) => !prevState);
+  };
 
-
-export default function LoationMenu({ location, setLocation }) {
-    const dispatch = useDispatch()
-    const history = useHistory()
-    const [chosenLocation, setChosenLocation] = useState("")
-
-
-    const pickLocation = (e) => {
-        e.preventDefault()
-        if (e.target.id === 0) return
-
-        if (e.target.id === "1") {
-            setChosenLocation("Africa")
-            setLocation("Africa")
-        } else if (e.target.id === "2") {
-            setChosenLocation("Asia")
-            setLocation("Asia")
-            return
-
-        } else if (e.target.id === "3") {
-            setChosenLocation("Europe")
-            setLocation("Europe")
-            return
-
-        } else if (e.target.id === "4") {
-            setChosenLocation("North America")
-            setLocation("North America")
-            return
-
-        } else if (e.target.id === "5") {
-
-            setChosenLocation("South America")
-            setLocation("South America")
-            return
-
-        } else if (e.target.id === "6") {
-            setChosenLocation("Oceania")
-            setLocation("Oceania")
-            return
-        }
-
-        setChosenLocation("")
-        return
-
+  const handleClickOutside = (event) => {
+    if (locationMenuRef.current && !locationMenuRef.current.contains(event.target)) {
+      setShowMenu(false);
+      closeMenu();
     }
+  };
 
+  useEffect(() => {
+    const handleDocumentClick = (event) => {
+      handleClickOutside(event);
+    };
 
+    document.addEventListener("mousedown", handleDocumentClick);
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
+  }, []);
 
-
-    return (
-        <div className={`locationMenu `}>
-            <div className="locationMenuButtons">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "Africa" ? "selected" : ""}`} id="1">Africa</div>
+  return (
+    <div className="locationMenu" ref={locationMenuRef}>
+      <div className={`locationMenuButton ${showMenu ? "selected" : ""}`} onClick={toggleMenu}>
+        <img src={chosenLocation ? continents.find((c) => c.name === chosenLocation)?.image : ""} alt={chosenLocation} />
+        <span>{chosenLocation || "Select Location"}</span>
+      </div>
+      {showMenu && (
+        <div className="locationMenuDropdown">
+          {continents.map((continent, index) => (
+            <div
+              key={index}
+              className={`locationMenuOption ${chosenLocation === continent.name ? "selected" : ""}`}
+              onClick={() => pickLocation(continent.name)}
+            >
+              <img src={continent.image} alt={continent.name} />
+              <span>{continent.name}</span>
             </div>
-            <div className="locationMenuButton" id="2">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "Asia" ? "selected" : ""}`}>Asia</div>
-            </div >
-            <div className="locationMenuButton" id="3">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "Europe" ? "selected" : ""}`}>Europe</div>
-            </div >
-            <div className="locationMenuButton" id="4">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "North America" ? "selected" : ""}`}>North America</div>
-            </div >
-            <div className="locationMenuButton" id="5">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "South America" ? "selected" : ""}`}>South America</div>
-            </div >
-            <div className="locationMenuButton" id="6">
-                <div onClick={pickLocation} className={`MenuButton ${chosenLocation === "Oceania" ? "selected" : ""}`}>Oceania</div>
-            </div >
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-        </div >
-
-    )
-}
+export default LocationMenu;
