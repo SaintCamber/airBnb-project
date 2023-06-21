@@ -7,14 +7,18 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 
-// begin adding search feature to the date selecor bar
-// alright so the search will work like this:
-// 1. user types in a location and clicks the search button
-// 2. the location is geocoded to lat and long
-// 3. the lat and long are used to search the redux store for spots
-// 4. the spots are returned and displayed on the map
-// 5. the spots are also displayed in a list below the map
-// 6. the user can click on a spot in the list or on the map to view the spot
+// right then the front end my old nemesis lets do this or whatever
+// what i want the fornt end bit for this to look like is a single search bar
+// that is gonna have some sections and when one of those sections is clicked it
+// opens up i'm thinking another component maybe that has the stuff for that
+// section manipulation(?) and then switches between the different sections when 
+// they are clicked so they can be animated for the user to be amaaaaazed by.
+
+// making it a component that houses the different sections is useful cause here
+// to add the functionality for the different sections i would have just get to
+// throw in three lines and be done with it. hopefully.. 
+
+// well section component first it is and then back here i guess.
 
 export default function DateSelector() {
    const dispatch = useDispatch()
