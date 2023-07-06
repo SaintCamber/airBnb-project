@@ -71,7 +71,6 @@ const LocationMenu = ({ location, setLocation, closeMenu }) => {
     <div className="locationMenu" ref={locationMenuRef}>
       <div className={`locationMenuButton ${showMenu ? "selected" : ""}`} onClick={toggleMenu}>
         <img src={chosenLocation ? continents.find((c) => c.name === chosenLocation)?.image : ""} alt={chosenLocation} />
-        <span>{chosenLocation || "Select Location"}</span>
       </div>
       {showMenu && (
         <div className="locationMenuDropdown">

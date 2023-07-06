@@ -35,8 +35,8 @@
     z-index: 1;
     display: none;
     width: 100%;
-    min-width: 100px; /* set the min-width to 100px */
-    max-height: 200px;
+    min-width: 200px; /* set the min-width to 100px */
+    max-height: 400px;
     overflow-y: auto;
     border: 1px solid #ccc;
     border-top: none;

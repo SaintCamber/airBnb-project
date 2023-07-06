@@ -128,65 +128,77 @@
     // not getting around it each of these menus is gonna have to be a component
     // blahhhhhhh ok so on to those then.
 
-    
-
-
     import React, { useState, useRef } from "react";
-    import LocationMenu from "./Menus/LocationMenu";
-    
-   export default function SelectorSection({
-      location,
-      setLocation,
-      checkIn,
-      setCheckIn,
-      checkOut,
-      setCheckOut,
-      guests,
-      setGuests,
-    }) {
-      const selectorSectionRef = useRef(null);
-      const [curMenu, setCurMenu] = useState(null);
-      const [showMenu, setShowMenu] = useState(false);
-    
-      function pickAMenu(event) {
-        const menu = event.currentTarget.id;
-        setCurMenu(menu);
-        setShowMenu(true);
-      }
-    
-      function submitSearch() {
-        // submit search logic
-      }
-    
-      function closeMenu() {
-        setCurMenu(null);
-        setShowMenu(false);
-      }
-    
-      return (
-        <div className="selectorSection" ref={selectorSectionRef}>
-          <span className="selectorButtons">
-            <div className="selectorButton" id="location" onClick={pickAMenu}>
-              {`${location ? location : "Location"}`}
-              {curMenu === "location" && showMenu && (
-                <LocationMenu
-                  location={location}
-                  setLocation={setLocation}
-                  closeMenu={closeMenu}
-                />
-              )}
-            </div>
-          </span>
-          <button disabled={!location} onClick={submitSearch}>
-            Search
-          </button>
+import LocationMenu from "./Menus/LocationMenu";
+import DateMenu from "./Menus/DateMenu";
+import GuestsMenu from "./Menus/GuestsMenu";
+
+export default function SelectorSection({
+  location,
+  setLocation,
+  checkIn,
+  setCheckIn,
+  checkOut,
+  setCheckOut,
+  guests,
+  setGuests,
+}) {
+  const selectorSectionRef = useRef(null);
+  const [curMenu, setCurMenu] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+
+  function pickAMenu(event) {
+    const menu = event.currentTarget.id;
+    setCurMenu(menu);
+    setShowMenu(true);
+  }
+
+  function submitSearch() {
+    // submit search logic
+  }
+
+  function closeMenu() {
+    setCurMenu(null);
+    setShowMenu(false);
+  }
+
+  return (
+    <div className="selectorSection" ref={selectorSectionRef}>
+      <span className="selectorButtons">
+        <div className="selectorButton" id="location" onClick={pickAMenu}>
+          {`${location ? location : "Location"}`}
+          {curMenu === "location" && showMenu && (
+            <LocationMenu
+              location={location}
+              setLocation={setLocation}
+              closeMenu={closeMenu}
+            />
+          )}
         </div>
-      );
-    }
-    
-
-
-
+        <div className="selectorButton" id="checkIn" onClick={pickAMenu}>
+          {`${checkIn ? checkIn : "Check-in"}`}
+          {curMenu === "checkIn" && showMenu && (
+            <DateMenu date={checkIn} setDate={setCheckIn} closeMenu={closeMenu} />
+          )}
+        </div>
+        <div className="selectorButton" id="checkOut" onClick={pickAMenu}>
+          {`${checkOut ? checkOut : "Check-out"}`}
+          {curMenu === "checkOut" && showMenu && (
+            <DateMenu date={checkOut} setDate={setCheckOut} closeMenu={closeMenu} />
+          )}
+        </div>
+        <div className="selectorButton" id="guests" onClick={pickAMenu}>
+          {`${guests ? guests : "Guests"}`}
+          {curMenu === "guests" && showMenu && (
+            <GuestsMenu guests={guests} setGuests={setGuests} closeMenu={closeMenu} />
+          )}
+        </div>
+      <button disabled={!location} onClick={submitSearch}>
+      </button>
+      </span>
+    </div>
+  );
+}
 
 
 
