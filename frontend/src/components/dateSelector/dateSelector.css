@@ -119,3 +119,9 @@
   height: 100%;
   
 }
+
+.selectorButton {
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+}

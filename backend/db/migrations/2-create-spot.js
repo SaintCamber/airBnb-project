@@ -42,6 +42,10 @@ module.exports = {
         allowNull:false,
 
       },
+      continent: {
+        type: Sequelize.STRING,
+        allowNull:false,
+      },
       lat: {
         type: Sequelize.FLOAT,
         allowNull:false,

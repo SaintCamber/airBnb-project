@@ -85,9 +85,15 @@ router.get("/", async (req, res) => {
     // change this to keying into the location object once i get that working
     const spots = await Spot.findAll({
       where: {
-        city: location
+        city: location,
+        or:{
+          country: location,
+          or:{
+            state: location
+
+        }
         
-      },
+      }},
     });
     if (spots.length === 0) {
       return res.json({ message: "No available spots found" });}

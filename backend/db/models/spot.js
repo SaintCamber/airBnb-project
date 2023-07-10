@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     city:{type: DataTypes.STRING,},
     state: {type:DataTypes.STRING,},
     country: {type:DataTypes.STRING,},
+    continent: {type:DataTypes.STRING,},
     lat: {type:DataTypes.FLOAT,},
     lng: {type:DataTypes.FLOAT,},
     name: {type:DataTypes.STRING,},

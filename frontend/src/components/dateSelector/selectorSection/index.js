@@ -193,7 +193,7 @@ export default function SelectorSection({
             <GuestsMenu guests={guests} setGuests={setGuests} closeMenu={closeMenu} />
           )}
         </div>
-      <button disabled={!location} onClick={submitSearch}>
+      <button className="selectorButton" disabled={!location} onClick={submitSearch}>
       </button>
       </span>
     </div>
