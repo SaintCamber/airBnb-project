@@ -32,11 +32,10 @@ const ManageReviews = ({reviews}) => {
   }, [updatedReview]);
   return (
     <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
-      {!Object.values(reviews)?.length ? (
-        <h1>visit a spot to post a Review</h1>
-      ) : (
-        <h1>Manage Reviews</h1>
-      )}
+      {Object.values(reviews)?.length ? 
+               <h1>Manage Reviews</h1>
+              : 
+               <h1>visit a spot to post a Review</h1>}
       <div className="reviewContainer">
         {Object.values(reviews)?.map((review) => {
           return (

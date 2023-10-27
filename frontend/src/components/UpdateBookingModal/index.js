@@ -34,7 +34,9 @@ const UpdateBookingModal = ({ oldBooking, userBookings, setUserBookings }) => {
     //console.log("-------NEWBOOKING---------", newBooking);
     dispatch(UpdateBookingThunk(newBooking)).catch(async (res) => {
       const data = await res.json();
-      if (data && data.errors) setErrors(data.errors);
+      if (data && data.errors) {
+        setErrors(data.errors);
+      }
     });
     dispatch(currentUserBookings()).then(setUserBookings({ ...userBookings }));
 

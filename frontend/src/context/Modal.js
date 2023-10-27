@@ -44,7 +44,9 @@ export function Modal() {
   const { modalRef, modalContent, closeModal } = useContext(ModalContext);
   // If there is no div referenced by the modalRef or modalContent is not a
   // truthy value, render nothing:
-  if (!modalRef || !modalRef.current || !modalContent) return null;
+  if (!modalRef || !modalRef.current || !modalContent) {
+    return null;
+  }
 
   // Render the following component to the div referenced by the modalRef
   return ReactDOM.createPortal(

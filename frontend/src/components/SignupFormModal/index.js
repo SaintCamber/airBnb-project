@@ -31,8 +31,12 @@ function resetForm(){
     e.preventDefault();
     setErrors([]);
     if (password === confirmPassword) {
-      if(firstName.length<4)setErrors([...errors,"firstName must be longer than 4 characters"])
-      if(lastName.length<4)setErrors([...errors,"lastName must be longer than 4 characters"])
+      if (firstName.length<4) {
+        setErrors([...errors,"firstName must be longer than 4 characters"])
+      }
+      if (lastName.length<4) {
+        setErrors([...errors,"lastName must be longer than 4 characters"])
+      }
       
         return dispatch(
           sessionActions.signup({
@@ -47,7 +51,9 @@ function resetForm(){
         .catch(async (res) => {
           const data = await res.json();
           //console.log("datadtatrdard",data)
-          if (data && data.errors) setErrors(data.errors)
+          if (data && data.errors) {
+            setErrors(data.errors)
+          }
           
         })
         
@@ -142,7 +148,7 @@ function resetForm(){
             className={"formInput"}
           />
         </label>
-        <button type="submit" disabled={!email.length||username.length<4||!firstName.length||!lastName.length||password.length<6||password!==confirmPassword ?  true:false}className={"FormButton"}>
+        <button type="submit" disabled={!!(!email.length||username.length<4||!firstName.length||!lastName.length||password.length<6||password!==confirmPassword)}className={"FormButton"}>
           Sign Up
         </button>
       </form>

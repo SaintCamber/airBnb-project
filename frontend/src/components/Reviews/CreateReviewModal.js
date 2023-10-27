@@ -23,7 +23,9 @@ const CreateReviewModal = ({
         setReview("");
       }).catch(async (res)=>{
         let data = await res.json()
-        if(data&&data.errors) setErrors(data.errors)
+        if (data&&data.errors) {
+          setErrors(data.errors)
+        }
       })
       await closeModal()
       await setReRenderSingleSpot({});
@@ -66,7 +68,7 @@ const CreateReviewModal = ({
           }}
         />
 
-        <button disabled={review.length<10?true:false}className="FormButton">Post Review</button>
+        <button disabled={!!(review.length<10)}className="FormButton">Post Review</button>
       </form>
     </div>
   );

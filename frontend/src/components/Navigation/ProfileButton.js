@@ -18,12 +18,16 @@ function ProfileButton({ user }) {
   // const spot = useSelector((state) => state.spots.SingleSpot);
   const history = useHistory();
   const openMenu = () => {
-    if (showMenu) return;
+    if (showMenu) {
+      return;
+    }
     setShowMenu(true);
   };
 
   useEffect(() => {
-    if (!showMenu) return;
+    if (!showMenu) {
+      return;
+    }
 
     const closeMenu = (e) => {
       if (!ulRef.current.contains(e.target)) {

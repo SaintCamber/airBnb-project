@@ -124,7 +124,7 @@ const BookingsCard = ({ spot,currentUser}) => {
             <span className="pricing">${spot.price}</span>
             <span>night</span>
           </div>
-          <div className="TopSecond"><p><FontAwesomeIcon icon={faStar}/>{ spot?.numReviews>0 ? (isNaN(spot.avgStarRating) ? "new":Number(spot?.avgStarRating).toFixed(2)):""}{!spot.numReviews ? "":<span style={{marginLeft:"5px",marginRight:"5px"}}>&#183;</span>}{spot.numReviews > 1 ?`${spot.numReviews} Reviews`:(spot.numReviews>0? `${spot.numReviews} Review`:"new")}</p></div>
+          <div className="TopSecond"><p><FontAwesomeIcon icon={faStar}/>{ spot?.numReviews>0 ? (isNaN(spot.avgStarRating) ? "new":Number(spot?.avgStarRating).toFixed(2)):""}{spot.numReviews ? <span style={{marginLeft:"5px",marginRight:"5px"}}>&#183;</span> : ""}{spot.numReviews > 1 ?`${spot.numReviews} Reviews`:(spot.numReviews>0? `${spot.numReviews} Review`:"new")}</p></div>
         </div> 
         <div className="middleBit">
           <div >

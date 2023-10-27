@@ -166,7 +166,7 @@ export default function SelectorSection({
     <div className="selectorSection" ref={selectorSectionRef}>
       <span className="selectorButtons">
         <div className="selectorButton" id="location" onClick={pickAMenu}>
-          {`${location ? location : "Location"}`}
+          {`${location || "Location"}`}
           {curMenu === "location" && showMenu && (
             <LocationMenu
               location={location}
@@ -176,19 +176,19 @@ export default function SelectorSection({
           )}
         </div>
         <div className="selectorButton" id="checkIn" onClick={pickAMenu}>
-          {`${checkIn ? checkIn : "Check-in"}`}
+          {`${checkIn || "Check-in"}`}
           {curMenu === "checkIn" && showMenu && (
             <DateMenu date={checkIn} setDate={setCheckIn} closeMenu={closeMenu} />
           )}
         </div>
         <div className="selectorButton" id="checkOut" onClick={pickAMenu}>
-          {`${checkOut ? checkOut : "Check-out"}`}
+          {`${checkOut || "Check-out"}`}
           {curMenu === "checkOut" && showMenu && (
             <DateMenu date={checkOut} setDate={setCheckOut} closeMenu={closeMenu} />
           )}
         </div>
         <div className="selectorButton" id="guests" onClick={pickAMenu}>
-          {`${guests ? guests : "Guests"}`}
+          {`${guests || "Guests"}`}
           {curMenu === "guests" && showMenu && (
             <GuestsMenu guests={guests} setGuests={setGuests} closeMenu={closeMenu} />
           )}

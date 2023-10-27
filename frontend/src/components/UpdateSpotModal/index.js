@@ -58,7 +58,9 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
     return dispatch(UpdateSpot(newSpot))
     .catch(async (res) => {
       const data = await res.json();
-      if (data && data.validationErrors) setValidationErrors(data.validationErrors);
+      if (data && data.validationErrors) {
+        setValidationErrors(data.validationErrors);
+      }
     })
     .then(setter({...oldState,[spot.id]:newSpot}))
     .then(closeModal).then(history.push(`/spots/${spot.id}`))
@@ -172,7 +174,7 @@ let classSeven=labelId===7 ? "InputTitle -active":"InputTitle"
             placeHolder={description}
             ></textArea>
         </label>
-                <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||Number(price)<10||description.length <30 ? true:false }>
+                <button className={"FormButton"} type="submit" disabled={!!(!name.length||!city.length||!state.length||!country.length||!address.length||Number(price)<10||description.length <30) }>
           Update Spot
         </button>
       </form>

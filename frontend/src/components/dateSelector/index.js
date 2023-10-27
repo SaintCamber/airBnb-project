@@ -9,74 +9,97 @@ import SelectorSection from './selectorSection/index.js';
 import './dateSelector.css'
 
 
-// right then the front end my old nemesis lets do this or whatever
-// what i want the fornt end bit for this to look like is a single search bar
-// that is gonna have some sections and when one of those sections is clicked it
-// opens up i'm thinking another component maybe that has the stuff for that
-// section manipulation(?) and then switches between the different sections when 
-// they are clicked so they can be animated for the user to be amaaaaazed by.
 
-// making it a component that houses the different sections is useful cause here
-// to add the functionality for the different sections i would have just get to
-// throw in three lines and be done with it. hopefully.. 
-
-// well section component first it is and then back here i guess.
+//current cersion of the search bar in a more basic format to speed the process
+//along.
 
 export default function DateSelector() {
    const dispatch = useDispatch()
    const history = useHistory()
-   const [location, setLocation] = useState("")
-   const [startDate, setStartDate] = useState("")
-   const [endDate, setEndDate] = useState("")
-   const [guests, setGuests] = useState(1)
-   const [showGuests, setShowGuests] = useState(false)
    const [curMenu, setCurMenu] = useState("")
+   const [destination, setDestination] = useState('');
+   const [checkInDate, setCheckInDate] = useState('');
+   const [checkOutDate, setCheckOutDate] = useState('');
+   const [numGuests, setNumGuests] = useState(1);
    
    const handleSearch = async (e) => {
       e.preventDefault()
       const queryObj = {}
-      if (location) {
-         queryObj.location = location
+      if (destination) {
+         queryObj.location = destination
       }
-      if (startDate) {
-         queryObj.startDate = startDate
+      if (checkInDate) {
+         queryObj.startDate = checkInDate
       }
-      if (endDate) {
-         queryObj.endDate = endDate
+      if (checkOutDate) {
+         queryObj.endDate = checkOutDate
       }
-      if (guests) {
-         queryObj.guests = guests
+      if (numGuests) {
+         queryObj.guests = numGuests
       }
+
+      //checks for the queryObj
+      // console.log(queryObj)
+      // the destination needs has to exist, otherwise we for sure don't have a
+      // spot there. so some kind of geo coding needs to happen to check the
+      // given location against earth.
+      // the backend is expecting an object that looks like :
+      // location: {
+  //   city: "San Francisco",
+  //   state: "California",
+  //   country: "United States",
+  //   lat: 37.7749295,
+  //   lng: -122.4194155,
+  // }
+
+  // which means i need to convert the given location into it's lat and lng as
+  // well as the city state and country. so i need to geocode the given location
+  // and then send the lat and lng to the backend. what is the easiest way to
+  // geocode probably google? so lets go get the almight google to help out real
+  // fast, shall we? 
+
+      const geoCode = (destination)=>{
+
+
+
+
+
+      }
+  
+      
+     
      
 
    }
 
 
-   return (
-      <div className="bar" >
-         <SelectorSection location={location} setLocation={setLocation} curMenu={curMenu} setCurMenu={setCurMenu} >  </SelectorSection>
+   
+   
+     const handleDestinationChange = (e) => {
+       setDestination(e.target.value);
+     };
+   
+     const handleCheckInDateChange = (e) => {
+       setCheckInDate(e.target.value);
+     };
+   
+     const handleCheckOutDateChange = (e) => {
+       setCheckOutDate(e.target.value);
+     };
+   
+     const handleNumGuestsChange = (e) => {
+       setNumGuests(e.target.value);
+     };
+   
 
-         </div>
-   )
-   }
 
-   //  return (
-
-   //  <div className="bar" >
-   //     <span className="dateButton">
-   //       <input className="dateInput" type="text" placeholder="anywhere" value={location} onChange={(e) => setLocation(e.target.value)}/>
-   //     </span>
-   //     <div className="wrapper">
-   //     <span className="dateButton">
-   //       <input className="dateInput" type="date" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)}/>
-   //     </span>
-
-   //     </div>
-   //     <span className="dateButton">add Guests<div style={{borderRadius:"100%",backgroundColor:"#FF385C",width:"30px",height:"30px",justifyContent:"center",display:"flex",alignContent:"center",alignItems:'center',    marginLeft: "15px"}}>
-   //     <FontAwesomeIcon style={{color:"white"}}icon={faMagnifyingGlass}/> 
-
-   //     </div></span>
-   //  </div>
-          
-    
-   //  );
+     return (
+      <div className="searchBar">
+      <div className="Anywhere">Anywhere</div>
+      <div className="anyWeek">Any Week</div>
+      <div className="Who">Add Guests</div>
+      <div><FontAwesomeIcon className="SearchIcon" style={{color : "white"}} icon={faMagnifyingGlass}/></div>
+      </div>
+     )
+     }
+   

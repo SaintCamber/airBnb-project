@@ -1,127 +1,40 @@
-.bar {
+
+.searchBar {
   display: flex;
-  width: 30%;
-  height: 50px;
+  background-color: white;
   border-radius: 30px;
-  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.12);
+  padding: 8px 12px;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto; /* Center the search bar horizontally */
-  background-color: #ffffff;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width:30%;
 }
 
-.dateButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 16px;
-  color: black;
-  background-color: transparent;
-  border: none;
-}
-
-.dateButton:first-of-type {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  border-right: none;
-}
-
-.dateButton:last-of-type {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  border-left: none;
-  border-right: 1px solid rgb(221, 221, 221);
-  width: 180px;
-  color: rgb(113, 113, 113);
-}
-
-.dateInput {
-  border: none;
-  outline: none;
+.Anywhere, .anyWeek, .Who {
+  flex: 1;
+  text-align: center;
   font-size: 14px;
-  padding: 5px;
-  width: 100%;
-  background-color: transparent;
-}
-
-.wrapper {
-  display: flex;
-  height: 30px;
-  border-right: 1px solid rgb(221, 221, 221);
-  border-left: 1px solid rgb(221, 221, 221);
-  width: 33%;
-  justify-content: center;
-}
-
-.addGuestsButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  font-size: 16px;
-  color: black;
-  background-color: transparent;
-  border: none;
-  position: relative;
-}
-
-.addGuestsButton:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 5px 5px 0 5px;
-  border-color: #888888 transparent transparent transparent;
-}
-
-.guestsButtonWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: #ff385c;
-  border-radius: 100%;
-  margin-left: 15px;
-}
-
-.guestsButtonWrapper:hover {
+  color: #333;
   cursor: pointer;
-}
-
-.guestsIcon {
-  color: white;
-}
-
-.hidden {
-  display: none;
-}
-
-.selectorSection {
-  display: flex;
-  width: 80%;
-  height: 100%;
-
-}
-
-.selectorButtons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items:center;
-
-  width: 100%;
-  height: 100%;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+  width:33%;
+  font-weight:700;
   
+
 }
 
-.selectorButton {
-  height: 50%;
-  width: 50%;
-  border-radius: 50%;
+.Who {
+  border-right: none;
+  color:#ccc;
+}
+
+.SearchIcon {
+  color: #ff5a5f;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color:#ff385c;
+  border-radius:50%;
+  padding:8px;
+  margin-left:5px;
 }

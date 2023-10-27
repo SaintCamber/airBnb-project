@@ -12,7 +12,9 @@ export default function SpotsList(){
    useEffect( ()=>{
        dispatch(populateAllSpots())
     },[dispatch])
-    if(!Object.values(spotsList).length) return null
+    if (!Object.values(spotsList).length) {
+      return null
+    }
     return (
         <>
         {/* <IconBar></IconBar> */}

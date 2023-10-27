@@ -249,7 +249,7 @@ setValidationErrors(errors)
             />
           </label>
         ))}
-        <button className={"FormButton"} type="submit" disabled={!name.length||!city.length||!state.length||!country.length||!address.length||(!price.length)||!description.length||!imageList[4].length||!imageList[0].length|!imageList[1].length||!imageList[2].length||!imageList[3].length ? true:false }>
+        <button className={"FormButton"} type="submit" disabled={!!(!name.length||!city.length||!state.length||!country.length||!address.length||(!price.length)||!description.length||!imageList[4].length||!imageList[0].length|!imageList[1].length||!imageList[2].length||!imageList[3].length) }>
           Create Spot
         </button>
       </form>

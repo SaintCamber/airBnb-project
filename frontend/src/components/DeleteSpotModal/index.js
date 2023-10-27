@@ -10,7 +10,7 @@ import {removeOwnedSpot} from '../../store/session.js'
 const DeleteSpotModal=({spot,oldState,setter})=>{
     let user = useSelector(state=>state.session.user)
     
-    let id = user.id
+    let {id} = user
     let owner = spot.ownerId
     const history = useHistory();
   const dispatch = useDispatch();

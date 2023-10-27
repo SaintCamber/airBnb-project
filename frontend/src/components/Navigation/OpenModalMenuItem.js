@@ -11,9 +11,13 @@ function OpenModalMenuItem({
   const { setModalContent, setOnModalClose } = useModal();
 
   const onClick = () => {
-    if (onModalClose) setOnModalClose(onModalClose);
+    if (onModalClose) {
+      setOnModalClose(onModalClose);
+    }
     setModalContent(modalComponent);
-    if (onItemClick) onItemClick();
+    if (onItemClick) {
+      onItemClick();
+    }
   };
 
   return (
