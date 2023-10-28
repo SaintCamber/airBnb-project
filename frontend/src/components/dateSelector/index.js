@@ -2,10 +2,12 @@ import React from 'react'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import './dateSelector.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useDispatch} from 'react-redux';
+import { useState,useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import SelectorSection from './selectorSection/index.js';
+import {useRef} from 'react'
+import SearchBarModal from './selectorSection/index.js';
+import OpenModalButton from '../OpenModalButton/index.js'
 import './dateSelector.css'
 
 
@@ -21,6 +23,9 @@ export default function DateSelector() {
    const [checkInDate, setCheckInDate] = useState('');
    const [checkOutDate, setCheckOutDate] = useState('');
    const [numGuests, setNumGuests] = useState(1);
+   const [isModalOpen, setIsModalOpen] = useState(false);
+   const [modalState,setmodalState] = useState()
+   const ulRef = useRef()
    
    const handleSearch = async (e) => {
       e.preventDefault()
@@ -91,15 +96,50 @@ export default function DateSelector() {
        setNumGuests(e.target.value);
      };
    
-
-
+     
+     useEffect(() => {
+      const closeModal = (e) => {
+        if (!ulRef.current || !ulRef.current.contains(e.target)) {
+          setIsModalOpen(false);
+        }
+      };
+  
+      if (isModalOpen) {
+        document.addEventListener("click", closeModal);
+      }
+  
+      return () => document.removeEventListener("click", closeModal);
+    }, []);
+  
+    const pickAMenu = (e) => {
+      e.preventDefault();
+    
+      if (isModalOpen &&(!ulRef.current || !ulRef.current.contains(e.target))) {
+        setIsModalOpen(false);
+      }
+    
+      if (e) {
+        const id = e.target.id;
+        setmodalState(id);
+        setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
+      }
+    };
+   
+      
      return (
+     <OpenModalButton
+
+     style={{display:"none"}}
+     onItemClick={pickAMenu}
+     children={(
       <div className="searchBar">
-      <div className="Anywhere">Anywhere</div>
-      <div className="anyWeek">Any Week</div>
-      <div className="Who">Add Guests</div>
+            <div onClick={pickAMenu} id="anywhere" className="Anywhere">Anywhere</div>
+      <div onClick={pickAMenu} id="anyWeek" className="anyWeek">Any Week</div>
+      <div onClick={pickAMenu} id="Guests" className="Who">Add Guests</div>
       <div><FontAwesomeIcon className="SearchIcon" style={{color : "white"}} icon={faMagnifyingGlass}/></div>
-      </div>
+       </div>  )
+
+     }/>
      )
      }
    
