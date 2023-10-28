@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import {useRef} from 'react'
 import SearchBarModal from './selectorSection/index.js';
 import OpenModalButton from '../OpenModalButton/index.js'
+import {useModal} from '../../context/Modal.js'
 import './dateSelector.css'
 
 
@@ -121,25 +122,39 @@ export default function DateSelector() {
       if (e) {
         const id = e.target.id;
         setmodalState(id);
-        setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
       }
+      setIsModalOpen((prevIsModalOpen) => !prevIsModalOpen);
     };
    
       
      return (
      <OpenModalButton
-
-     style={{display:"none"}}
-     onItemClick={pickAMenu}
-     children={(
-      <div className="searchBar">
-            <div onClick={pickAMenu} id="anywhere" className="Anywhere">Anywhere</div>
-      <div onClick={pickAMenu} id="anyWeek" className="anyWeek">Any Week</div>
-      <div onClick={pickAMenu} id="Guests" className="Who">Add Guests</div>
+     className="SearchButton"
+      modalComponent={<SearchBarModal/>}
+      children={ <div className="searchBar">
+            <div  id="anywhere" className="Anywhere">Anywhere</div>
+      <div  id="anyWeek" className="anyWeek">Any Week</div>
+      <div  id="Guests" className="Who">Add Guests</div>
       <div><FontAwesomeIcon className="SearchIcon" style={{color : "white"}} icon={faMagnifyingGlass}/></div>
-       </div>  )
+       </div>  }
 
-     }/>
+     >
+     
+     
+       
+       </OpenModalButton>
      )
      }
    
+
+// 
+
+   //   children={(
+   //    <div className="searchBar">
+   //          <div onClick={pickAMenu} id="anywhere" className="Anywhere">Anywhere</div>
+   //    <div onClick={pickAMenu} id="anyWeek" className="anyWeek">Any Week</div>
+   //    <div onClick={pickAMenu} id="Guests" className="Who">Add Guests</div>
+   //    <div><FontAwesomeIcon className="SearchIcon" style={{color : "white"}} icon={faMagnifyingGlass}/></div>
+   //     </div>  )
+
+   //   }

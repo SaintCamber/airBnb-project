@@ -9,11 +9,14 @@ import OpenModalButton from '../../OpenModalButton/index.js'
 import ProfileButton from '../../Navigation/ProfileButton.js'
 import CreateSpotModal from '../../CreateSpotModal/index.js'
 import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem.js'
+import { useModal } from "../../../context/Modal";
+import '../../cssStuffs/modals.css'
 
 
 
-const SearchBarModal= ()=> {
+const SearchBarModal =  ()=> {
 
+  const {closeMenu} = useModal()
 
   const handleSubmit = async (e) => {}
 

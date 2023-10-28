@@ -11,7 +11,7 @@ function OpenModalButton({
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
-  const onClick = () => {
+  const onClickB = () => {
     if (typeof onButtonClick === 'function') {
       onButtonClick();
     }
@@ -22,8 +22,8 @@ function OpenModalButton({
   };
 
   return !children && (
-    <button onClick={onClick}>{buttonText}</button>
-  ) ? <button onClick={onclick}>{buttonText}</button> : children;
+    <button onClick={onClickB}>{buttonText}</button>
+  ) ? <button onClick={onClickB}>{buttonText}</button> : <button onClick={onClickB} >{children}</button>;
 }
 
 export default OpenModalButton;
