@@ -18,22 +18,21 @@ const getRandomAddress = async () => {
   
     try {
       const response = await axios.post(endpoint, query);
-      const data = response.data;
+      const {data} = response;
       if (data.elements.length === 0) {
         return null; // No address found
       }
       const randomIndex = Math.floor(Math.random() * data.elements.length);
       const element = data.elements[randomIndex];
-      const address = {
-        housenumber: element.tags['addr:housenumber'] || '',
-        street: element.tags['addr:street'] || '',
-        city: element.tags['addr:city'] || '',
-        state: element.tags['addr:state'] || '',
-        country: element.tags['addr:country'] || '',
-        lat: element.lat,
-        lon: element.lon
-      };
-      return address;
+      return {
+              housenumber: element.tags['addr:housenumber'] || '',
+              street: element.tags['addr:street'] || '',
+              city: element.tags['addr:city'] || '',
+              state: element.tags['addr:state'] || '',
+              country: element.tags['addr:country'] || '',
+              lat: element.lat,
+              lon: element.lon
+            };
     } catch (error) {
       console.error('Error retrieving address:', error);
       return null;

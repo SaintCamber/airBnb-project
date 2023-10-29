@@ -128,21 +128,19 @@ export default function DateSelector() {
    
       
      return (
-     <OpenModalButton
-     className="SearchButton"
-      modalComponent={<SearchBarModal/>}
-      children={ <div className="searchBar">
+     <div className='SearchButton'>  
+      <div className="searchBar">
             <div  id="anywhere" className="Anywhere">Anywhere</div>
       <div  id="anyWeek" className="anyWeek">Any Week</div>
       <div  id="Guests" className="Who">Add Guests</div>
       <div><FontAwesomeIcon className="SearchIcon" style={{color : "white"}} icon={faMagnifyingGlass}/></div>
-       </div>  }
-
-     >
-     
-     
-       
-       </OpenModalButton>
+       </div>
+       {isModalOpen && (
+        <SearchBarModal modalState={modalState} />
+       )
+        
+        } 
+     </div>
      )
      }
    

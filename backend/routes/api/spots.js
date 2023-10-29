@@ -31,8 +31,8 @@ router.get("/", validateQueryParameters,async (req, res, next) => {
   let allSpots;
   
     let { page, size } = req.query;
-    page ? page = page:0
-    size ? size = size:0
+    page ? page = page : 0
+    size ? size = size : 0
 
     
     if (parseInt(page) >= 1 && parseInt(size) >= 1) {
@@ -1083,7 +1083,7 @@ router.post("/", requireAuth, validateNewSpot, async (req, res, next) => {
     }
 ]
   let payload = req.body;
-  let continent = countries.find((country) => country.country.toLowerCase() === payload.country.toLowerCase()).continent;
+  let {continent} = countries.find((country) => country.country.toLowerCase() === payload.country.toLowerCase());
   
   payload.continent = continent
   

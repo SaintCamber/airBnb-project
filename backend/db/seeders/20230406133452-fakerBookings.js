@@ -16,7 +16,7 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     
-    let Op = Sequelize.Op;
+    let {Op} = Sequelize;
     return queryInterface.bulkDelete(options, {
       id: { [Op.gt]: 0 },
     });

@@ -50,7 +50,9 @@ router.delete(
         return res.json(
          {user: user.toSafeObject()}
         );
-      } else return res.json({ user: null });
+      } else {
+        return res.json({ user: null });
+      }
     }
   );
   

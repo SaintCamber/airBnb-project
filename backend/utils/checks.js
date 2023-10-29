@@ -192,18 +192,13 @@ const validateQueryParameters = (req, res, next) => {
       delete req.query[key];
     }
   }
-  if (req.query.page) {
-    if (req.query.page > 10 || req.query.page < 1) {
-      errors.page =
-        "Page must be greater than or equal to 1 and less than or equal to 10";
-    }
-    
+  if (req.query.page && (req.query.page > 10 || req.query.page < 1)) {
+        errors.page =
+          "Page must be greater than or equal to 1 and less than or equal to 10";
   }
-  if (req.query.size) {
-    if (req.query.size > 20 || req.query.size < 1) {
-      errors.size =
-        "Size must be greater than or equal to 1 and less than or equal to 20";
-    }
+  if (req.query.size && (req.query.size > 20 || req.query.size < 1)) {
+        errors.size =
+          "Size must be greater than or equal to 1 and less than or equal to 20";
   }
   if (req.query.maxLat) {
     if (req.query.maxLat > 180) {

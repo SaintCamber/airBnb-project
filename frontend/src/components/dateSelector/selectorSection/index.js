@@ -10,6 +10,7 @@ import ProfileButton from '../../Navigation/ProfileButton.js'
 import CreateSpotModal from '../../CreateSpotModal/index.js'
 import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem.js'
 import { useModal } from "../../../context/Modal";
+import Navigation from "../../Navigation/index.js"
 import '../../cssStuffs/modals.css'
 
 
@@ -21,7 +22,17 @@ const SearchBarModal =  ()=> {
   const handleSubmit = async (e) => {}
 
   return (
-    <div id={`SearchBarModal`} className={"modal"}></div>
+   
+    <div id={`SearchBarModal`} >
+
+<div className="searchBar">
+            <div  id="anywhere" className="Anywhere">Anywhere</div>
+      <div  id="anyWeek" className="anyWeek">Any Week</div>
+      <div  id="Guests" className="Who">Add Guests</div>
+       </div> 
+    
+    
+    </div>
      
   );
 }
