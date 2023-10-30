@@ -11,20 +11,21 @@ import CreateSpotModal from '../../CreateSpotModal/index.js'
 import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem.js'
 import { useModal } from "../../../context/Modal";
 import Navigation from "../../Navigation/index.js"
-import bigSearchBar from './bigSearchBar.js';
-import '../../cssStuffs/modals.css'
+import BigSearchBar from './bigSearchBar.js';
+import '../../cssStuffs/modals.css';
+import "./bigSearchBar.css";
 
 
 
-const SearchBarModal =  ()=> {
+const SearchBarModal =  (menu)=> {
 
 
   const handleSubmit = async (e) => {}
 
   return (
    
-    <div className='SearchBarModal'>
-    <bigSearchBar/>
+    <div className='SearchBarModalBig'>
+    <BigSearchBar initialState={menu}/>
 
     
     

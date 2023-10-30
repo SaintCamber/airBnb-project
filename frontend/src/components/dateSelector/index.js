@@ -43,6 +43,8 @@ export default function DateSelector() {
     const closeModal = (e) => {
       if (ulRef.current && ulRef.current.contains(e.target)){
         console.log("open modal")
+        console.log(e.target)
+        console.log(curMenu)
         setIsModalOpen(true)
       }
       if (ulRef.current && !ulRef.current.contains(e.target)) {
@@ -51,34 +53,36 @@ export default function DateSelector() {
       }
     };
 
+    
     document.addEventListener('click', closeModal);
+    document.addEventListener('click', pickAMenu);
 
-    return () => document.removeEventListener('click', closeModal);
+    return () => {document.removeEventListener('click', closeModal)
+    document.removeEventListener('click', pickAMenu)}
   }, []);
 
-  const pickAMenu = (e) => {
-    if (curMenu === e.target.id) {
-      setCurMenu('');
-    } else {
-      setCurMenu(e.target.id);
-    }
-  };
-
+const pickAMenu = (e) => {
+      if (curMenu === e.target.id) {
+        return
+      } else {
+        setCurMenu(e.target.id);
+      }
+    };
   return (
     <>
-    <div ref={ulRef} className={`SearchButton ${isModalOpen ? "hide" : ""}`}>
+    <div ref={ulRef} className={`SearchButton `}>
       
-      <div className="searchBar">
-        <div id="anywhere" className="Anywhere">Anywhere</div>
-        <div id="anyWeek" className="anyWeek">Any Week</div>
-        <div id="Guests" className="Who">Add Guests</div>
+      <div className={`searchBar ${isModalOpen ? "hide" : ""}`}>
+        <div id="anywhere" className="anywhere" onClick={pickAMenu}>Anywhere</div>
+        <div id="anyWeek" className="anyWeek" onClick={pickAMenu}>Any Week</div>
+        <div id="Guests" className="Who" onClick={pickAMenu}>Add Guests</div>
         <div>
           <FontAwesomeIcon className="SearchIcon" style={{ color: 'white' }} icon={faMagnifyingGlass} />
         </div>
       </div>
     </div>
 
-      {isModalOpen && <SearchBarModal className={`SearchBarModal`} />}
+      {isModalOpen && <SearchBarModal className={`SearchBarModal`} menu={curMenu}/>}
 
 
     </>
