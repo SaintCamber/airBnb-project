@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import LocationMenu from './Menus/LocationMenu.js';
 import DateMenu from './Menus/DateMenu.js';
 import GuestsMenu from './Menus/GuestsMenu.js';
@@ -7,49 +7,57 @@ import './Menus/LocationMenu.css';
 import './Menus/DateMenu.css';
 
 
-export default function BigSearchBar({menu}) {
+export default function BigSearchBar(menu) {
+    const ulRef = useRef();
 
 
-useEffect(() => {
-    console.log(menu)
-}
-, [menu])
+    const handleClicks = (e) => {
+        e.stopPropagation();
+
+        if (ulRef.current && ulRef.current.contains(e.target)) {
+            return
+
+        }
+        if (ulRef.current && !ulRef.current.contains(e.target)) {
+            // pickAMenu(e.target.id)
+        }
+    }
 
 
 
-    return (
-        
-        <div className='bigSearchBar'>
-        <div className='AnywhereBig'>Anywhere
-            {(menu==="anywhere")&&<LocationMenu/>}
+
+return (
+
+    <div onClick={handleClicks} className='bigSearchBar'>
+        <div className='AnywhereBig'>{menu === "anywhere" ? "where" : "Anywhere"}
+            {(menu === "anywhere") && <input placeholder="Anywhere" />}
         </div>
         <div className='anyWeekBig'>Any Week
-        
-        {menu==="anyWeek"&&(
-            <div className='DateBig'>
-            <DateMenu/>
-        </div>
 
-        )}
-     
-        
+            {menu === "anyWeek" && (
+                <div className='DateBig'>
+                    <DateMenu />
+                </div>
+
+            )}
+
+
 
         </div>
         <div className='numGuestsBig'>add Guests
-            
 
-            { menu==="Guests"&&
-            <GuestsMenu/>
-                
-            }  
-                
+
+            {menu === "Guests" &&
+                <GuestsMenu />
+
+            }
+
         </div>
         <div className='searchButtonBig'></div>
 
-    
-        
-        
-        </div>
-         
-    );
-}
+
+
+
+    </div>
+
+)}
