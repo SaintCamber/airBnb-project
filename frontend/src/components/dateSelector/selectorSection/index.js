@@ -11,6 +11,7 @@ import CreateSpotModal from '../../CreateSpotModal/index.js'
 import OpenModalMenuItem from '../../Navigation/OpenModalMenuItem.js'
 import { useModal } from "../../../context/Modal";
 import Navigation from "../../Navigation/index.js"
+import bigSearchBar from './bigSearchBar.js';
 import '../../cssStuffs/modals.css'
 
 
@@ -23,6 +24,7 @@ const SearchBarModal =  ()=> {
   return (
    
     <div className='SearchBarModal'>
+    <bigSearchBar/>
 
     
     
