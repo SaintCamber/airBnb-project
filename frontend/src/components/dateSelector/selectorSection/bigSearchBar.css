@@ -1,31 +1,60 @@
 .bigSearchBar {
     flex-direction: row;
-    width: 80%;
-    height:60px;
+    width: 70%;
+    height:100%;
     display: flex;
-    padding: 8px 12px;
     align-items: center;
     justify-content: center;
     border: none;
     border-radius:50px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    
 
 
   }
 
  
   .AnywhereBig, .anyWeekBig,.numGuestsBig{
+    position: relative;
     flex-direction: row;
     text-align: center;
     font-size: 12px;
     color: #333;
     cursor: pointer;
     padding: 5px;
-    border-right: 1px solid #ccc;
-    width: 33%; 
+    width: 33%;
+    height:100%; 
     font-weight: 700;
+    background-color:white;
+  }
+
+  .AnywhereBig:hover, .anyWeekBig:hover, .numGuestsBig:hover{
+    background-color:#ccc;
+
   }
   
+  .AnywhereBig:hover, .anyWeekBig:hover {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+  .AnywhereBig, .anyWeekBig {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    
+  }
+  .anyWeekBig::after, .AnywhereBig::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 1px;
+    background-color:lightgrey;}
+
+  .numGuestsBig {
+    border-radius:30px;
+  }
   
   .WhoBig {
     border-right: none;
@@ -52,7 +81,7 @@
   .SearchBarModalBig {
     display: flex;
     position: fixed;
-    top: 70px;
+    top: 80px;
     width: 95vw;
     padding-bottom: 15px;;
     background-color: white;
@@ -61,7 +90,7 @@
     align-content:space-around
   }
   
-  .hide {
+  .hide, .anyWeekBig:hover::after, .AnywhereBig:hover::after {
     display: none;
   }
   
