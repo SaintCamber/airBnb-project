@@ -21,6 +21,7 @@
 /* Styling for the selected state of the menu button */
 .dateMenuButton.selected {
   border: 1px solid #007bff; /* Customize the selected state style */
+  background-color:lightgray;
 }
 
 /* Styling for the label inside the button */

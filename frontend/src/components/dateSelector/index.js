@@ -66,6 +66,7 @@ const pickAMenu = (e) => {
         return
       } else {
         setCurMenu(e.target.id);
+        console.log(curMenu)
       }
     };
   return (
@@ -82,7 +83,7 @@ const pickAMenu = (e) => {
       </div>
     </div>
 
-      {isModalOpen && <SearchBarModal className={`SearchBarModal`} menu={curMenu}/>}
+      {isModalOpen && <SearchBarModal className={`SearchBarModal`} menu={curMenu} pickAMenu={setCurMenu}/>}
 
 
     </>

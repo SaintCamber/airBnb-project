@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,useState } from 'react';
 import LocationMenu from './Menus/LocationMenu.js';
 import DateMenu from './Menus/DateMenu.js';
 import GuestsMenu from './Menus/GuestsMenu.js';
@@ -7,8 +7,12 @@ import './Menus/LocationMenu.css';
 import './Menus/DateMenu.css';
 
 
-export default function BigSearchBar(menu) {
+export default function BigSearchBar({menu, pickAMenu}) {
     const ulRef = useRef();
+    const [location, setLocation] = useState('');
+    const [checkInDate, setCheckInDate] = useState('');
+    const [checkOutDate, setCheckOutDate] = useState('');
+    const [numGuests, setNumGuests] = useState(1);
 
 
     const handleClicks = (e) => {
@@ -19,27 +23,31 @@ export default function BigSearchBar(menu) {
 
         }
         if (ulRef.current && !ulRef.current.contains(e.target)) {
-            // pickAMenu(e.target.id)
+            pickAMenu(e.target.id)
         }
     }
-
 
 
 
 return (
 
     <div onClick={handleClicks} className='bigSearchBar'>
-        <div className='AnywhereBig'>{menu === "anywhere" ? "where" : "Anywhere"}
-            {(menu === "anywhere") && <input placeholder="Anywhere" />}
+        <div className='AnywhereBig'>{menu === "anywhere" ?<div className="SearchHeading">Where</div> : <div className="SearchHeading">Anywhere</div>}
+            {(menu === "anywhere") && (<LocationMenu props={{location,setLocation}}/>)}
         </div>
-        <div className='anyWeekBig'>Any Week
+        <div className='anyWeekBig'>
 
-            {menu === "anyWeek" && (
                 <div className='DateBig'>
-                    <DateMenu />
+            {menu === "anyWeek" && (
+                    <DateMenu option={'0'} />
+            )}
+                </div>
+                <div className='DateBig'>
+            {menu === "anyWeek" && (
+                    <DateMenu option={'1'} />
+            )}
                 </div>
 
-            )}
 
 
 

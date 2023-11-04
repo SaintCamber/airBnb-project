@@ -23,7 +23,7 @@ import { useHistory } from "react-router-dom";
 import "./LocationMenu.css";
 import nAmerica from '../../../../images/nAmerica.png';
 
-const LocationMenu = ({ location, setLocation, closeMenu }) => {
+const LocationMenu = ({ location, setLocation }) => {
   const history = useHistory();
   const [chosenLocation, setChosenLocation] = useState("");
   const locationMenuRef = useRef(null);
@@ -51,8 +51,7 @@ const LocationMenu = ({ location, setLocation, closeMenu }) => {
 
   const handleClickOutside = (event) => {
     if (locationMenuRef.current && !locationMenuRef.current.contains(event.target)) {
-      setShowMenu(false);
-      closeMenu();
+      toggleMenu();
     }
   };
 

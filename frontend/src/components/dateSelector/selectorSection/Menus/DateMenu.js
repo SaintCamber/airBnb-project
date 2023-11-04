@@ -1,41 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./DateMenu.css";
 
-const DateMenu = ({ date, setDate, closeMenu }) => {
+const DateMenu = ({option}) => {
   const DateMenuRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
 
-  const toggleMenu = () => {
-    setShowMenu((prevState) => !prevState);
-  };
 
-  const handleClickOutside = (event) => {
-    if (DateMenuRef.current && !DateMenuRef.current.contains(event.target)) {
-      toggleMenu();
-      closeMenu();
-    }
-  };
-
-  useEffect(() => {
-    const handleDocumentClick = (event) => {
-      handleClickOutside(event);
-    };
-
-    document.addEventListener("mousedown", handleDocumentClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleDocumentClick);
-    };
-  }, [closeMenu]); // Make sure to include closeMenu in the dependency array
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
   };
+  const handleClicks = (e)=>{
+    e.preventDefault()
+    if (DateMenuRef.current.contains(e.target)){
+      setShowMenu(true)
+    }
+    else setShowMenu(false)
+
+  }
 
   return (
-    <div className="dateMenu" ref={DateMenuRef}>
+    <div className="dateMenu" ref={DateMenuRef}>{option === '0' ? "Check in" : "Check out"}
      
-        <div className={`dateMenuButton ${showMenu ? "selected" : ""}`}>
+        <div className={`dateMenuButton ${showMenu ? "selected" : "hide"}`}>
           <label htmlFor="dateInput">Select a date:</label>
           <input
             className="dateMenuDropdown"
@@ -43,9 +31,8 @@ const DateMenu = ({ date, setDate, closeMenu }) => {
             id="dateInput"
             name="dateInput"
             value={date}
-            onClick={toggleMenu}
             onChange={handleDateChange}
-            min={new Date().toISOString().split("T")[0]} // Format min and max as ISO date strings
+            min={new Date().toISOString().split("T")[0]} // Set min date to today
             max={new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000)
               .toISOString()
               .split("T")[0]}
