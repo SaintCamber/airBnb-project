@@ -1,61 +1,21 @@
-/* DateMenu.css */
-
-/* Container for the entire date menu */
 .dateMenu {
-  position: relative;
-}
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%;
 
-/* Styling for the menu button that toggles the date input */
-.dateMenuButton {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 200px; /* Adjust the width as needed */
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
-
-/* Styling for the selected state of the menu button */
-.dateMenuButton.selected {
-  border: 1px solid #007bff; /* Customize the selected state style */
+.dateMenu:hover{
   background-color:lightgray;
 }
 
-/* Styling for the label inside the button */
-.dateMenuButton label {
-  margin: 0;
-  color: #888; /* Lighter color for the label text */
-  font-size: 14px; /* Smaller font size for the label */
-  margin-right: 8px; /* Add some spacing between the label and calendar icon */
-}
-
-/* Styling for the date input dropdown */
-.dateMenuDropdown {
+.dateMenu::after{
+  content: "";
   position: absolute;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 200px; /* Match the width of the button */
-  top: calc(100% + 8px); /* Position below the parent container with some spacing */
-  display: none;
-}
-
-/* Show the dropdown when the showMenu state is true */
-.dateMenuButton.selected + .dateMenuDropdown {
-  display: block;
-}
-
-/* Styling for the date input */
-.dateMenuDropdown input[type="date"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  font-size: 14px; /* Smaller font size for the date input */
-}
-
-/* Additional styling for the calendar dropdown (if any) can be added here */
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  height: 50%;
+  width: 1px;
+  background-color:lightgrey;}

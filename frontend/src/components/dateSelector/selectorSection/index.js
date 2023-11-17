@@ -17,7 +17,7 @@ import "./bigSearchBar.css";
 
 
 
-const SearchBarModal =  ({menu,pickAMenu})=> {
+const SearchBarModal =  ()=> {
 
 
   const handleSubmit = async (e) => {}
@@ -25,7 +25,7 @@ const SearchBarModal =  ({menu,pickAMenu})=> {
   return (
    
     <div className='SearchBarModalBig'>
-    <BigSearchBar menu={menu} pickAMenu={pickAMenu}/>
+    <BigSearchBar />
 
     
     

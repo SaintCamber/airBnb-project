@@ -7,52 +7,58 @@ import './Menus/LocationMenu.css';
 import './Menus/DateMenu.css';
 
 
-export default function BigSearchBar({menu, pickAMenu}) {
+export default function BigSearchBar() {
     const ulRef = useRef();
+    const u1Ref = useRef();
+    const u2Ref = useRef();
+    const u3Ref = useRef();
+    const [menu, setCurMenu] = useState('');
     const [location, setLocation] = useState('');
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
     const [numGuests, setNumGuests] = useState(1);
 
 
-    const handleClicks = (e) => {
-        e.stopPropagation();
-
-        if (ulRef.current && ulRef.current.contains(e.target)) {
-            return
-
+    const handleClicks = (e)=>{
+        e.preventDefault()
+        e.stopPropagation()
+        if (ulRef.current.contains(e.target)){
+            if (u1Ref.current.contains(e.target)){
+                setCurMenu("anywhere")
+            }
+            else if (u2Ref.current.contains(e.target)){
+                setCurMenu("anyWeek")
+            }
+            else if (u3Ref.current.contains(e.target)){
+                setCurMenu("Guests")
+            }
         }
-        if (ulRef.current && !ulRef.current.contains(e.target)) {
-            pickAMenu(e.target.id)
-        }
-    }
-
+        else setCurMenu('')}
+    
 
 
 return (
 
-    <div onClick={handleClicks} className='bigSearchBar'>
-        <div className='AnywhereBig'>{menu === "anywhere" ?<div className="SearchHeading">Where</div> : <div className="SearchHeading">Anywhere</div>}
-            {(menu === "anywhere") && (<LocationMenu props={{location,setLocation}}/>)}
+    <div ref={ulRef} onClick={handleClicks} className='bigSearchBar'>
+        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :("Location" && <LocationMenu />)}
+            
         </div>
-        <div className='anyWeekBig'>
+        <div id="anyWeek" ref={u2Ref} className='anyWeekBig'>
 
-                <div className='DateBig'>
-            {menu === "anyWeek" && (
+                {menu!== "anyWeek" && <div className="SearchHeading">Any Week</div>}
+               {menu==='anyWeek' && (<> <div className='DateBig'>
                     <DateMenu option={'0'} />
-            )}
                 </div>
                 <div className='DateBig'>
-            {menu === "anyWeek" && (
                     <DateMenu option={'1'} />
-            )}
-                </div>
+            
+                </div></>)}
 
 
 
 
         </div>
-        <div className='numGuestsBig'>add Guests
+        <div id="Guests" ref={u3Ref} className='numGuestsBig'>add Guests
 
 
             {menu === "Guests" &&

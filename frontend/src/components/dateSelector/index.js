@@ -16,7 +16,7 @@ export default function DateSelector() {
   const [numGuests, setNumGuests] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const ulRef = useRef();
-  
+
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -41,10 +41,21 @@ export default function DateSelector() {
 
   useEffect(() => {
     const closeModal = (e) => {
-      if (ulRef.current && ulRef.current.contains(e.target)){
+      const pickAMenu = (e) => {
+        if (curMenu === e) {
+          return
+        } else {
+          setCurMenu(e);
+          console.log(curMenu)
+        }
+      };
+
+
+      if (ulRef.current && ulRef.current.contains(e.target)) {
         console.log("open modal")
         console.log(e.target)
         console.log(curMenu)
+        pickAMenu(e.target.id)
         setIsModalOpen(true)
       }
       if (ulRef.current && !ulRef.current.contains(e.target)) {
@@ -53,37 +64,30 @@ export default function DateSelector() {
       }
     };
 
-    
-    document.addEventListener('click', closeModal);
-    document.addEventListener('click', pickAMenu);
 
-    return () => {document.removeEventListener('click', closeModal)
-    document.removeEventListener('click', pickAMenu)}
+    document.addEventListener('click', closeModal);
+
+    return () => {
+      document.removeEventListener('click', closeModal)
+    }
   }, []);
 
-const pickAMenu = (e) => {
-      if (curMenu === e.target.id) {
-        return
-      } else {
-        setCurMenu(e.target.id);
-        console.log(curMenu)
-      }
-    };
+
   return (
     <>
-    <div ref={ulRef} className={`SearchButton `}>
-      
-      <div className={`searchBar ${isModalOpen ? "hide" : ""}`}>
-        <div id="anywhere" className="anywhere" onClick={pickAMenu}>Anywhere</div>
-        <div id="anyWeek" className="anyWeek" onClick={pickAMenu}>Any Week</div>
-        <div id="Guests" className="Who" onClick={pickAMenu}>Add Guests</div>
-        <div>
-          <FontAwesomeIcon className="SearchIcon" style={{ color: 'white' }} icon={faMagnifyingGlass} />
+      <div ref={ulRef} className={`SearchButton `}>
+
+        <div className={`searchBar ${isModalOpen ? "hide" : ""}`}>
+          <div id="anywhere" className="anywhere" >Anywhere</div>
+          <div id="anyWeek" className="anyWeek" >Any Week</div>
+          <div id="Guests" className="Who" >Add Guests</div>
+          <div>
+            <FontAwesomeIcon className="SearchIcon" style={{ color: 'white' }} icon={faMagnifyingGlass} />
+          </div>
         </div>
       </div>
-    </div>
 
-      {isModalOpen && <SearchBarModal className={`SearchBarModal`} menu={curMenu} pickAMenu={setCurMenu}/>}
+      {isModalOpen && <SearchBarModal className={`SearchBarModal`} />}
 
 
     </>

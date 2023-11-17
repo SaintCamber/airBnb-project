@@ -24,19 +24,7 @@ const DateMenu = ({option}) => {
     <div className="dateMenu" ref={DateMenuRef}>{option === '0' ? "Check in" : "Check out"}
      
         <div className={`dateMenuButton ${showMenu ? "selected" : "hide"}`}>
-          <label htmlFor="dateInput">Select a date:</label>
-          <input
-            className="dateMenuDropdown"
-            type="date"
-            id="dateInput"
-            name="dateInput"
-            value={date}
-            onChange={handleDateChange}
-            min={new Date().toISOString().split("T")[0]} // Set min date to today
-            max={new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000)
-              .toISOString()
-              .split("T")[0]}
-          />
+         
         </div>
       
     </div>

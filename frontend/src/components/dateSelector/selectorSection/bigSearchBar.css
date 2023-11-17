@@ -21,6 +21,7 @@
     flex-direction: row;
     text-align: center;
     justify-content: center;
+    align-items:center;
     font-size: 12px;
     color: #333;
     cursor: pointer;
@@ -32,14 +33,19 @@
   }
   
 
-  .DateBig {
+  .DateBig, .DateBigOpen {
+    display:flex;
     flex-grow: 1;
     position: relative;
     background-color: white;
     min-height: 50px;
     border-radius:30px;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    width:100%;
   }
-  .AnywhereBig:hover, .numGuestsBig:hover, .DateBig:hover{
+  .AnywhereBig:hover, .numGuestsBig:hover, .DateBig:hover, .dateMenu:hover,.anyWeekBig:hover{
     background-color:#ccc;
 
   }
@@ -77,6 +83,9 @@
 
   .numGuestsBig {
     border-radius:30px;
+    display:flex;
+    justify-content:center;
+    align-content:center;
   }
 
  
@@ -86,11 +95,7 @@
     color: #ccc;
   }
 
-  .DateBig {
-    width:50%;
-
-
-  }
+ 
   
   .SearchIconBig {
     color: #ff5a5f;
@@ -129,7 +134,6 @@
   .SearchHeading {
     display: flex;
     width:100%;
-    background-color:white;
     cursor:pointer;
     border-radius:30px;
     text-align: center;
@@ -138,10 +142,13 @@
     flex-wrap:wrap;
   }
 
-  .SearchHeading:hover{
+
+
+  .active {
     background-color:lightgray;
   }
 
-  .selected {
-    background-color:lightgray;
-  }
+.LocationBig{
+  position: absolute;
+  top:10px;
+}
