@@ -1,5 +1,5 @@
 import React, { useEffect, useRef,useState } from 'react';
-import LocationMenu from './Menus/LocationMenu.js';
+import LocationMenu from './Menus/LocationMenu(orig).js';
 import DateMenu from './Menus/DateMenu.js';
 import GuestsMenu from './Menus/GuestsMenu.js';
 import './bigSearchBar.css';
@@ -40,7 +40,7 @@ export default function BigSearchBar() {
 return (
 
     <div ref={ulRef} onClick={handleClicks} className='bigSearchBar'>
-        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :("Location" && <LocationMenu />)}
+        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :(<LocationMenu />)}
             
         </div>
         <div id="anyWeek" ref={u2Ref} className='anyWeekBig'>
