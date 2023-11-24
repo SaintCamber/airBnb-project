@@ -1,5 +1,5 @@
 import React, { useEffect, useRef,useState } from 'react';
-import LocationMenu from './Menus/LocationMenu(orig).js';
+import LocationMenu from './Menus/LocationMenu.js';
 import DateMenu from './Menus/DateMenu.js';
 import GuestsMenu from './Menus/GuestsMenu.js';
 import './bigSearchBar.css';

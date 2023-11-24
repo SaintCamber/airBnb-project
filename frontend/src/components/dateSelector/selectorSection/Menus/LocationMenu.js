@@ -78,6 +78,66 @@ import { updateLocation } from "../../../../store/search.js"; // Import your red
 
 import "./LocationMenu.css";
 
+const states = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+
+  "Wyoming",
+];
+
 const LocationMenu = () => {
   const dispatch = useDispatch();
   const location = useSelector((state) => state.location); // Get location from Redux store
@@ -85,33 +145,18 @@ const LocationMenu = () => {
   const [chosenLocation, setChosenLocation] = useState("");
   const locationMenuRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
-
-  const geocode = async (chosenLocation) => {
-    try {
-      const response = await fetch(`https://geocode.maps.co/search?q=${chosenLocation}`);
-      const data = await response.json();
-      console.log("Geocode data:", data)
-      const results = data.filter(result=> result.display_name.contains("United States")) // Filter out results that are not in the US
-      setSuggestions(results);
-    } catch (error) {
-      console.error("Error fetching geocode data:", error);
-    }
-  };
 
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
   };
 
   const handleClickOutside = (event) => {
-    if (locationMenuRef.current && !locationMenuRef.current.contains(event.target)) {
+    if (
+      locationMenuRef.current &&
+      !locationMenuRef.current.contains(event.target)
+    ) {
       toggleMenu();
     }
-  };
-
-  const handleSuggestionClick = (suggestion) => {
-    dispatch(updateLocation(suggestion)); // Dispatch action to update location in Redux store
-    toggleMenu();
   };
 
   useEffect(() => {
@@ -127,30 +172,19 @@ const LocationMenu = () => {
 
   return (
     <div className="locationMenu" ref={locationMenuRef}>
-      <div className={`locationMenuButton ${showMenu ? "selected" : ""}`} onClick={toggleMenu}></div>
-      {showMenu && (
-        <div className="locationMenuDropdown">
-          <input
-            type="text"
-            placeholder="Search for a location"
-            value={chosenLocation}
-            onChange={(e) => {
-              e.preventDefault();
-              setChosenLocation(e.target.value);
-              geocode(e.target.value);
-            }}
-          />
-          ({suggestions?.map((suggestion) => (
-            <div
-              className="locationMenuDropdownItem"
-              key={suggestion.place_id}
-              onClick={() => handleSuggestionClick(suggestion)}
-            >
-              {suggestion.display_name}
-            </div>
-          ))})
-        </div>
-      )}
+      <div
+        className={`locationMenuButton ${showMenu ? "selected" : ""}`}
+        onClick={toggleMenu}
+      ></div>
+      {showMenu && <div className="locationMenuDropdown">
+        <ul>
+          {states.map((state) => (
+            <li key={state} onClick={() => dispatch(updateLocation(state))}>
+              {state}
+            </li>
+          ))}
+        </ul>
+      </div>}
     </div>
   );
 };
