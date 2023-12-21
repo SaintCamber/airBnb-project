@@ -40,7 +40,7 @@ export default function BigSearchBar() {
 return (
 
     <div ref={ulRef} onClick={handleClicks} className='bigSearchBar'>
-        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :(<LocationMenu />)}
+        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :<LocationMenu />}
             
         </div>
         <div id="anyWeek" ref={u2Ref} className='anyWeekBig'>
