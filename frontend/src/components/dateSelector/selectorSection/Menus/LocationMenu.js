@@ -144,7 +144,7 @@ const LocationMenu = () => {
 
   const [chosenLocation, setChosenLocation] = useState("");
   const locationMenuRef = useRef(null);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
@@ -176,15 +176,17 @@ const LocationMenu = () => {
         className={`locationMenuButton ${showMenu ? "selected" : ""}`}
         onClick={toggleMenu}
       ></div>
-      {showMenu && <div className="locationMenuDropdown">
-        <ul>
-          {states.map((state) => (
-            <li key={state} onClick={() => dispatch(updateLocation(state))}>
-              {state}
-            </li>
-          ))}
-        </ul>
-      </div>}
+      {showMenu && (
+        <div className="locationMenuDropdown">
+          <ul>
+            {states.map((state) => (
+              <li key={state} onClick={() => dispatch(updateLocation(state))}>
+                {state}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
