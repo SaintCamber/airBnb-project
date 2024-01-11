@@ -74,7 +74,7 @@ useEffect(()=>{
 */
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLocation } from "../../../../store/search.js"; // Import your redux actions
+import { updateLocation } from "../../../../store/search.js";
 
 import "./LocationMenu.css";
 
@@ -172,6 +172,9 @@ const LocationMenu = () => {
 
   return (
     <div className="locationMenu" ref={locationMenuRef}>
+      <div className="locationMenuCurrent">
+        {location}
+      </div>
       <div
         className={`locationMenuButton ${showMenu ? "selected" : ""}`}
         onClick={toggleMenu}
@@ -180,7 +183,12 @@ const LocationMenu = () => {
         <div className="locationMenuDropdown">
           <ul>
             {states.map((state) => (
-              <li key={state} onClick={() => dispatch(updateLocation(state))}>
+              <li className={`locationMenuOption ${location===state ? "selected":""}`} key={state} onClick={()=>{
+                setChosenLocation(state)
+                dispatch(updateLocation(state))
+                toggleMenu()
+              }
+              }>
                 {state}
               </li>
             ))}
