@@ -111,13 +111,15 @@ const states = [
 
 const LocationMenu = () => {
   const dispatch = useDispatch();
-  const location = useSelector((state) => state.location); // Get location from Redux store, which works though i am not accessing it properly for the css i am trying to do.
+  let location = useSelector((state) => state.Search.location); // Get location from Redux store, which works though i am not accessing it properly for the css i am trying to do.
+  // figured it out, was accessing the state in the wrong area.
 
   const locationMenuRef = useRef(null);
   const [showMenu, setShowMenu] = useState(true);
 
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
+    alert(location)
   };
 
   const handleClickOutside = (event) => {
