@@ -141,6 +141,18 @@ const states = [
 ok so 1/10, the dropdown is opening and closing properly, and the location in
 the store updates properly but the location variable in the li is not updating
 past undefined. what's the deal with that?
+the current hang up is that i want the li that is selected to have a class of 
+"selected" so that it can be styled differently. but that is not working....
+"location" inside the return of LocationMenu is undefined always, but "location"
+the variable that is named as the result of useSelector is updating properly.
+when updateLocation is called. is it that the location inside the map function
+is out of scope?
+yeah i think it is since it is updating past undefind if location is defined is
+a paraeter of the map function though it's just naming the index of the array
+less than helpful.
+
+
+
 */
 const LocationMenu = () => {
   const dispatch = useDispatch();
@@ -186,7 +198,7 @@ const LocationMenu = () => {
       {showMenu && (
         <div className="locationMenuDropdown">
           <ul>
-            {states.map((state) => (
+            {states.map((state,location) => (
               <li className={`locationMenuOption ${location===state ? "selected":""}`} key={state} onClick={()=>{
                 // setChosenLocation(state)
                 dispatch(updateLocation(state))
