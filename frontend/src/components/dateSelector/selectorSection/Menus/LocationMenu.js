@@ -72,71 +72,7 @@ useEffect(()=>{
 
   
 */
-import React, { useState, useRef, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateLocation } from "../../../../store/search.js";
 
-import "./LocationMenu.css";
-
-const states = [
-  "Alabama",
-  "Alaska",
-  "Arizona",
-  "Arkansas",
-  "California",
-  "Colorado",
-  "Connecticut",
-
-  "Delaware",
-  "Florida",
-  "Georgia",
-  "Hawaii",
-  "Idaho",
-  "Illinois",
-  "Indiana",
-
-  "Iowa",
-  "Kansas",
-  "Kentucky",
-  "Louisiana",
-  "Maine",
-  "Maryland",
-  "Massachusetts",
-
-  "Michigan",
-  "Minnesota",
-  "Mississippi",
-  "Missouri",
-  "Montana",
-  "Nebraska",
-  "Nevada",
-
-  "New Hampshire",
-  "New Jersey",
-  "New Mexico",
-  "New York",
-  "North Carolina",
-  "North Dakota",
-  "Ohio",
-
-  "Oklahoma",
-  "Oregon",
-  "Pennsylvania",
-  "Rhode Island",
-  "South Carolina",
-  "South Dakota",
-  "Tennessee",
-
-  "Texas",
-  "Utah",
-  "Vermont",
-  "Virginia",
-  "Washington",
-  "West Virginia",
-  "Wisconsin",
-
-  "Wyoming",
-];
 /*
 ok so 1/10, the dropdown is opening and closing properly, and the location in
 the store updates properly but the location variable in the li is not updating
@@ -154,11 +90,29 @@ less than helpful.
 
 
 */
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLocation } from "../../../../store/search.js";
+
+import "./LocationMenu.css";
+
+const states = [
+  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+  "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+  "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+  "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+  "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+  "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+  "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
+  "Wyoming",
+];
+
+
+
 const LocationMenu = () => {
   const dispatch = useDispatch();
-  const location = useSelector((state) => state.location); // Get location from Redux store
+  const location = useSelector((state) => state.location); // Get location from Redux store, which works though i am not accessing it properly for the css i am trying to do.
 
-  const [chosenLocation, setChosenLocation] = useState("");
   const locationMenuRef = useRef(null);
   const [showMenu, setShowMenu] = useState(true);
 
@@ -167,10 +121,7 @@ const LocationMenu = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (
-      locationMenuRef.current &&
-      !locationMenuRef.current.contains(event.target)
-    ) {
+    if (locationMenuRef.current && !locationMenuRef.current.contains(event.target)) {
       toggleMenu();
     }
   };
@@ -198,14 +149,15 @@ const LocationMenu = () => {
       {showMenu && (
         <div className="locationMenuDropdown">
           <ul>
-            {states.map((state,location) => (
-              <li className={`locationMenuOption ${location===state ? "selected":""}`} key={state} onClick={()=>{
-                // setChosenLocation(state)
-                dispatch(updateLocation(state))
-                alert(location)
-                // toggleMenu()
-              }
-              }>
+            {states.map((state) => (
+              <li
+                className={`locationMenuOption ${location === state ? "selected" : ""}`}
+                key={state}
+                onClick={() => {
+                  dispatch(updateLocation(state));
+                  // toggleMenu();
+                }}
+              >
                 {state}
               </li>
             ))}
