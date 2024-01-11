@@ -47,10 +47,7 @@
     background-color: #f5f5f5;
   }
   
-  .locationMenuOption.selected {
-    background-color: #0077c5;
-    color: #fff;
-  }
+
   
   .locationMenuOption img {
     width: 30px;

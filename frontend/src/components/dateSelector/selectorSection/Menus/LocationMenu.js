@@ -137,7 +137,11 @@ const states = [
 
   "Wyoming",
 ];
-
+/*
+ok so 1/10, the dropdown is opening and closing properly, and the location in
+the store updates properly but the location variable in the li is not updating
+past undefined. what's the deal with that?
+*/
 const LocationMenu = () => {
   const dispatch = useDispatch();
   const location = useSelector((state) => state.location); // Get location from Redux store
@@ -184,9 +188,10 @@ const LocationMenu = () => {
           <ul>
             {states.map((state) => (
               <li className={`locationMenuOption ${location===state ? "selected":""}`} key={state} onClick={()=>{
-                setChosenLocation(state)
+                // setChosenLocation(state)
                 dispatch(updateLocation(state))
-                toggleMenu()
+                alert(location)
+                // toggleMenu()
               }
               }>
                 {state}
