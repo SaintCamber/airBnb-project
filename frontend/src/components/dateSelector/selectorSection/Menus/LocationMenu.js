@@ -119,7 +119,7 @@ const LocationMenu = () => {
 
   const toggleMenu = () => {
     setShowMenu((prevState) => !prevState);
-    alert(location)
+    // alert(location)
   };
 
   const handleClickOutside = (event) => {

@@ -61,3 +61,12 @@
   .locationMenuOption span {
     color: #333;
   }
+
+  .locationMenuCurrent {
+    display: block;
+    position: absolute;
+    top: -30px;
+    left: 110px;
+    z-index: 999;
+
+  }

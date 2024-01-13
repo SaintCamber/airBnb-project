@@ -1,4 +1,5 @@
 import React, { useEffect, useRef,useState } from 'react';
+import { useSelector } from 'react-redux';
 import LocationMenu from './Menus/LocationMenu.js';
 import DateMenu from './Menus/DateMenu.js';
 import GuestsMenu from './Menus/GuestsMenu.js';
@@ -13,10 +14,10 @@ export default function BigSearchBar() {
     const u2Ref = useRef();
     const u3Ref = useRef();
     const [menu, setCurMenu] = useState('');
-    const [location, setLocation] = useState('');
     const [checkInDate, setCheckInDate] = useState('');
     const [checkOutDate, setCheckOutDate] = useState('');
     const [numGuests, setNumGuests] = useState(1);
+    const location = useSelector(state => state.Search.location)
 
 
     const handleClicks = (e)=>{
@@ -40,7 +41,7 @@ export default function BigSearchBar() {
 return (
 
     <div ref={ulRef} onClick={handleClicks} className='bigSearchBar'>
-        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? "Anywhere" :<LocationMenu />}
+        <div id='anywhere' ref={u1Ref} className={`AnywhereBig`}>{menu !== "anywhere" ? (location==="" ? "Anywhere" : location) :<LocationMenu />}
             
         </div>
         <div id="anyWeek" ref={u2Ref} className='anyWeekBig'>
