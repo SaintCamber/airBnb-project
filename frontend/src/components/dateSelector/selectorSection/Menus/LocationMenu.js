@@ -97,17 +97,57 @@ import { updateLocation } from "../../../../store/search.js";
 import "./LocationMenu.css";
 
 const states = [
-  "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
-  "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-  "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-  "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
-  "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
-  "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
-  "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
+  "New York",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
   "Wyoming",
 ];
-
-
 
 const LocationMenu = () => {
   const dispatch = useDispatch();
@@ -123,7 +163,10 @@ const LocationMenu = () => {
   };
 
   const handleClickOutside = (event) => {
-    if (locationMenuRef.current && !locationMenuRef.current.contains(event.target)) {
+    if (
+      locationMenuRef.current &&
+      !locationMenuRef.current.contains(event.target)
+    ) {
       toggleMenu();
     }
   };
@@ -141,9 +184,7 @@ const LocationMenu = () => {
 
   return (
     <div className="locationMenu" ref={locationMenuRef}>
-      <div className="locationMenuCurrent">
-        {location}
-      </div>
+      <div className="locationMenuCurrent">{location}</div>
       <div
         className={`locationMenuButton ${showMenu ? "selected" : ""}`}
         onClick={toggleMenu}
@@ -153,7 +194,9 @@ const LocationMenu = () => {
           <ul>
             {states.map((state) => (
               <li
-                className={`locationMenuOption ${location === state ? "selected" : ""}`}
+                className={`locationMenuOption ${
+                  location === state ? "selected" : ""
+                }`}
                 key={state}
                 onClick={() => {
                   dispatch(updateLocation(state));
