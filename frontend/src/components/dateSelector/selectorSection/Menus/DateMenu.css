@@ -24,3 +24,27 @@
  .selected {
   background-color:gray;
  }
+
+ .dateMenuDropdown {
+  position: absolute;
+  z-index: 999;
+  top:0;
+  width:200px;
+  height:300px;
+  background-color:white;
+
+ }
+
+ .dateMenuButton {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  
+ 
+ }
