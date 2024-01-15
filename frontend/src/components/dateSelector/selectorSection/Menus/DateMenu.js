@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCheckIn, updateCheckOut } from "../../../../store/search.js"; // Make sure to import the appropriate action
+import Calendar from "react-calendar";
 
 import "./DateMenu.css";
 
@@ -13,16 +14,23 @@ const DateMenu = ({ option }) => {
   const dispatch = useDispatch();
   
   
-    let checkInDate = useSelector((state) => state.Search.checkInDate);
+    let checkInDate = useSelector((state) => state.Search.checkIn);
   
   
-    let checkOutDate = useSelector((state) => state.Search.checkOutDate);
+    let checkOutDate = useSelector((state) => state.Search.checkOut);
   
 
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-
+  const handleDateChange = (value) => {
+    if (option === "0") {
+      setDate(value.toISOString().split("T")[0]);
+      dispatch(updateCheckIn(value.toISOString().split("T")[0]));
+    }
+    if (option === "1") {
+      setDate(value.toISOString().split("T")[0]);
+      dispatch(updateCheckOut(value.toISOString().split("T")[0]));
+    }
   };
+
 
   const handleClicks = (e) => {
     e.preventDefault();
@@ -54,19 +62,14 @@ const DateMenu = ({ option }) => {
       </div>
       {showMenu && (
         <div className="dateMenuDropdown">
-          <input
-            type="date"
-            value={date}
-            onChange={handleDateChange}
-            onBlur={() => {
-              if (option === "0") {
-                dispatch(updateCheckIn(date));
-              } else {
-                dispatch(updateCheckOut(date));
-              }
-              setShowMenu(false);
-            }}
-          />
+        <Calendar
+          onChange={handleDateChange}
+          value={new Date(date)}
+          minDate={ option === "0" ? new Date() : new Date(new Date(checkInDate).getTime() + 86400000)}
+          
+          returnValue="start"
+        />  
+        
         </div>
       )}
     </div>
