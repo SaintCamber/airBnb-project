@@ -33,8 +33,10 @@ const setGuests = (guests) => ({
 });
 
 export const updateSearch = (search) => async (dispatch) => {
-    let results = await csrfFetch(`/api/spots/search/${search}`);
-    dispatch(setSearch(search));
+    let {startDate,endDate,State} = search
+    let response = await csrfFetch(`/api/search/?startDate=${startDate}&endDate=${endDate}&State=${State}`);
+    let results = await response.json()
+    dispatch(setSearch(results));
 };
 
 export const updateLocation = (location) => async (dispatch) => {
@@ -49,7 +51,7 @@ export const updateCheckOut = (checkOut) => async (dispatch) => {
 export const updateGuests = (guests) => async (dispatch) => {
     
                     dispatch(setGuests(guests))}
-const initialState = { search: '', location: 'Anywhere', checkIn: '', checkOut: '', guests: 1 };
+const initialState = { search: {}, location: 'Anywhere', checkIn: new Date().toISOString().split("T")[0], checkOut:new Date().toISOString().split("T")[0], guests: 1 };
 
 const searchReducer = (state = initialState, action) => {
     let newState;

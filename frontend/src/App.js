@@ -21,6 +21,7 @@ import NotLoggedin from './components/notLoggedin';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { getCurrentUsersReviews } from "./store/Reviews";
+import SpotSearch from "./components/SpotSearch"
 const ManageReviews = lazy(()=>import('./components/Reviews/ManageReviews'))
 library.add(fas)
 
@@ -38,6 +39,7 @@ function App() {
   
   const user = useSelector(state=>state.session.user)
   const userReviews =useSelector(state=>state.Reviews.userReviews)
+  const search = useSelector(state=>state.Search.search)
 
   return (
     
@@ -63,15 +65,15 @@ function App() {
           <Route exact path="/user/reviews">
             <ManageReviews reviews={userReviews} currentUser={user}/>
           </Route>
+          <Route path={"/Search"}>
+            {search ? <SpotSearch />:<h1>no spots available</h1>}
+          </Route>
 
           </Suspense>
           <Route path={"/learn"}>
             Learn more Page coming soon!
             <Link to='/'>Home</Link>
           </Route>
-          {/* <Route path="/maps">
-            <Maps />
-          </Route> */}
           <Route path='*'>
             <PageNotFound />
           </Route>

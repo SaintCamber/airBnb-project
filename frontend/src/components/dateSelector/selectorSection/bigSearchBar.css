@@ -49,6 +49,9 @@
     background-color:#ccc;
 
   }
+  .SearchIconBig:hover {
+    color:#CCC;
+  }
   
   .AnywhereBig:hover, .anyWeekBig:hover {
     border-top-right-radius: 30px;
@@ -144,7 +147,7 @@
 
 
 
-  active {
+  .active {
     background-color:lightgray;
   }
 
@@ -157,9 +160,10 @@
   position:absolute;
   top:15%;
   right:15%;
-  color: #ff5a5f;
+  color: white;
   margin-right: 5px;
   cursor: pointer;
   background-color:#ff385c;
   border-radius:50%;
 }
+

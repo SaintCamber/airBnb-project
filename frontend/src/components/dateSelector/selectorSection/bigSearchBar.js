@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import LocationMenu from "./Menus/LocationMenu.js";
 import DateMenu from "./Menus/DateMenu.js";
 import GuestsMenu from "./Menus/GuestsMenu.js";
+import {updateSearch} from "../../../store/search.js"
+import { useHistory } from 'react-router-dom'
+
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./bigSearchBar.css";
@@ -15,10 +18,20 @@ export default function BigSearchBar() {
   const u2Ref = useRef();
   const u3Ref = useRef();
   const [menu, setCurMenu] = useState("");
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
-  const [numGuests, setNumGuests] = useState(1);
+  const dispatch = useDispatch()
+//   consider the merits of changing this to a single call for the whole search
+//   object and then keying into that for the desired values to make less calls
+//   to useSelector since i imagine that's more efficient?
+
   const location = useSelector((state) => state.Search.location);
+  const checkInDate = useSelector((state)=> state.Search.checkIn)
+  const checkOutDate = useSelector((state)=> state.Search.checkOut)
+  const guests = useSelector((state)=> state.Search.guests)
+  const res = useSelector((state)=> state.Search.search)
+
+  const history = useHistory()
+
+  
 
   const handleClicks = (e) => {
     e.preventDefault();
@@ -33,7 +46,13 @@ export default function BigSearchBar() {
       }
     } else setCurMenu("");
   };
-
+  const submitSearch = async ()=>{
+    // startDate=2023-01-01&endDate=2023-01-05&State=California
+    if(location==="Anywhere") return
+    let search = {startDate:checkInDate,endDate:checkOutDate,State:location}
+    dispatch(updateSearch(search))
+    history.push(`/Search`)
+  }
   return (
     <div ref={ulRef} onClick={handleClicks} className="bigSearchBar">
       <div id="anywhere" ref={u1Ref} className={`AnywhereBig`}>
@@ -65,8 +84,8 @@ export default function BigSearchBar() {
 
         {menu === "Guests" ? <GuestsMenu /> : `add Guests`}
       </div>
-      <div>
-            <FontAwesomeIcon className="SearchIconBig" style={{ color: 'white' }} icon={faMagnifyingGlass} />
+      <div onClick={submitSearch}>
+            <FontAwesomeIcon className="SearchIconBig"  icon={faMagnifyingGlass} />
           </div>
     </div>
   );
