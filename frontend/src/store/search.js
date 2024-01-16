@@ -49,7 +49,7 @@ export const updateCheckOut = (checkOut) => async (dispatch) => {
 export const updateGuests = (guests) => async (dispatch) => {
     
                     dispatch(setGuests(guests))}
-const initialState = { search: '', location: 'Anywhere', checkIn: '', checkOut: '', guests: '' };
+const initialState = { search: '', location: 'Anywhere', checkIn: '', checkOut: '', guests: 1 };
 
 const searchReducer = (state = initialState, action) => {
     let newState;

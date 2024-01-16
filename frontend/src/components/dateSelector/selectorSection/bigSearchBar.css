@@ -152,3 +152,14 @@
   position: absolute;
   top:10px;
 }
+
+.SearchIconBig {
+  position:absolute;
+  top:15%;
+  right:15%;
+  color: #ff5a5f;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color:#ff385c;
+  border-radius:50%;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import './dateSelector.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './dateSelector.css';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import SearchBarModal from './selectorSection/index.js';

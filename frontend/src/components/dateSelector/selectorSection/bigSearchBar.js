@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import LocationMenu from "./Menus/LocationMenu.js";
 import DateMenu from "./Menus/DateMenu.js";
 import GuestsMenu from "./Menus/GuestsMenu.js";
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "./bigSearchBar.css";
 import "./Menus/LocationMenu.css";
 import "./Menus/DateMenu.css";
@@ -60,10 +62,12 @@ export default function BigSearchBar() {
         )}
       </div>
       <div id="Guests" ref={u3Ref} className="numGuestsBig">
-        add Guests
-        {menu === "Guests" && <GuestsMenu />}
+
+        {menu === "Guests" ? <GuestsMenu /> : `add Guests`}
       </div>
-      <div className="searchButtonBig"></div>
+      <div>
+            <FontAwesomeIcon className="SearchIconBig" style={{ color: 'white' }} icon={faMagnifyingGlass} />
+          </div>
     </div>
   );
 }
