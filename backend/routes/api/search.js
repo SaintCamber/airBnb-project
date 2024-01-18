@@ -35,10 +35,24 @@ router.get("/", async (req, res) => {
     });
     if (spots.length === 0) {
       return res.json({ message: "No available spots found" });}
-    // console.log("spots",spots) 
-      let results = []
+    // 
+      let results = {}
       for (let i = 0; i < spots.length; i++) {
-        const spot = spots[i];
+        let spot = spots[i];
+        let reviews = await spot.getReviews({
+          attributes: [
+            [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
+          ],
+        })
+       
+          let SpotImage =await spot.getSpotImages({where:{preview:true},limit:1,attributes:{exclude:["id","createdAt","updatedAt","spotId","preview"]}})
+          spot = spot.toJSON();
+          spot.avgRating = reviews[0].toJSON().avgRating||"no Reviews"
+          if(SpotImage[0]!==undefined){
+            spot.previewImage = SpotImage[0].dataValues.url||"No Preview Image"
+  
+            
+          }
         const bookings = await Booking.findAll({
           where: {
             spotId: spot.id,
@@ -48,10 +62,10 @@ router.get("/", async (req, res) => {
           },
         });
         if (bookings.length === 0) {
-          results.push(spot)
+          results[spot.id] = spot
         }
       }
-      return res.json({ results });
+      return res.json(results);
 
   } catch (error) {
     console.error(error);

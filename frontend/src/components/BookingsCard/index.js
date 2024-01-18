@@ -67,10 +67,14 @@ const BookingsCard = ({ spot,currentUser}) => {
   let divClass1 = showCalendar ? "show" : "hidden";
   const checkAvailability = (e) => {
     e.preventDefault();
+    if (currentUser===null){
+      alert('please log in to finish booking')
+    }
     if (spot.ownerId === currentUser.id) {
       alert("you aren't able to reserve a spot you own");
       return;
     }
+
     if (endDate - startDate < 1) {
       alert("minimum two days");
       return;

@@ -46,20 +46,20 @@ export default function DateSelector() {
           return
         } else {
           setCurMenu(e);
-          console.log(curMenu)
+          
         }
       };
 
 
       if (ulRef.current && ulRef.current.contains(e.target)) {
-        console.log("open modal")
-        console.log(e.target)
-        console.log(curMenu)
+        
+        
+        
         pickAMenu(e.target.id)
         setIsModalOpen(true)
       }
       if (ulRef.current && !ulRef.current.contains(e.target)) {
-        console.log('close modal');
+        
         setIsModalOpen(false);
       }
     };
