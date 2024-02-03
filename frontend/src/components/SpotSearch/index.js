@@ -13,8 +13,8 @@ export default function SpotSearch(){
    return (
     
     <div style={{border:"none",backgroundColor:"white",
-    display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%',gap:"60px 2px"}}>
-            {Object.values(spotsList).reverse().map((spot)=>
+    display:"flex",flexDirection:"row",flexWrap:"wrap",justifyContent:"space-between",width:'100%',gap:"60px 2px","marginTop":"150px"}}>
+            {!spotsList.length ? <p>no spots available please try again</p> : Object.values(spotsList).reverse().map((spot)=>
             <SpotListItem key={spot.id} spot={spot}/>
             )}
     </div>
