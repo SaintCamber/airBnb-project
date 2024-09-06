@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.4.0",
+    "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -27,12 +27,12 @@
     "faker": "^5.5.3",
     "findstr": "^1.0.4",
     "helmet": "^6.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "moment": "*",
     "morgan": "^1.10.0",
     "per-env": "^1.0.2",
     "pg": "^8.8.0",
-    "sequelize": "^6.25.4",
+    "sequelize": "^6.33.0",
     "sequelize-cli": "^6.5.2"
   },
   "devDependencies": {
